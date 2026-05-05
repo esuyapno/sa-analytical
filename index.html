@@ -1001,6 +1001,8 @@ footer {
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-inner">
+    
+    <!-- LEFT COLUMN -->
     <div class="contact-left reveal">
       <div class="section-label">Let's Talk</div>
       <h2>Let’s design the right process for your next strategic decision.</h2>
@@ -1009,33 +1011,43 @@ footer {
         <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
         info@sa-analytical.com
       </a>
-    </div>   
+    </div> 
+
+    <!-- RIGHT COLUMN: Everything inside here stays on the right -->
     <div class="contact-right reveal reveal-delay-1">
-      <div class="contact-divider">or tell us what you are trying to solve</div>
-      <p style="font-size:.8rem; color:var(--text-muted); max-width:280px;">Response within one business day. All enquiries are treated with discretion.</p>
-    </div>
+      <div class="section-label">OR TELL US WHAT YOU ARE TRYING TO SOLVE</div>
+      <p style="font-size:.8rem; color:var(--text-muted); max-width:none; margin-bottom: 20px;">
+        Response within one business day. All enquiries are treated with discretion.
+      </p>
+
+      <!-- FORM IS NOW INSIDE THE RIGHT COLUMN BOX -->
       <form class="ghost-form" onsubmit="handleSubmit(event)">
         <div class="ghost-field">
-          <label for="name">Name</label>
+          <label for="name">NAME</label>
           <input type="text" id="name" name="name" placeholder="Your full name" autocomplete="off"/>
         </div>
+        
         <div class="ghost-field">
-          <label for="company">Company</label>
+          <label for="company">COMPANY</label>
           <input type="text" id="company" name="company" placeholder="Organisation name" autocomplete="off"/>
         </div>
+
         <div class="ghost-field">
           <label for="email">EMAIL ADDRESS</label>
           <input type="email" id="email" name="email" placeholder="example@company.com" autocomplete="off" required />
         </div>
+
         <div class="ghost-field">
-          <label for="message">Message</label>
+          <label for="message">MESSAGE</label>
           <textarea id="message" name="message" placeholder="Tell us about your challenge, decision, or workshop need…" rows="4"></textarea>
         </div>
+
         <button type="submit" class="btn-solid">Send Message</button>
       </form>
-    </div>
-  </div>
-</section> 
+    </div> <!-- THIS CLOSES THE RIGHT COLUMN AFTER THE FORM -->
+
+  </div> <!-- THIS CLOSES THE INNER WRAPPER -->
+</section>
 
 <!-- FOOTER -->
 <footer>
