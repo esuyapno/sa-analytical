@@ -516,7 +516,7 @@ h2.section-title {
 
 .team-card {
   display: grid;
-  grid-template-columns: minmax(180px, 240px) 1fr;
+  grid-template-columns: 1fr 1fr;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
@@ -569,7 +569,7 @@ h2.section-title {
   position: relative;
   overflow: hidden;
   line-height: 1.7;
-  max-height: calc(1.7em * 3);
+  max-height: calc(1.7em * 4);
   transition: max-height .4s ease;
 }
 
@@ -978,7 +978,7 @@ footer {
   </div>
   <div class="team-grid">
     <div class="team-card reveal">
-      <img src="images/Image 1.png" alt="Image 1" style="width: 400px; height: auto;"/>
+      <img src="images/Image 1.png" alt="Image 1" class="team-portrait"/>
       <div class="team-info">
         <div class="team-name">Ekci Suyapno</div>
         <div class="team-title">Founder &amp; Chief Strategist</div>
@@ -987,7 +987,7 @@ footer {
       </div>
     </div>
     <div class="team-card reveal reveal-delay-1">
-      <img src="images/Image 2.png" alt="Image 2" style="width: 400px; height: auto;"/>
+      <img src="images/Image 1.png" alt="Image 1" class="team-portrait"/>
       <div class="team-info">
         <div class="team-name">Stephen Williams</div>
         <div class="team-title">Director of Business Strategy &amp; Insight</div>
@@ -1111,7 +1111,7 @@ document.querySelectorAll('.team-more-btn').forEach((btn) => {
 
   const collapseBio = () => {
     bio.classList.remove('is-expanded');
-    bio.style.maxHeight = 'calc(1.7em * 3)';
+    bio.style.maxHeight = 'calc(1.7em * 4)';
     btn.textContent = 'Read More';
   };
 
