@@ -830,12 +830,16 @@ footer {
   letter-spacing: .04em;
   color: var(--text-muted);
   opacity: .75;
-  text-align: right;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   position: relative;
   z-index: 1;
+}
+
+@media (max-width: 480px) {
+  .footer-address { white-space: normal; text-align: center; font-size: .6rem; }
 }
 
 /* ─── SCROLL REVEAL ─── */
