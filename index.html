@@ -203,8 +203,10 @@ nav img[alt="SA Analytical"] {
 }
 
 .hero-logo-img {
-  height: 152px;
+  height: clamp(170px, 30vw, 250px);
   width: auto;
+  max-width: 100%;
+  object-fit: contain;
   display: block;
   background: transparent !important;
   opacity: .94;
