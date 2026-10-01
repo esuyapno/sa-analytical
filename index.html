@@ -1117,13 +1117,55 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 revealEls.forEach(el => observer.observe(el));
 
-function handleSubmit(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.btn-solid');
-  btn.textContent = 'Sent ✓';
-  btn.style.background = '#7a6a2a';
-  btn.style.pointerEvents = 'none';
+const contactForm  = document.getElementById('contact-form');
+const submitBtn    = document.getElementById('submit-btn');
+const formStatus   = document.getElementById('form-status');
+const DEFAULT_BTN_TEXT = 'Send Message';
+
+function showStatus(message, isError) {
+  formStatus.textContent = message;
+  formStatus.style.color = isError ? '#e57373' : 'var(--accent)';
+  formStatus.style.display = 'block';
 }
+
+contactForm.addEventListener('submit', async (e) => {
+  e.preventDefault(); // stop the redirect
+
+  // Immediate feedback + lock the button
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+  formStatus.style.display = 'none';
+
+  try {
+    const response = await fetch(contactForm.action, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(contactForm)
+    });
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      // Success
+      submitBtn.textContent = 'Message Sent ✓';
+      showStatus('Thank you. Your message has been sent. We will respond within one business day.', false);
+      contactForm.reset();
+
+      // Optional: return the button to normal after 5 seconds
+      setTimeout(() => {
+        submitBtn.textContent = DEFAULT_BTN_TEXT;
+        submitBtn.disabled = false;
+      }, 5000);
+    } else {
+      throw new Error(result.message || 'Submission failed');
+    }
+  } catch (err) {
+    // Error: restore the button and show a message
+    console.error('Contact form error:', err);
+    submitBtn.textContent = DEFAULT_BTN_TEXT;
+    submitBtn.disabled = false;
+    showStatus('Sorry, something went wrong and your message was not sent. Please try again or email info@sa-analytical.com.', true);
+  }
+});
 
 document.querySelectorAll('.team-more-btn').forEach((btn) => {
   const bio = btn.previousElementSibling;
