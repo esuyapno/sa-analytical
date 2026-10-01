@@ -1031,32 +1031,33 @@ footer {
       </p>
 
       
-      <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="ghost-form">
-        <!-- Web3Forms Access Key -->
-        <input type="hidden" name="access_key" value="4c2f33a0-730d-4f9c-bf57-e4461d979262">
-       
-        <div class="ghost-field">
-          <label for="name">NAME</label>
-          <input type="text" id="name" name="name" placeholder="Your full name" autocomplete="off"/>
-        </div>
-        
-        <div class="ghost-field">
-          <label for="company">COMPANY</label>
-          <input type="text" id="company" name="company" placeholder="Organisation name" autocomplete="off"/>
-        </div>
+     <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="ghost-form">
+  <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
 
-        <div class="ghost-field">
-          <label for="email">EMAIL ADDRESS</label>
-          <input type="email" id="email" name="email" placeholder="example@company.com" autocomplete="off" required />
-        </div>
+  <div class="ghost-field">
+    <label for="name">NAME</label>
+    <input type="text" id="name" name="name" placeholder="Your full name" autocomplete="off"/>
+  </div>
+  
+  <div class="ghost-field">
+    <label for="company">COMPANY</label>
+    <input type="text" id="company" name="company" placeholder="Organisation name" autocomplete="off"/>
+  </div>
 
-        <div class="ghost-field">
-          <label for="message">MESSAGE</label>
-          <textarea id="message" name="message" placeholder="Tell us about your challenge, decision, or workshop need…" rows="4"></textarea>
-        </div>
+  <div class="ghost-field">
+    <label for="email">EMAIL ADDRESS</label>
+    <input type="email" id="email" name="email" placeholder="example@company.com" autocomplete="off" required />
+  </div>
 
-        <button type="submit" class="btn-solid">Send Message</button>
-        <div id="form-status" style="display: none; font-size: 0.85rem; padding: 10px 0;"></div>
+  <div class="ghost-field">
+    <label for="message">MESSAGE</label>
+    <textarea id="message" name="message" placeholder="Tell us about your challenge, decision, or workshop need…" rows="4"></textarea>
+  </div>
+
+  <button type="submit" id="submit-btn" class="btn-solid">Send Message</button>
+  
+  <!-- Status Container (Styled to match your site's gold accent) -->
+  <div id="form-status" style="display: none; font-size: 0.85rem; padding-top: 12px; color: var(--accent);"></div>
       </form>
     </div> <!-- THIS CLOSES THE RIGHT COLUMN AFTER THE FORM -->
 
