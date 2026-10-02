@@ -751,11 +751,13 @@ h2.section-title {
 /* ─── FOOTER ─── */
 footer {
   padding: 1rem 5vw 1.5rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(201,168,76,0.18);
   position: relative;
   overflow: hidden;
+  background: #2b2b2e;
+  color: #f5efe6;
 }
-
+   
 .footer-watermark {
   position: absolute;
   bottom: -1.5rem; left: 50%;
@@ -846,6 +848,16 @@ footer {
 @media (max-width: 480px) {
   .footer-address { white-space: normal; text-align: center; font-size: .6rem; }
 }
+
+footer .footer-tagline,
+footer .footer-links a,
+footer .footer-copy,
+footer .footer-address {
+  color: #b8b0a4;
+}
+
+footer .footer-links a:hover {
+  color: #f5efe6;
 
 /* ─── SCROLL REVEAL ─── */
 .reveal {
