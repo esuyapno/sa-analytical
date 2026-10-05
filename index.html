@@ -211,6 +211,8 @@ nav img[alt="SA Analytical"] {
   max-width: 100%;
   object-fit: contain;
   display: block;
+  flex-shrink: 0;
+  margin: 0 auto clamp(1.25rem, 3vw, 2rem); 
   background: transparent !important;
   opacity: .94;
 }
@@ -221,7 +223,7 @@ nav img[alt="SA Analytical"] {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-top: -1rem;
+  margin-top: 0rem;
   margin-bottom: 2rem;
   opacity: 0;
   animation: fadeUp .8s var(--ease) .1s forwards;
