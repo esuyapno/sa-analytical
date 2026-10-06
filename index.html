@@ -1435,7 +1435,9 @@ revealEls.forEach(el => observer.observe(el));
 const contactForm  = document.getElementById('contact-form');
 const submitBtn    = document.getElementById('submit-btn');
 const formStatus   = document.getElementById('form-status');
-const DEFAULT_BTN_TEXT = 'Start the Conversation'; // CHANGED: matches the new button label
+const DEFAULT_BTN_TEXT = 'Start the Conversation'; // change to 'Send Message' if you've kept the old label
+const RESET_DELAY_MS   = 5000;                      // how long the success state stays visible
+let resetTimer = null;
 
 function showStatus(message, isError) {
   formStatus.textContent = message;
@@ -1443,11 +1445,24 @@ function showStatus(message, isError) {
   formStatus.style.display = 'block';
 }
 
+// Returns the button and message to their default state
+function resetFormUI() {
+  formStatus.textContent = '';
+  formStatus.style.display = 'none';
+  submitBtn.textContent = DEFAULT_BTN_TEXT;
+  submitBtn.disabled = false;
+  submitBtn.style.pointerEvents = 'auto';
+}
+
 contactForm.addEventListener('submit', async (e) => {
   e.preventDefault(); // stop the redirect
 
+  // Cancel any pending reset from a previous submission
+  clearTimeout(resetTimer);
+
   // Immediate feedback + lock the button
   submitBtn.disabled = true;
+  submitBtn.style.pointerEvents = 'none';
   submitBtn.textContent = 'Sending...';
   formStatus.style.display = 'none';
 
@@ -1460,24 +1475,24 @@ contactForm.addEventListener('submit', async (e) => {
     const result = await response.json();
 
     if (response.ok && result.success) {
-      // Success
-      submitBtn.textContent = 'Message Sent ✓';
+      // 1. Show the success state
+      submitBtn.textContent = 'Sent ✓';
       showStatus('Thank you. Your message has been sent. We will respond within one business day.', false);
+
+      // 2. Clear the form fields
       contactForm.reset();
 
-      // Return the button to normal after 5 seconds
-      setTimeout(() => {
-        submitBtn.textContent = DEFAULT_BTN_TEXT;
-        submitBtn.disabled = false;
-      }, 5000);
+      // 3. After the delay, restore everything to its default state
+      resetTimer = setTimeout(resetFormUI, RESET_DELAY_MS);
     } else {
       throw new Error(result.message || 'Submission failed');
     }
   } catch (err) {
-    // Error: restore the button and show a message
+    // Error: restore the button immediately and show the error message
     console.error('Contact form error:', err);
     submitBtn.textContent = DEFAULT_BTN_TEXT;
     submitBtn.disabled = false;
+    submitBtn.style.pointerEvents = 'auto';
     showStatus('Sorry, something went wrong and your message was not sent. Please try again or email info@sa-analytical.com.', true);
   }
 });
