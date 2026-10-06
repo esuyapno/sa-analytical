@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SA Analytical — Facilitated Strategy & Decision-Making</title>
+<!-- CHANGED: page title now names the audience (SEO + browser tab) -->
+<title>SA Analytical | Strategy Workshops for Foundations &amp; Philanthropic Organisations</title>
+<!-- NEW: meta description -->
+<meta name="description" content="Facilitated strategy workshops backed by data analysis for foundations. Align your board and team, set clear priorities, and make confident decisions."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
@@ -14,7 +17,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-   --bg:           #f4f0e8;
+  --bg:           #f4f0e8;
   --bg-card:      #faf7f1;
   --bg-raised:    #e9e2d7;
   --border:       rgba(117,103,79,0.16);
@@ -52,6 +55,9 @@ body::before {
 }
 
 section, nav, footer { position: relative; z-index: 1; }
+
+/* NEW: anchor links no longer hide under the fixed nav */
+section[id] { scroll-margin-top: 60px; }
 
 /* ─── NAV ─── */
 nav {
@@ -108,7 +114,7 @@ nav {
   gap:.7rem;
   background:none;
   border:1px solid var(--border);
-  color:#f5efe6;;
+  color:#f5efe6; /* CHANGED: removed stray double semicolon */
   padding:.65rem 1rem;
   border-radius:8px;
   cursor:pointer;
@@ -154,6 +160,35 @@ nav {
 .close-btn,
 .hamburger { display:none; }
 
+/* NEW: desktop nav shows links inline with a solid gold CTA button.
+   The hamburger stays for screens narrower than 901px. */
+@media (min-width: 901px) {
+  .menu-toggle { display: none; }
+  .nav-links {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .25rem;
+    min-width: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+  }
+  .nav-links a { padding: .6rem 1rem; }
+  .nav-links a.nav-cta {
+    background: var(--accent);
+    color: #1a1a1b !important;
+    font-weight: 600;
+    border-radius: 4px;
+    margin-left: .75rem;
+  }
+  .nav-links a.nav-cta:hover { background: var(--accent-light); }
+}
+
 /* ─── HERO ─── */
 #hero {
   min-height: 100vh;
@@ -174,7 +209,7 @@ nav {
     rgba(181,148,63,0.10) 0%,
     rgba(181,148,63,0.035) 45%,
     transparent 70%
-);
+  );
   top:50%; left:50%;
   transform:translate(-50%,-50%);
   animation: pulseGlow 6s ease-in-out infinite;
@@ -205,22 +240,26 @@ nav img[alt="SA Analytical"] {
   opacity: .78;
 }
 
+/* CHANGED: logo smaller so the headline and CTA sit higher on laptop screens */
 .hero-logo-img {
-  height: clamp(170px, 30vw, 250px);
+  height: clamp(110px, 18vw, 150px);
   width: auto;
   max-width: 100%;
   object-fit: contain;
   display: block;
   flex-shrink: 0;
-  margin: 0 auto clamp(1.25rem, 3vw, 2rem); 
+  margin: 0 auto clamp(1rem, 2.5vw, 1.5rem);
   background: transparent !important;
   opacity: .94;
 }
 
+/* CHANGED: eyebrow text is longer now, so it can wrap and centre */
 .hero-eyebrow {
-  display: inline-flex; align-items: center; gap: .6rem;
+  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  flex-wrap: wrap;
+  text-align: center;
   font-size: 0.72rem;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
   margin-top: 0rem;
@@ -250,42 +289,53 @@ h1.hero-headline em {
   color: var(--accent);
 }
 
+/* CHANGED: wider max-width for the longer sub-headline */
 .hero-sub {
-  max-width: 560px;
+  max-width: 640px;
   color: var(--text-secondary);
   font-size: 1.05rem;
   font-weight: 300;
   line-height: 1.7;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   opacity: 0;
   animation: fadeUp .9s var(--ease) .42s forwards;
 }
 
-.btn-outline {
-  display: inline-block;
-  padding: .85rem 2.2rem;
-  border: 1px solid rgba(201,168,76,0.5);
-  border-radius: 4px;
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: transparent;
-  cursor: pointer;
-  transition: border-color .3s var(--ease), background .3s var(--ease), box-shadow .3s var(--ease), transform .25s var(--ease);
+/* NEW: primary solid CTA + secondary text link, side by side */
+.hero-actions {
+  display: flex; flex-wrap: wrap;
+  align-items: center; justify-content: center;
+  gap: 1.5rem 2rem;
   opacity: 0;
   animation: fadeUp .9s var(--ease) .58s forwards;
 }
 
-.btn-outline:hover {
-  border-color: var(--accent);
-  background: var(--accent-glow);
-  box-shadow: 0 0 32px rgba(201,168,76,0.2);
-  transform: translateY(-2px);
+/* NEW: text link with arrow (used in hero and pain section) */
+.link-arrow {
+  color: var(--text-primary);
+  font-size: .82rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: .3rem;
+  transition: color .3s var(--ease), border-color .3s var(--ease);
 }
+.link-arrow:hover { color: var(--accent); border-color: var(--accent); }
+
+/* NEW: small trust line under the hero CTA */
+.hero-trust {
+  margin-top: 2.2rem;
+  font-size: .7rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0;
+  animation: fadeUp .9s var(--ease) .72s forwards;
+}
+
+/* REMOVED: .btn-outline (replaced by .btn-solid in the hero) */
 
 .hero-scroll-hint {
   position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
@@ -344,6 +394,63 @@ h2.section-title {
   margin-bottom: 3.5rem;
 }
 
+/* NEW: wider variants for the longer titles and descriptions */
+h2.section-title.wide { max-width: 720px; }
+.section-desc.wide    { max-width: 620px; }
+
+/* NEW: centred CTA row used under sections */
+.section-cta { margin-top: 3rem; }
+
+/* ─── PAIN POINTS (replaces the old "Insight Hub" bento grid) ─── */
+#challenges {
+  background: var(--bg-raised);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.pain-card {
+  padding: 2.4rem 2rem;
+  background: var(--bg-card);
+  display: flex; flex-direction: column; justify-content: space-between;
+  gap: 2.2rem;
+  transition: background .4s var(--ease);
+}
+
+.pain-card:hover { background: #fffdf8; }
+
+.pain-quote {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+}
+
+.pain-outcome {
+  display: flex; align-items: center; gap: .6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  font-size: .74rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.pain-outcome svg {
+  width: 16px; height: 16px; flex-shrink: 0;
+  stroke: currentColor; stroke-width: 1.8; fill: none;
+}
+
 /* ─── SERVICES ─── */
 #services { background: var(--bg); }
 
@@ -356,8 +463,9 @@ h2.section-title {
   overflow: hidden;
 }
 
+/* CHANGED: extra bottom padding so the new outcome line never touches the card number */
 .service-card {
-  padding: 2.8rem 2.4rem;
+  padding: 2.8rem 2.4rem 3.8rem;
   background: var(--bg-card);
   position: relative;
   overflow: hidden;
@@ -416,6 +524,16 @@ h2.section-title {
   font-weight: 300;
 }
 
+/* NEW: gold outcome line at the bottom of each service card */
+.service-outcome {
+  display: block;
+  margin-top: 1.3rem;
+  font-size: .76rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+  color: var(--accent);
+}
+
 .service-num {
   position: absolute; bottom: 1.8rem; right: 1.8rem;
   font-family: var(--font-head);
@@ -424,92 +542,99 @@ h2.section-title {
   color: var(--text-muted);
 }
 
-/* ─── INSIGHT HUB ─── */
-#insights {
+/* ─── HOW IT WORKS (NEW SECTION) ─── */
+#process {
   background: var(--bg-raised);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 
-.bento-grid {
+.process-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem;
 }
 
-.bento-item {
+.process-step {
   position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  cursor: pointer;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--border);
 }
 
-.bento-item:nth-child(1) { grid-row: span 2; aspect-ratio: 9/16; max-height: 480px; }
-.bento-item:nth-child(2) { aspect-ratio: 16/9; }
-.bento-item:nth-child(3) { aspect-ratio: 16/9; }
-.bento-item:nth-child(4) { grid-column: span 2; aspect-ratio: 32/9; }
+.process-step::before {
+  content: '';
+  position: absolute; top: -1px; left: 0;
+  width: 40px; height: 2px;
+  background: var(--accent);
+}
 
-.bento-img {
-  width: 100%; height: 100%;
-  object-fit: cover;
+.process-num {
   display: block;
-  transition: transform .6s var(--ease), filter .4s var(--ease);
-  filter: brightness(.65) saturate(.4);
+  margin-bottom: .8rem;
+  font-family: var(--font-head);
+  font-size: .75rem;
+  letter-spacing: .18em;
+  color: var(--accent);
 }
 
-.bento-item:hover .bento-img { transform: scale(1.04); filter: brightness(.75) saturate(.5); }
-
-.bento-play {
-  position:absolute; inset:0;
-  display: flex; align-items: center; justify-content: center;
+.process-step h3 {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-bottom: .6rem;
 }
 
-.play-ring {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.35);
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(6px);
-  transition: border-color .3s var(--ease), transform .3s var(--ease), background .3s var(--ease);
+.process-step p {
+  font-size: .9rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  font-weight: 300;
 }
 
-.play-ring svg { width: 16px; height: 16px; fill: #fff; transform: translateX(1px); }
-
-.bento-item:hover .play-ring {
-  border-color: var(--accent);
-  background: rgba(201,168,76,0.22);
-  transform: scale(1.1);
+/* ─── PROOF (NEW, styles for the optional proof section further down) ─── */
+#proof {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
 }
 
-.bento-caption {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 1.5rem 1.2rem .9rem;
-  background: linear-gradient(to top, rgba(43,43,46,.92) 0%, transparent 100%);
-  transform: translateY(6px);
-  opacity: 0;
-  transition: opacity .35s var(--ease), transform .35s var(--ease);
+.proof-quote {
+  max-width: 760px;
+  font-family: var(--font-head);
+  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -.01em;
+  margin-bottom: 1.2rem;
 }
 
-.bento-item:hover .bento-caption { opacity:1; transform:translateY(0); }
-
-.bento-caption span {
-  font-size: .72rem;
+.proof-cite {
+  font-size: .78rem;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--accent);
+  margin-bottom: 3.5rem;
 }
 
-.bento-caption strong {
-  display: block;
-  font-family: var(--font-head);
-  font-size: .88rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-top: .1rem;
+.proof-case {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.proof-case h3 {
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: .6rem;
+}
+
+.proof-case p {
+  font-size: .9rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  line-height: 1.65;
 }
 
 /* ─── TEAM ─── */
@@ -576,6 +701,22 @@ h2.section-title {
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: .7rem;
+}
+
+/* NEW: expertise chips under each name */
+.team-tags {
+  display: flex; flex-wrap: wrap; gap: .4rem;
+  margin-bottom: .9rem;
+}
+
+.team-tags span {
+  padding: .2rem .6rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: .66rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
 }
 
 .team-bio {
@@ -646,11 +787,12 @@ h2.section-title {
   margin-bottom: 1.4rem;
 }
 
+/* CHANGED: slightly wider so the new body copy wraps nicely */
 .contact-left p {
   color: var(--text-secondary);
   font-weight: 300;
   margin-bottom: 2rem;
-  max-width: 340px;
+  max-width: 400px;
 }
 
 .contact-email {
@@ -666,6 +808,42 @@ h2.section-title {
 
 .contact-email:hover { border-color: var(--accent); color: var(--accent); }
 .contact-email svg { width:16px; height:16px; stroke:currentColor; stroke-width:1.5; fill:none; }
+
+/* NEW: "What happens next" list */
+.next-steps {
+  list-style: none;
+  counter-reset: step;
+  margin-top: 2.5rem;
+  max-width: 400px;
+}
+
+.next-steps-label {
+  font-size: .68rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.next-steps li {
+  counter-increment: step;
+  display: flex; gap: 1rem;
+  padding: .7rem 0;
+  border-top: 1px solid var(--border);
+  font-size: .9rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.next-steps li::before {
+  content: counter(step);
+  font-family: var(--font-head);
+  font-size: .75rem;
+  letter-spacing: .1em;
+  color: var(--accent);
+  padding-top: .15rem;
+}
 
 .contact-divider {
   display: flex; align-items: center; gap: 1rem;
@@ -730,6 +908,7 @@ h2.section-title {
   font-weight: 600;
   letter-spacing: .14em;
   text-transform: uppercase;
+  text-decoration: none; /* NEW: so .btn-solid also works on <a> links */
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -748,6 +927,7 @@ h2.section-title {
   transform: none;
   box-shadow: none;
 }
+
 /* ─── FOOTER ─── */
 footer {
   padding: 1rem 5vw 1.5rem;
@@ -757,7 +937,7 @@ footer {
   background: #2b2b2e;
   color: #f5efe6;
 }
-   
+
 .footer-watermark {
   position: absolute;
   bottom: -1.5rem; left: 50%;
@@ -810,8 +990,9 @@ footer {
   max-width: 420px;
 }
 
+/* CHANGED: wraps cleanly now that the footer has 5 links */
 .footer-links {
-  display: flex; gap: 2rem;
+  display: flex; flex-wrap: wrap; gap: .75rem 2rem;
   list-style: none;
 }
 
@@ -859,7 +1040,7 @@ footer .footer-address {
 footer .footer-links a:hover {
   color: #f5efe6;
 }
-   
+
 /* ─── SCROLL REVEAL ─── */
 .reveal {
   opacity: 0;
@@ -873,6 +1054,12 @@ footer .footer-links a:hover {
 .reveal-delay-3 { transition-delay: .36s; }
 
 /* ─── RESPONSIVE ─── */
+/* NEW: pain grid and process steps collapse to 2 columns on tablets */
+@media (max-width: 1100px) {
+  .pain-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 768px) {
   .nav-links {
     right: 5vw;
@@ -880,71 +1067,42 @@ footer .footer-links a:hover {
     min-width: auto;
   }
   .services-grid { grid-template-columns: 1fr; }
-  .bento-grid { grid-template-columns: 1fr 1fr; }
-  .bento-item:nth-child(1) { grid-column: span 2; aspect-ratio: 16/9; max-height: none; }
-  .bento-item:nth-child(4) { grid-column: span 2; }
   .team-grid { grid-template-columns: 1fr; }
   .team-card { grid-template-columns: 220px 1fr; }
   .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .proof-case { grid-template-columns: 1fr; gap: 1.5rem; } /* NEW */
+  /* REMOVED: bento-grid rules (old Insight Hub) */
+}
+
+@media (max-width: 600px) {
+  .pain-grid { grid-template-columns: 1fr; }       /* NEW */
+  .process-grid { grid-template-columns: 1fr; }    /* NEW */
 }
 
 @media (max-width: 480px) {
-  .bento-grid { grid-template-columns: 1fr; }
-  .bento-item:nth-child(1), .bento-item:nth-child(4) { grid-column: span 1; }
   .team-grid { grid-template-columns: 1fr; }
   .team-card { grid-template-columns: 1fr; min-height: auto; }
   .team-portrait { height: auto; aspect-ratio: 3/4; }
+  /* NEW: hide eyebrow side lines on small phones so the longer text wraps cleanly */
+  .hero-eyebrow { font-size: .66rem; }
+  .hero-eyebrow::before, .hero-eyebrow::after { display: none; }
 }
-
-.bi-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: auto;
-}
-
-.bi-grid .bento-item {
-  aspect-ratio: 16 / 10;
-}
-
-.bi-grid .bento-item:nth-child(1),
-.bi-grid .bento-item:nth-child(2) {
-  grid-column: span 1;
-  grid-row: span 1;
-  max-height: none;
-}
-
-@media (max-width: 768px) {
-  .bi-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .bi-grid .bento-item:nth-child(1),
-  .bi-grid .bento-item:nth-child(2) {
-    grid-column: span 1;
-    aspect-ratio: 16 / 10;
-  }
-}
-
-@media (max-width: 480px) {
-  .bi-grid {
-    grid-template-columns: 1fr;
-  }
-  .bi-grid .bento-item:nth-child(1),
-  .bi-grid .bento-item:nth-child(2) {
-    grid-column: span 1;
-  }
-}
-
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- NAV
+     CHANGED: labels rewritten, links match the new section order,
+     "The Consortium" moved to the footer, CTA wording unified.
+     On desktop (901px and up) the links show inline with a gold CTA button.
+     On smaller screens the hamburger menu still appears. -->
 <nav>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#insights">Insights</a></li>
-    <li><a href="#team">Team</a></li>
-    <li><a href="https://www.consortiumadvisory.org" target="_blank" rel="noopener noreferrer">The Consortium</a></li>
-    <li><a href="#contact" class="nav-cta">Book a Call</a></li>
+    <li><a href="#services">What We Do</a></li>
+    <li><a href="#challenges">When to Call Us</a></li>
+    <li><a href="#process">How It Works</a></li>
+    <li><a href="#team">Our Team</a></li>
+    <li><a href="#contact" class="nav-cta">Book a Strategy Call</a></li>
   </ul>
   <button class="menu-toggle" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
     Menu
@@ -952,184 +1110,296 @@ footer .footer-links a:hover {
   </button>
 </nav>
 
-<!-- HERO -->
+<!-- HERO
+     CHANGED: eyebrow names the audience, headline states the friction and the outcome,
+     sub-headline names the dual benefit (facilitation + data), solid primary CTA + secondary link,
+     trust line added. Alternative headlines you can swap into the h1:
+       Direct:  Strategy workshops for foundations, <em>grounded in data.</em>
+       Outcome: Align your board and team around a strategy <em>you can act on, and defend.</em> -->
 <section id="hero">
   <img src="images/Logo V.png" alt="SA Analytical" class="hero-logo-img"/>
-  <div class="hero-eyebrow">Boutique Strategy Consulting</div>
-  <h1 class="hero-headline">Facilitated <em>strategy</em> and decision-making,<br>powered by business intelligence.</h1>
-  <p class="hero-sub">We design and lead tailored workshops that help leadership teams plan strategically, solve complex problems, and make confident decisions grounded in evidence, analytics, and insight.</p>
-  <a href="#contact" class="btn-outline">Book a Consultation</a>
+  <div class="hero-eyebrow">Strategy facilitation for foundations &amp; philanthropic organisations</div>
+  <h1 class="hero-headline">Too many priorities.<br><em>One shared strategy.</em></h1>
+  <p class="hero-sub">Most strategy retreats produce good conversation and no decisions. We combine expert facilitation with rigorous data analysis, so your leadership team leaves aligned, focused, and clear on what to do next.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-solid">Book a Strategy Call</a>
+    <a href="#process" class="link-arrow">See how a workshop works &rarr;</a>
+  </div>
+  <p class="hero-trust">Confidential &middot; Senior-led &middot; Evidence-based</p>
   <div class="hero-scroll-hint">
     <div class="scroll-line"></div>
-    
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- PAIN POINTS
+     REPLACES the old "Insight Hub" (id="insights") with the two dashboard graphics.
+     The mock Revenue / Conversion / Pipeline images are removed because they signalled corporate sales, not philanthropy. -->
+<section id="challenges">
+  <div class="reveal">
+    <div class="section-label">When to Call Us</div>
+    <h2 class="section-title">Sound familiar?</h2>
+    <p class="section-desc">Foundations typically bring us in when they are pulled in too many directions and need to get everyone pointed the same way.</p>
+  </div>
+  <div class="pain-grid reveal">
+    <div class="pain-card">
+      <p class="pain-quote">&ldquo;We&rsquo;re doing too much and can&rsquo;t say what we won&rsquo;t do.&rdquo;</p>
+      <div class="pain-outcome">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        Focused priorities
+      </div>
+    </div>
+    <div class="pain-card">
+      <p class="pain-quote">&ldquo;Our board and staff see our strategy differently.&rdquo;</p>
+      <div class="pain-outcome">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        A shared vision
+      </div>
+    </div>
+    <div class="pain-card">
+      <p class="pain-quote">&ldquo;We have data, but it doesn&rsquo;t drive our decisions.&rdquo;</p>
+      <div class="pain-outcome">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        Evidence-backed choices
+      </div>
+    </div>
+    <div class="pain-card">
+      <p class="pain-quote">&ldquo;We have a strategic plan nobody uses.&rdquo;</p>
+      <div class="pain-outcome">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        A plan that&rsquo;s actually used
+      </div>
+    </div>
+  </div>
+  <div class="section-cta reveal">
+    <a href="#contact" class="link-arrow">Tell us which one sounds like you &rarr;</a>
+  </div>
+</section>
+
+<!-- SERVICES
+     CHANGED: title and intro state the dual benefit, "Business Intelligence" and "Business Analytics"
+     merged into one outcome-led card, cards now speak in foundation language and end with an outcome line. -->
 <section id="services">
   <div class="reveal">
     <div class="section-label">What We Do</div>
-    <h2 class="section-title">High-level workshops built on insight.</h2>
-    <p class="section-desc">SA Analytical combines expert facilitation with business intelligence and business analytics to support better strategic planning and decision-making.</p>
+    <h2 class="section-title wide">Expert facilitation and rigorous analysis, in one engagement.</h2>
+    <p class="section-desc wide">We don&rsquo;t just run the workshop. We do the analysis beforehand, so the decisions made in the room are grounded in evidence about your grantmaking, your portfolio, and your context.</p>
   </div>
   <div class="services-grid reveal">
     <div class="service-card">
       <div class="service-icon">
         <svg viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
       </div>
-      <h3>Facilitation for Strategy &amp; Decision-Making</h3>
-      <p>We deliver high-level, tailored workshops for strategic planning, leadership alignment, problem-solving, and decision-making. Each session is designed around your context, your people, and the decisions that matter most.</p>
+      <h3>Strategy &amp; Priority-Setting Workshops</h3>
+      <p>Cut through competing demands. We guide your leadership through the hard trade-offs and leave you with clear priorities, including what to stop doing.</p>
+      <span class="service-outcome">You leave with: ranked priorities</span>
       <span class="service-num">01</span>
     </div>
     <div class="service-card">
       <div class="service-icon">
-        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h.01M12 8h4M7 12h10"/></svg>
+        <!-- CHANGED: new "people" icon for the alignment card -->
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15 14.5c.5-.3 1.1-.5 2-.5 2.2 0 4 1.8 4 4"/></svg>
       </div>
-      <h3>Business Intelligence</h3>
-      <p>We provide decision-ready intelligence that helps leaders understand performance, trends, risks, and opportunities. From dashboards to strategic insight, we help turn information into clarity.</p>
+      <h3>Board &amp; Leadership Alignment Sessions</h3>
+      <p>Get trustees, executives, and programme staff pulling in the same direction, with one shared view of where you&rsquo;re headed and why.</p>
+      <span class="service-outcome">You leave with: a shared vision</span>
       <span class="service-num">02</span>
     </div>
     <div class="service-card">
       <div class="service-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M5 17L12 11M19 17L12 11"/></svg>
+        <!-- CHANGED: bar-chart icon for the merged analysis card -->
+        <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
       </div>
-      <h3>Business Analytics</h3>
-      <p>We turn data into practical analysis that supports planning, prioritisation, and better decisions. Our work helps organisations move from raw information to meaningful action.</p>
+      <h3>Evidence &amp; Analysis</h3>
+      <p>Data that settles the debate. We analyse your portfolio, performance, and landscape so decisions rest on evidence rather than opinion.</p>
+      <span class="service-outcome">You leave with: decisions you can defend</span>
       <span class="service-num">03</span>
     </div>
   </div>
 </section>
 
-<!-- INSIGHT HUB -->
-<section id="insights">
+<!-- HOW IT WORKS (NEW SECTION)
+     Lowers the perceived risk of a first call. Please check these four steps match how you actually work. -->
+<section id="process">
   <div class="reveal">
-    <div class="section-label">How We Help</div>
-    <h2 class="section-title">Where clients bring us in.</h2>
-    <p class="section-desc">We are typically brought in when a decision matters, the context is complex, and the discussion needs to be both well facilitated and well informed.</p>
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title wide">From discovery to decision in four steps.</h2>
+    <p class="section-desc wide">A process built for decisions, not just discussion.</p>
   </div>
-  <div class="bento-grid bi-grid reveal">
-    <div class="bento-item">
-      <img class="bento-img" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201200%20760%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23151618%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2323252b%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22gold%22%20x1%3D%220%22%20x2%3D%220%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e3c46b%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23c9a84c%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22blue%22%20x1%3D%220%22%20x2%3D%220%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%236fa7ff%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%234066a8%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%3C/defs%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22760%22%20rx%3D%2228%22%20fill%3D%22url%28%23bg%29%22/%3E%0A%20%20%3Crect%20x%3D%2248%22%20y%3D%2248%22%20width%3D%221104%22%20height%3D%22664%22%20rx%3D%2224%22%20fill%3D%22%231b1d22%22%20stroke%3D%22%23343844%22/%3E%0A%20%20%3Ctext%20x%3D%2284%22%20y%3D%22108%22%20fill%3D%22%23f6f1e6%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%3EBusiness%20Intelligence%3C/text%3E%0A%20%20%3Ctext%20x%3D%2284%22%20y%3D%22144%22%20fill%3D%22%239ca3af%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2218%22%3EPerformance%20trends%20and%20decision-ready%20insight%3C/text%3E%0A%20%20%3Cline%20x1%3D%22110%22%20y1%3D%22600%22%20x2%3D%221080%22%20y2%3D%22600%22%20stroke%3D%22%23484d5b%22%20stroke-width%3D%222%22/%3E%0A%20%20%3Cline%20x1%3D%22110%22%20y1%3D%22210%22%20x2%3D%22110%22%20y2%3D%22600%22%20stroke%3D%22%23484d5b%22%20stroke-width%3D%222%22/%3E%0A%20%20%3Cg%20opacity%3D%220.38%22%20stroke%3D%22%233a3f4a%22%20stroke-width%3D%221%22%3E%0A%20%20%20%20%3Cline%20x1%3D%22110%22%20y1%3D%22520%22%20x2%3D%221080%22%20y2%3D%22520%22/%3E%0A%20%20%20%20%3Cline%20x1%3D%22110%22%20y1%3D%22440%22%20x2%3D%221080%22%20y2%3D%22440%22/%3E%0A%20%20%20%20%3Cline%20x1%3D%22110%22%20y1%3D%22360%22%20x2%3D%221080%22%20y2%3D%22360%22/%3E%0A%20%20%20%20%3Cline%20x1%3D%22110%22%20y1%3D%22280%22%20x2%3D%221080%22%20y2%3D%22280%22/%3E%0A%20%20%3C/g%3E%0A%20%20%3Cg%3E%0A%20%20%20%20%3Crect%20x%3D%22170%22%20y%3D%22430%22%20width%3D%2288%22%20height%3D%22170%22%20rx%3D%2214%22%20fill%3D%22url%28%23gold%29%22%20opacity%3D%220.96%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22300%22%20y%3D%22350%22%20width%3D%2288%22%20height%3D%22250%22%20rx%3D%2214%22%20fill%3D%22url%28%23blue%29%22%20opacity%3D%220.96%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22430%22%20y%3D%22390%22%20width%3D%2288%22%20height%3D%22210%22%20rx%3D%2214%22%20fill%3D%22url%28%23gold%29%22%20opacity%3D%220.96%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22560%22%20y%3D%22270%22%20width%3D%2288%22%20height%3D%22330%22%20rx%3D%2214%22%20fill%3D%22url%28%23blue%29%22%20opacity%3D%220.96%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22690%22%20y%3D%22320%22%20width%3D%2288%22%20height%3D%22280%22%20rx%3D%2214%22%20fill%3D%22url%28%23gold%29%22%20opacity%3D%220.96%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22820%22%20y%3D%22215%22%20width%3D%2288%22%20height%3D%22385%22%20rx%3D%2214%22%20fill%3D%22url%28%23blue%29%22%20opacity%3D%220.96%22/%3E%0A%20%20%3C/g%3E%0A%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23f4d585%22%20stroke-width%3D%228%22%20points%3D%22214%2C395%20344%2C330%20474%2C350%20604%2C240%20734%2C278%20864%2C190%20994%2C228%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%0A%20%20%3Cg%20fill%3D%22%23f4d585%22%20stroke%3D%22%231b1d22%22%20stroke-width%3D%224%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22214%22%20cy%3D%22395%22%20r%3D%2210%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22344%22%20cy%3D%22330%22%20r%3D%2210%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22474%22%20cy%3D%22350%22%20r%3D%2210%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22604%22%20cy%3D%22240%22%20r%3D%2210%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22734%22%20cy%3D%22278%22%20r%3D%2210%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22864%22%20cy%3D%22190%22%20r%3D%2210%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22994%22%20cy%3D%22228%22%20r%3D%2210%22/%3E%0A%20%20%3C/g%3E%0A%20%20%3Cg%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2218%22%20fill%3D%22%239ca3af%22%3E%0A%20%20%20%20%3Ctext%20x%3D%22188%22%20y%3D%22640%22%3EQ1%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%22318%22%20y%3D%22640%22%3EQ2%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%22448%22%20y%3D%22640%22%3EQ3%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%22578%22%20y%3D%22640%22%3EQ4%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%22708%22%20y%3D%22640%22%3EQ5%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%22838%22%20y%3D%22640%22%3EQ6%3C/text%3E%0A%20%20%3C/g%3E%0A%20%20%3Crect%20x%3D%22900%22%20y%3D%2288%22%20width%3D%22180%22%20height%3D%2278%22%20rx%3D%2216%22%20fill%3D%22%23232831%22%20stroke%3D%22%23383e49%22/%3E%0A%20%20%3Ctext%20x%3D%22926%22%20y%3D%22120%22%20fill%3D%22%239ca3af%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2216%22%3EGrowth%3C/text%3E%0A%20%20%3Ctext%20x%3D%22926%22%20y%3D%22150%22%20fill%3D%22%23f6f1e6%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2230%22%20font-weight%3D%22700%22%3E%2B18.4%25%3C/text%3E%0A%3C/svg%3E" alt="Business intelligence chart"/>
-      <div class="bento-caption"><span>Business Intelligence</span><strong>Clear trend analysis to support faster, better decisions</strong></div>
+  <div class="process-grid reveal">
+    <div class="process-step">
+      <span class="process-num">01</span>
+      <h3>Listen</h3>
+      <p>We start with your context: conversations with your leaders to understand the decision, the stakes, and the tensions.</p>
     </div>
-    <div class="bento-item">
-      <img class="bento-img" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201200%20760%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22bg2%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23151618%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2323252b%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22gold2%22%20x1%3D%220%22%20x2%3D%220%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e3c46b%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23c9a84c%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22blue2%22%20x1%3D%220%22%20x2%3D%220%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%236fa7ff%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%234066a8%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%3C/defs%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22760%22%20rx%3D%2228%22%20fill%3D%22url%28%23bg2%29%22/%3E%0A%20%20%3Crect%20x%3D%2246%22%20y%3D%2246%22%20width%3D%221108%22%20height%3D%22668%22%20rx%3D%2224%22%20fill%3D%22%231b1d22%22%20stroke%3D%22%23343844%22/%3E%0A%20%20%3Ctext%20x%3D%2284%22%20y%3D%22106%22%20fill%3D%22%23f6f1e6%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%3EExecutive%20Dashboard%3C/text%3E%0A%20%20%3Ctext%20x%3D%2284%22%20y%3D%22142%22%20fill%3D%22%239ca3af%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2218%22%3ELive%20KPIs%2C%20performance%20snapshots%2C%20and%20operational%20signals%3C/text%3E%0A%20%20%3Cg%3E%0A%20%20%20%20%3Crect%20x%3D%2284%22%20y%3D%22186%22%20width%3D%22214%22%20height%3D%22110%22%20rx%3D%2220%22%20fill%3D%22%23232831%22%20stroke%3D%22%23383e49%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22318%22%20y%3D%22186%22%20width%3D%22214%22%20height%3D%22110%22%20rx%3D%2220%22%20fill%3D%22%23232831%22%20stroke%3D%22%23383e49%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22552%22%20y%3D%22186%22%20width%3D%22214%22%20height%3D%22110%22%20rx%3D%2220%22%20fill%3D%22%23232831%22%20stroke%3D%22%23383e49%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22786%22%20y%3D%22186%22%20width%3D%22214%22%20height%3D%22110%22%20rx%3D%2220%22%20fill%3D%22%23232831%22%20stroke%3D%22%23383e49%22/%3E%0A%20%20%20%20%3Ctext%20x%3D%22108%22%20y%3D%22222%22%20fill%3D%22%239ca3af%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2215%22%3ERevenue%3C/text%3E%3Ctext%20x%3D%22108%22%20y%3D%22266%22%20fill%3D%22%23f6f1e6%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2232%22%20font-weight%3D%22700%22%3ECHF%202.4M%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%22342%22%20y%3D%22222%22%20fill%3D%22%239ca3af%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2215%22%3EConversion%3C/text%3E%3Ctext%20x%3D%22342%22%20y%3D%22266%22%20fill%3D%22%23f6f1e6%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2232%22%20font-weight%3D%22700%22%3E12.8%25%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%22576%22%20y%3D%22222%22%20fill%3D%22%239ca3af%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2215%22%3EPipeline%3C/text%3E%3Ctext%20x%3D%22576%22%20y%3D%22266%22%20fill%3D%22%23f6f1e6%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2232%22%20font-weight%3D%22700%22%3E184%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%22810%22%20y%3D%22222%22%20fill%3D%22%239ca3af%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2215%22%3EDecision%20Cycle%3C/text%3E%3Ctext%20x%3D%22810%22%20y%3D%22266%22%20fill%3D%22%23f6f1e6%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2232%22%20font-weight%3D%22700%22%3E9%20days%3C/text%3E%0A%20%20%3C/g%3E%0A%20%20%3Crect%20x%3D%2284%22%20y%3D%22332%22%20width%3D%22420%22%20height%3D%22320%22%20rx%3D%2222%22%20fill%3D%22%2320242b%22%20stroke%3D%22%23383e49%22/%3E%0A%20%20%3Ctext%20x%3D%22112%22%20y%3D%22372%22%20fill%3D%22%23f6f1e6%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EChannel%20mix%3C/text%3E%0A%20%20%3Ccircle%20cx%3D%22238%22%20cy%3D%22496%22%20r%3D%2286%22%20fill%3D%22none%22%20stroke%3D%22%2330405a%22%20stroke-width%3D%2238%22/%3E%0A%20%20%3Ccircle%20cx%3D%22238%22%20cy%3D%22496%22%20r%3D%2286%22%20fill%3D%22none%22%20stroke%3D%22url%28%23gold2%29%22%20stroke-width%3D%2238%22%20stroke-dasharray%3D%22250%20540%22%20transform%3D%22rotate%28-90%20238%20496%29%22%20stroke-linecap%3D%22round%22/%3E%0A%20%20%3Ccircle%20cx%3D%22238%22%20cy%3D%22496%22%20r%3D%2286%22%20fill%3D%22none%22%20stroke%3D%22url%28%23blue2%29%22%20stroke-width%3D%2238%22%20stroke-dasharray%3D%22135%20540%22%20stroke-dashoffset%3D%22-265%22%20transform%3D%22rotate%28-90%20238%20496%29%22%20stroke-linecap%3D%22round%22/%3E%0A%20%20%3Ctext%20x%3D%22205%22%20y%3D%22505%22%20fill%3D%22%23f6f1e6%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%3E68%25%3C/text%3E%0A%20%20%3Cg%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2217%22%3E%0A%20%20%20%20%3Crect%20x%3D%22352%22%20y%3D%22430%22%20width%3D%2218%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22url%28%23gold2%29%22/%3E%3Ctext%20x%3D%22382%22%20y%3D%22444%22%20fill%3D%22%23d6d8df%22%3EDirect%3C/text%3E%0A%20%20%20%20%3Crect%20x%3D%22352%22%20y%3D%22472%22%20width%3D%2218%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22url%28%23blue2%29%22/%3E%3Ctext%20x%3D%22382%22%20y%3D%22486%22%20fill%3D%22%23d6d8df%22%3EPartner%3C/text%3E%0A%20%20%20%20%3Crect%20x%3D%22352%22%20y%3D%22514%22%20width%3D%2218%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%235b6473%22/%3E%3Ctext%20x%3D%22382%22%20y%3D%22528%22%20fill%3D%22%23d6d8df%22%3EOther%3C/text%3E%0A%20%20%3C/g%3E%0A%20%20%3Crect%20x%3D%22532%22%20y%3D%22332%22%20width%3D%22468%22%20height%3D%22150%22%20rx%3D%2222%22%20fill%3D%22%2320242b%22%20stroke%3D%22%23383e49%22/%3E%0A%20%20%3Ctext%20x%3D%22560%22%20y%3D%22372%22%20fill%3D%22%23f6f1e6%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EPipeline%20trend%3C/text%3E%0A%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23f4d585%22%20stroke-width%3D%227%22%20points%3D%22574%2C430%20640%2C418%20706%2C392%20772%2C402%20838%2C370%20904%2C350%20970%2C336%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%0A%20%20%3Cg%20fill%3D%22%23f4d585%22%3E%3Ccircle%20cx%3D%22574%22%20cy%3D%22430%22%20r%3D%227%22/%3E%3Ccircle%20cx%3D%22640%22%20cy%3D%22418%22%20r%3D%227%22/%3E%3Ccircle%20cx%3D%22706%22%20cy%3D%22392%22%20r%3D%227%22/%3E%3Ccircle%20cx%3D%22772%22%20cy%3D%22402%22%20r%3D%227%22/%3E%3Ccircle%20cx%3D%22838%22%20cy%3D%22370%22%20r%3D%227%22/%3E%3Ccircle%20cx%3D%22904%22%20cy%3D%22350%22%20r%3D%227%22/%3E%3Ccircle%20cx%3D%22970%22%20cy%3D%22336%22%20r%3D%227%22/%3E%3C/g%3E%0A%20%20%3Cg%20opacity%3D%220.35%22%20stroke%3D%22%23414652%22%3E%3Cline%20x1%3D%22570%22%20y1%3D%22446%22%20x2%3D%22972%22%20y2%3D%22446%22/%3E%3Cline%20x1%3D%22570%22%20y1%3D%22410%22%20x2%3D%22972%22%20y2%3D%22410%22/%3E%3Cline%20x1%3D%22570%22%20y1%3D%22374%22%20x2%3D%22972%22%20y2%3D%22374%22/%3E%3C/g%3E%0A%20%20%3Crect%20x%3D%22532%22%20y%3D%22502%22%20width%3D%22468%22%20height%3D%22150%22%20rx%3D%2222%22%20fill%3D%22%2320242b%22%20stroke%3D%22%23383e49%22/%3E%0A%20%20%3Ctext%20x%3D%22560%22%20y%3D%22542%22%20fill%3D%22%23f6f1e6%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3ERegional%20comparison%3C/text%3E%0A%20%20%3Cg%3E%0A%20%20%20%20%3Crect%20x%3D%22586%22%20y%3D%22588%22%20width%3D%2244%22%20height%3D%2228%22%20rx%3D%228%22%20fill%3D%22url%28%23gold2%29%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22666%22%20y%3D%22570%22%20width%3D%2244%22%20height%3D%2246%22%20rx%3D%228%22%20fill%3D%22url%28%23blue2%29%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22746%22%20y%3D%22552%22%20width%3D%2244%22%20height%3D%2264%22%20rx%3D%228%22%20fill%3D%22url%28%23gold2%29%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22826%22%20y%3D%22536%22%20width%3D%2244%22%20height%3D%2280%22%20rx%3D%228%22%20fill%3D%22url%28%23blue2%29%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22906%22%20y%3D%22560%22%20width%3D%2244%22%20height%3D%2256%22%20rx%3D%228%22%20fill%3D%22url%28%23gold2%29%22/%3E%0A%20%20%3C/g%3E%0A%3C/svg%3E" alt="Business intelligence dashboard"/>
-      <div class="bento-caption"><span>Executive Dashboard</span><strong>KPI dashboards that turn data into decision-ready insight</strong></div>
+    <div class="process-step">
+      <span class="process-num">02</span>
+      <h3>Analyse</h3>
+      <p>We analyse the data behind your portfolio, performance, and landscape, so the room works from shared facts.</p>
     </div>
+    <div class="process-step">
+      <span class="process-num">03</span>
+      <h3>Facilitate</h3>
+      <p>A tailored workshop where your team works through the trade-offs and builds real alignment.</p>
+    </div>
+    <div class="process-step">
+      <span class="process-num">04</span>
+      <h3>Decide</h3>
+      <p>You leave with clear priorities, a documented direction, and next steps people own.</p>
+    </div>
+  </div>
+  <div class="section-cta reveal">
+    <a href="#contact" class="btn-solid">Book a Strategy Call</a>
   </div>
 </section>
 
-<!-- TEAM -->
+<!-- PROOF (OPTIONAL, currently commented out)
+     I can't invent testimonials, so this section is switched off.
+     When you have a real quote or case snapshot: remove the opening comment marker line
+     and the closing one, replace the bracketed text, and the styles are already in place.
+     Suggested position: here, between "How It Works" and "Team".
+
+<section id="proof">
+  <div class="reveal">
+    <div class="section-label">Results</div>
+    <blockquote class="proof-quote">&ldquo;[Real client quote about alignment or clarity.]&rdquo;</blockquote>
+    <p class="proof-cite">[Name], [Title], [Foundation]</p>
+  </div>
+  <div class="proof-case reveal">
+    <div><h3>Challenge</h3><p>[One or two sentences, anonymised is fine.]</p></div>
+    <div><h3>What we did</h3><p>[One or two sentences.]</p></div>
+    <div><h3>Outcome</h3><p>[One or two sentences, with a number if you can.]</p></div>
+  </div>
+</section>
+
+-->
+
+<!-- TEAM
+     CHANGED: title and intro, bios rewritten to be outcome-oriented (using only facts from your original bios),
+     expertise chips added, descriptive alt text, and the stray closing divs after the second card are fixed. -->
 <section id="team">
   <div class="reveal">
     <div class="section-label">Our Team</div>
-    <h2 class="section-title">Who you work with.</h2>
+    <h2 class="section-title">Senior people. In the room and in the data.</h2>
     <p class="section-desc">You work directly with senior practitioners. No juniors proxying for partners. Our team combines facilitation expertise with business intelligence, analytics, and strategic advisory experience.</p>
   </div>
   <div class="team-grid">
     <div class="team-card reveal">
-  <div class="team-portrait-wrap">
-    <img src="images/Image 1.png" alt="Image 1" class="team-portrait"/>
-  </div>
-  <div class="team-info">
+      <div class="team-portrait-wrap">
+        <img src="images/Image 1.png" alt="Portrait of Ekci Suyapno, Founder and Chief Strategist" class="team-portrait"/>
+      </div>
+      <div class="team-info">
         <div class="team-name">Ekci Suyapno</div>
         <div class="team-title">Founder &amp; Chief Strategist</div>
-        <p class="team-bio">Ekci Suyapno is the founder and driving force behind SA Analytical, shaping the firm’s approach across business intelligence, analytics, facilitation, and strategy development. She helps organisations navigate complexity, structure high-level discussions, and make stronger strategic decisions grounded in insight and evidence.</p>
+        <div class="team-tags"><span>Facilitation</span><span>Analytics</span><span>Strategy</span></div>
+        <p class="team-bio">Ekci Suyapno founded SA Analytical to help leadership teams turn complex, competing priorities into focused strategy. She combines structured facilitation with business intelligence and analytics, so strategic decisions are grounded in evidence and hold up long after the workshop ends.</p>
         <button class="team-more-btn" type="button">Read More</button>
       </div>
     </div>
     <div class="team-card reveal reveal-delay-1">
-  <div class="team-portrait-wrap">
-    <img src="images/Image 2.png" alt="Image 2" class="team-portrait"/>
-  </div>
-  <div class="team-info">
+      <div class="team-portrait-wrap">
+        <img src="images/Image 2.png" alt="Portrait of Stephen Williams, Director of Business Strategy and Insight" class="team-portrait"/>
+      </div>
+      <div class="team-info">
         <div class="team-name">Stephen Williams</div>
         <div class="team-title">Director of Business Strategy &amp; Insight</div>
-        <p class="team-bio">Stephen Williams leverages three decades of executive leadership to scale organizations and steer complex strategic change. At SA Analytical, he provides the high-level insight necessary for clients to sharpen decision-making, optimize performance, and lead with absolute clarity.</p>
+        <div class="team-tags"><span>Executive leadership</span><span>Strategic change</span><span>Decision-making</span></div>
+        <p class="team-bio">Stephen Williams brings three decades of executive leadership in scaling organisations and steering complex strategic change. At SA Analytical, he adds the senior, executive-level perspective that keeps workshops practical, sharpens decisions, and keeps leadership teams focused on what matters most.</p>
         <button class="team-more-btn" type="button">Read More</button>
       </div>
-    </div></div></div>
+    </div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- CONTACT
+     CHANGED: headline and body copy, "What happens next" list added, form reduced to
+     Name / Email / Organisation / Message (phone removed to cut friction), button text updated.
+     Form action, access key, and JS handling are unchanged. -->
 <section id="contact">
   <div class="contact-inner">
-    
+
     <!-- LEFT COLUMN -->
     <div class="contact-left reveal">
       <div class="section-label">Let's Talk</div>
-      <h2>Let’s design the right process for your next strategic decision.</h2>
-      <p>Whether you need a strategic planning workshop, a senior decision-making session, or stronger business intelligence and analytics to support a critical choice, SA Analytical can help.</p>
+      <h2>Ready to get everyone pulling the same way?</h2>
+      <p>Tell us what your team is trying to decide or resolve. We&rsquo;ll come back within one business day with a few thoughts on how a workshop could help, with no obligation.</p>
       <a href="mailto:info@sa-analytical.com" class="contact-email">
         <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
         info@sa-analytical.com
       </a>
-    </div> 
+      <!-- NEW: reduces uncertainty about what a first contact leads to -->
+      <div class="next-steps-label">What happens next</div>
+      <ol class="next-steps" style="margin-top:0;">
+        <li>We reply within one business day.</li>
+        <li>A 30-minute discovery call to understand your decision.</li>
+        <li>A tailored proposal for your workshop.</li>
+      </ol>
+    </div>
 
-    <!-- RIGHT COLUMN: Everything inside here stays on the right -->
+    <!-- RIGHT COLUMN -->
     <div class="contact-right reveal reveal-delay-1">
       <div class="section-label">OR TELL US WHAT YOU ARE TRYING TO SOLVE</div>
       <p style="font-size:.8rem; color:var(--text-muted); max-width:none; margin-bottom: 20px;">
         All enquiries are treated with discretion.
       </p>
 
-      
-     <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="ghost-form">
-  <input type="hidden" name="access_key" value="4c2f33a0-730d-4f9c-bf57-e4461d979262">
+      <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="ghost-form">
+        <input type="hidden" name="access_key" value="4c2f33a0-730d-4f9c-bf57-e4461d979262">
 
-  <div class="ghost-field">
-    <label for="name">NAME</label>
-    <input type="text" id="name" name="name" placeholder="Your full name" autocomplete="off"/>
-  </div>
-  
-  <div class="ghost-field">
-    <label for="company">COMPANY</label>
-    <input type="text" id="company" name="company" placeholder="Organisation name" autocomplete="off"/>
-  </div>
+        <div class="ghost-field">
+          <label for="name">NAME</label>
+          <input type="text" id="name" name="name" placeholder="Your full name" autocomplete="off"/>
+        </div>
 
-     <div class="ghost-field">
-    <label for="phone">PHONE NUMBER</label>
-    <input type="tel" id="phone" name="phone" placeholder="+41 xx xxx xx xx" autocomplete="off"/>
-  </div>
-        
-  <div class="ghost-field">
-    <label for="email">EMAIL ADDRESS</label>
-    <input type="email" id="email" name="email" placeholder="example@company.com" autocomplete="off" required />
-  </div>
+        <!-- CHANGED: label reads "Organisation" (was "Company"), field id/name unchanged for compatibility -->
+        <div class="ghost-field">
+          <label for="company">ORGANISATION</label>
+          <input type="text" id="company" name="company" placeholder="Foundation or organisation name" autocomplete="off"/>
+        </div>
 
-  <div class="ghost-field">
-    <label for="message">MESSAGE</label>
-    <textarea id="message" name="message" placeholder="Tell us about your challenge, decision, or workshop need…" rows="4"></textarea>
-  </div>
+        <!-- REMOVED: phone number field -->
 
-  <button type="submit" id="submit-btn" class="btn-solid">Send Message</button>
-  
-  <!-- Status Container (Styled to match your site's gold accent) -->
- <div id="form-status" aria-live="polite" style="display: none; font-size: 0.85rem; padding-top: 12px; color: var(--accent);"></div>
+        <div class="ghost-field">
+          <label for="email">EMAIL ADDRESS</label>
+          <input type="email" id="email" name="email" placeholder="example@company.com" autocomplete="off" required />
+        </div>
+
+        <div class="ghost-field">
+          <label for="message">MESSAGE</label>
+          <textarea id="message" name="message" placeholder="Tell us about your challenge, decision, or workshop need…" rows="4"></textarea>
+        </div>
+
+        <!-- CHANGED: button text -->
+        <button type="submit" id="submit-btn" class="btn-solid">Start the Conversation</button>
+
+        <!-- Status container (styled to match the gold accent) -->
+        <div id="form-status" aria-live="polite" style="display: none; font-size: 0.85rem; padding-top: 12px; color: var(--accent);"></div>
       </form>
-    </div> <!-- THIS CLOSES THE RIGHT COLUMN AFTER THE FORM -->
+    </div> <!-- closes right column -->
 
-  </div> <!-- THIS CLOSES THE INNER WRAPPER -->
+  </div> <!-- closes inner wrapper -->
 </section>
 
-<!-- FOOTER -->
+<!-- FOOTER
+     CHANGED: tagline names the audience, links match the new sections,
+     and "The Consortium" now lives here (moved from the main nav). -->
 <footer>
   <div class="footer-inner">
     <div class="footer-logo-wrap">
       <img src="images/Logo H.png" alt="SA Analytical Logo H" class="footer-logo-img"/>
-      <div class="footer-tagline">Tailored workshops for strategy and decision-making, powered by business intelligence.</div>
+      <div class="footer-tagline">Strategy workshops for foundations, backed by data.</div>
     </div>
     <ul class="footer-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#insights">Insights</a></li>
-      <li><a href="#team">Team</a></li>
+      <li><a href="#services">What We Do</a></li>
+      <li><a href="#challenges">When to Call Us</a></li>
+      <li><a href="#process">How It Works</a></li>
+      <li><a href="#team">Our Team</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="https://www.consortiumadvisory.org" target="_blank" rel="noopener noreferrer">The Consortium &#8599;</a></li>
     </ul>
     <div class="footer-copy">© 2026 SA Analytical. All rights reserved.<br>SA Analytical, a brand of Suyapno &amp; Associates</div>
   </div>
   <p class="footer-address">SA Analytical • c/o Ekci Suyapno • PickPost [PK391344] • Grand'Rue 29 • 1297 Founex • Switzerland</p>
-   <div class="footer-watermark">SA Analytical</div>
+  <div class="footer-watermark">SA Analytical</div>
 </footer>
 
 <script>
@@ -1165,7 +1435,7 @@ revealEls.forEach(el => observer.observe(el));
 const contactForm  = document.getElementById('contact-form');
 const submitBtn    = document.getElementById('submit-btn');
 const formStatus   = document.getElementById('form-status');
-const DEFAULT_BTN_TEXT = 'Send Message';
+const DEFAULT_BTN_TEXT = 'Start the Conversation'; // CHANGED: matches the new button label
 
 function showStatus(message, isError) {
   formStatus.textContent = message;
@@ -1195,7 +1465,7 @@ contactForm.addEventListener('submit', async (e) => {
       showStatus('Thank you. Your message has been sent. We will respond within one business day.', false);
       contactForm.reset();
 
-      // Optional: return the button to normal after 5 seconds
+      // Return the button to normal after 5 seconds
       setTimeout(() => {
         submitBtn.textContent = DEFAULT_BTN_TEXT;
         submitBtn.disabled = false;
@@ -1245,3 +1515,5 @@ document.querySelectorAll('.team-more-btn').forEach((btn) => {
   });
 });
 </script>
+</body>
+</html>
