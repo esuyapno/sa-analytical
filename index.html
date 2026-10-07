@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- NEW: declares the site as light-only so mobile / in-app browsers (WhatsApp etc.) do not auto-darken or invert it -->
+<meta name="color-scheme" content="light only"/>
 <!-- CHANGED: page title now names the audience (SEO + browser tab) -->
 <title>SA Analytical | Strategy Workshops for Foundations &amp; Philanthropic Organisations</title>
 <!-- NEW: meta description -->
@@ -17,6 +19,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
+  color-scheme: light only;   /* NEW: enforces the light theme in the rendering engine */
   --bg:           #f4f0e8;
   --bg-card:      #faf7f1;
   --bg-raised:    #e9e2d7;
@@ -180,13 +183,13 @@ nav {
   }
   .nav-links a { padding: .6rem 1rem; }
   .nav-links a.nav-cta {
-    background: var(--accent);
+    background-color: #b5943f !important;   /* CHANGED: locked gold (desktop nav button) */
     color: #1a1a1b !important;
     font-weight: 600;
     border-radius: 4px;
     margin-left: .75rem;
   }
-  .nav-links a.nav-cta:hover { background: var(--accent-light); }
+  .nav-links a.nav-cta:hover { background-color: #c9aa58 !important; }   /* CHANGED: locked hover gold */
 }
 
 /* ─── HERO ─── */
@@ -901,8 +904,8 @@ h2.section-title.wide { max-width: 720px; }
 .btn-solid {
   display: inline-block;
   padding: .9rem 2.4rem;
-  background: var(--accent);
-  color: #1a1a1b;
+  background-color: #b5943f !important;   /* CHANGED: locked gold (was background: var(--accent)) */
+  color: #1a1a1b !important;              /* CHANGED: locked text colour */
   font-family: var(--font-body);
   font-size: .8rem;
   font-weight: 600;
@@ -917,11 +920,19 @@ h2.section-title.wide { max-width: 720px; }
 }
 
 .btn-solid:hover {
-  background: var(--accent-light);
+  background-color: #c9aa58 !important;   /* CHANGED: locked hover gold */
+  color: #1a1a1b !important;              /* NEW */
   box-shadow: 0 8px 32px rgba(201,168,76,0.3);
   transform: translateY(-2px);
 }
+/* NEW: tap/press state locked too (mobile browsers apply :active on touch) */
+.btn-solid:active {
+  background-color: #c9aa58 !important;
+  color: #1a1a1b !important;
+}
 .btn-solid:disabled {
+  background-color: #b5943f !important;   /* NEW: disabled stays gold (opacity still dims it) */
+  color: #1a1a1b !important;              /* NEW */
   opacity: .7;
   cursor: not-allowed;
   transform: none;
