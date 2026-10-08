@@ -785,6 +785,34 @@ h2.section-title.wide { max-width: 720px; }
   transform: translateY(-1px);
 }
 
+/* NEW: TEAM BIO EXPANSION
+   While a bio is open, the script adds .is-stacked to .team-grid. The two cards then sit one
+   above the other at full section width, and every card keeps a fixed-width portrait column,
+   so neither the photo nor the text is squeezed. Closing the bio removes the class and the
+   original side-by-side grid returns. */
+.team-card { scroll-margin-top: 92px; }   /* keeps an expanded card clear of the fixed nav when it is scrolled into view */
+
+.team-card.is-active { border-color: var(--border-hover); }
+
+.team-grid.is-stacked { grid-template-columns: minmax(0, 1fr); }
+
+@media (min-width: 769px) {
+  .team-grid.is-stacked .team-card { grid-template-columns: clamp(240px, 28%, 360px) minmax(0, 1fr); }
+  .team-grid.is-stacked .team-portrait { object-position: 50% 20%; }   /* keeps faces in frame when the photo gets taller */
+  .team-grid.is-stacked .team-info { padding: 2rem 2.4rem; }
+  .team-grid.is-stacked .team-bio { max-width: 72ch; }                 /* comfortable line length on wide screens */
+}
+
+/* NEW: no fade-out when a bio is already short enough to show in full */
+.team-bio.is-short::after { display: none; }
+
+/* NEW: used by the script for instant (non-animated) resets, e.g. when you scroll away from the section */
+#team.is-instant .team-bio { transition: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .team-bio { transition: none; }
+}
+
 /* ─── CONTACT ─── */
 #contact {
   background: var(--bg-raised);
@@ -1178,7 +1206,7 @@ footer .footer-links a:hover {
         <div class="team-name">Ekci Suyapno</div>
         <div class="team-title">Founder &amp; Principal</div>
         <div class="team-tags"><span>Facilitation</span><span>Analytics</span><span>Strategy</span></div>
-        <p class="team-bio">Ekci Suyapno founded SA Analytical to close a gap she saw repeatedly over fifteen years in international development: the distance between what the evidence says and what organizations are able to agree on. In complex humanitarian and development contexts across Myanmar and the Middle East, she coordinated joint multi-sector assessments, trained the teams who carried them out, led the analysis, and then brought the findings back to the table to facilitate multi-stakeholder strategy. She worked with government bodies, UN agencies, international organizations, and local communities, often in frontline environments where decisions couldn't wait. Few people have been on both sides of that process: building the evidence and getting a room full of competing mandates to act on it. Through SA Analytical, she brings that full cycle to foundation boards and executive teams, designing data-backed decision processes that produce multi-stakeholder alignment and a defensible strategy leaders can stand behind. Ekci holds an M.A. in International Development from the University of Manchester.</p>
+        <p class="team-bio" id="bio-ekci">Ekci Suyapno founded SA Analytical to close a gap she saw repeatedly over fifteen years in international development: the distance between what the evidence says and what organizations are able to agree on. In complex humanitarian and development contexts across Myanmar and the Middle East, she coordinated joint multi-sector assessments, trained the teams who carried them out, led the analysis, and then brought the findings back to the table to facilitate multi-stakeholder strategy. She worked with government bodies, UN agencies, international organizations, and local communities, often in frontline environments where decisions couldn't wait. Few people have been on both sides of that process: building the evidence and getting a room full of competing mandates to act on it. Through SA Analytical, she brings that full cycle to foundation boards and executive teams, designing data-backed decision processes that produce multi-stakeholder alignment and a defensible strategy leaders can stand behind. Ekci holds an M.A. in International Development from the University of Manchester.</p>
         <button class="team-more-btn" type="button">Read More</button>
       </div>
     </div>
@@ -1190,7 +1218,7 @@ footer .footer-links a:hover {
         <div class="team-name">Stephen Williams</div>
         <div class="team-title">Senior Advisor, Strategy & Facilitation &amp; Insight</div>
         <div class="team-tags"><span>Executive leadership</span><span>Strategic change</span><span>Decision-making</span></div>
-        <p class="team-bio">Stephen brings over 25 years of experience spanning front-line humanitarian operations, executive leadership and international policy. A former NGO Country Director, ICRC delegate and European Commission humanitarian expert, he has led organisations with budgets of up to USD 25 million and more than 650 staff. Today, he draws on this experience to help foundations, non-profits and leadership teams navigate complexity, align competing priorities and translate strategy into effective organisational action.</p>
+        <p class="team-bio" id="bio-stephen">Stephen brings over 25 years of experience spanning front-line humanitarian operations, executive leadership and international policy. A former NGO Country Director, ICRC delegate and European Commission humanitarian expert, he has led organisations with budgets of up to USD 25 million and more than 650 staff. Today, he draws on this experience to help foundations, non-profits and leadership teams navigate complexity, align competing priorities and translate strategy into effective organisational action.</p>
         <button class="team-more-btn" type="button">Read More</button>
       </div>
     </div>
@@ -1570,38 +1598,162 @@ contactForm.addEventListener('submit', async (e) => {
   }
 });
 
-document.querySelectorAll('.team-more-btn').forEach((btn) => {
-  const bio = btn.previousElementSibling;
-  if (!bio) return;
+/* NEW: TEAM BIOS
+   One piece of state (activeCard = index of the open card, or null) drives everything.
+   render() applies it to the layout, the bios and the buttons, so they can never disagree:
+   - a card opens  -> grid becomes one full-width column (Ekci on top, Stephen directly below)
+   - the other card's Read More -> the open card collapses, the clicked one opens
+   - Read Less     -> everything collapses and the 2-column grid returns
+   - scrolling away from #team (IntersectionObserver), or jumping to another section -> same reset */
+(function () {
+  const teamSection = document.getElementById('team');
+  if (!teamSection) return;
 
-  const collapseBio = () => {
-    bio.classList.remove('is-expanded');
-    bio.style.maxHeight = 'calc(1.7em * 5)';
-    btn.textContent = 'Read More';
-  };
+  const teamGrid = teamSection.querySelector('.team-grid');
+  const siteNav = document.querySelector('nav');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const COLLAPSED = 'calc(1.7em * 5)';   // the 5-line preview height (same value as the CSS)
 
-  const expandBio = () => {
-    bio.classList.add('is-expanded');
-    bio.style.maxHeight = bio.scrollHeight + 'px';
-    btn.textContent = 'Read Less';
-  };
+  const cards = Array.from(teamGrid.querySelectorAll('.team-card'))
+    .map((card) => ({
+      card: card,
+      bio: card.querySelector('.team-bio'),
+      btn: card.querySelector('.team-more-btn')
+    }))
+    .filter((item) => item.bio && item.btn);
 
-  collapseBio();
+  let activeCard = null;     // index of the expanded card, or null
+  let scrollTimer = null;
 
-  btn.addEventListener('click', () => {
-    if (bio.classList.contains('is-expanded')) {
-      collapseBio();
-    } else {
-      expandBio();
-    }
+  // Runs fn with the max-height transition switched off (instant change), then switches it back on
+  function withoutTransition(fn) {
+    teamSection.classList.add('is-instant');
+    fn();
+    void teamSection.offsetHeight;   // apply the change while transitions are still off
+    teamSection.classList.remove('is-instant');
+  }
+
+  // Hide the fade-out on any collapsed bio that is already fully visible
+  function updateFades() {
+    cards.forEach((item, i) => {
+      if (i === activeCard) { item.bio.classList.remove('is-short'); return; }
+      // compare against the 5-line preview height, not the current height (which is still animating)
+      const previewPx = parseFloat(getComputedStyle(item.bio).fontSize) * 1.7 * 5;
+      item.bio.classList.toggle('is-short', item.bio.scrollHeight <= previewPx + 1);
+    });
+  }
+
+  function render() {
+    // 1) layout and labels first, because the text re-wraps when the card width changes
+    teamGrid.classList.toggle('is-stacked', activeCard !== null);
+    cards.forEach((item, i) => {
+      const open = i === activeCard;
+      item.card.classList.toggle('is-active', open);
+      item.bio.classList.toggle('is-expanded', open);
+      item.btn.textContent = open ? 'Read Less' : 'Read More';
+      item.btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // 2) then measure and animate the bios
+    cards.forEach((item, i) => {
+      item.bio.style.maxHeight = (i === activeCard) ? (item.bio.scrollHeight + 1) + 'px' : COLLAPSED;
+    });
+    updateFades();
+  }
+
+  // Collapse everything and restore the default 2-column grid, with no animation
+  function resetTeam() {
+    if (activeCard === null) return;
+    activeCard = null;
+    withoutTransition(render);
+  }
+
+  // Instant scroll correction (the page uses CSS smooth scrolling, which would make this drift)
+  function jumpBy(dy) {
+    const root = document.documentElement;
+    const previous = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollBy(0, dy);
+    root.style.scrollBehavior = previous;
+  }
+
+  // After the animation, bring the clicked card back into view if it ended up under the nav or far down
+  function keepInView(card) {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      const navH = siteNav ? siteNav.offsetHeight : 0;
+      const sectionRect = teamSection.getBoundingClientRect();
+      if (sectionRect.bottom < navH || sectionRect.top > window.innerHeight) return;   // user has already left
+      const top = card.getBoundingClientRect().top;
+      if (top < navH + 8 || top > window.innerHeight * 0.75) {
+        card.scrollIntoView({ behavior: prefersReduced.matches ? 'auto' : 'smooth', block: 'start' });
+      }
+    }, 460);
+  }
+
+  cards.forEach((item, i) => {
+    if (item.bio.id) item.btn.setAttribute('aria-controls', item.bio.id);
+    item.btn.addEventListener('click', () => {
+      activeCard = (activeCard === i) ? null : i;   // same card = Read Less; other card = swap
+      render();
+      keepInView(item.card);
+    });
   });
 
+  // AUTO-RESET: when #team has fully left the screen, collapse both bios and restore the grid.
+  // The top margin equals the fixed nav height, so a section hidden behind the nav counts as gone.
+  const navHeight = siteNav ? Math.ceil(siteNav.getBoundingClientRect().height) : 0;
+  const teamObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting || activeCard === null) return;
+
+      // If the section is above the viewport, collapsing it would pull the page up under the reader.
+      // Measure how far the next section moved and scroll by the same amount to cancel the jump.
+      const rootTop = entry.rootBounds ? entry.rootBounds.top : 0;
+      const scrolledPast = entry.boundingClientRect.bottom <= rootTop;
+      const anchor = teamSection.nextElementSibling;
+      const before = anchor ? anchor.getBoundingClientRect().top : 0;
+
+      resetTeam();
+
+      if (scrolledPast && anchor) {
+        const shift = anchor.getBoundingClientRect().top - before;
+        if (shift) jumpBy(shift);
+      }
+    });
+  }, { threshold: 0, rootMargin: '-' + navHeight + 'px 0px 0px 0px' });
+  teamObserver.observe(teamSection);
+
+  // Clicking any in-page link to another section (nav, hero buttons, footer) collapses the bios first,
+  // so the browser scrolls to the final position of the target instead of a position that is about to move.
+  document.addEventListener('click', (e) => {
+    if (activeCard === null) return;
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const link = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href.length < 2 || href === '#team') return;
+    resetTeam();
+  });
+
+  // Keep the open bio exactly as tall as its text when the window or the fonts change
+  function refresh() {
+    withoutTransition(() => {
+      if (activeCard !== null) {
+        const open = cards[activeCard].bio;
+        open.style.maxHeight = (open.scrollHeight + 1) + 'px';
+      }
+      updateFades();
+    });
+  }
+  let resizeFrame = null;
   window.addEventListener('resize', () => {
-    if (bio.classList.contains('is-expanded')) {
-      bio.style.maxHeight = bio.scrollHeight + 'px';
-    }
+    cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(refresh);
   });
-});
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
+
+  withoutTransition(render);   // initial state: both bios collapsed, 2-column grid
+})();
 </script>
 </body>
 </html>
