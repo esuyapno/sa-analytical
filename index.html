@@ -99,12 +99,29 @@ nav {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 1rem 1.25rem;
+  background-color: transparent;   /* NEW: explicit default, so every link resets to this */
   transition: color .25s var(--ease), background .25s var(--ease);
 }
 
-.nav-links a:hover {
-  color: #f5efe6;
-  background: rgba(201,168,76,0.16);
+/* CHANGED: highlight state for menu links = opaque gold background + black text.
+   Used on press/touch (:active), keyboard focus, and the .is-active class the JS adds on click.
+   !important stops mobile dark-mode engines from recolouring it. */
+.nav-links a:active,
+.nav-links a:focus-visible,
+.nav-links a.is-active {
+  background-color: #b5943f !important;
+  color: #1a1a1b !important;
+  transition-duration: .1s;   /* highlight switches on almost instantly; the reset back still fades out smoothly */
+}
+
+/* Hover highlight only on devices that really hover (mouse/trackpad), so touch screens
+   don't leave the last-tapped link "stuck" highlighted */
+@media (hover: hover) {
+  .nav-links a:hover {
+    background-color: #b5943f !important;
+    color: #1a1a1b !important;
+    transition-duration: .1s;
+  }
 }
 
 .nav-cta {
@@ -194,11 +211,12 @@ nav {
 
 /* ─── HERO ─── */
 #hero {
-  min-height: 100vh;
+  min-height: 100vh;                /* fallback for older browsers */
+  min-height: min(100vh, 820px);    /* CHANGED: capped, so tall screens don't add extra empty space below the hero */
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center;
-  padding: 8rem 5vw 6rem;
+  padding: 8rem 5vw 3.5rem;   /* CHANGED: bottom was 6rem - tighter hero-to-team transition */
   position: relative; overflow: hidden;
 }
 
@@ -341,7 +359,7 @@ h1.hero-headline em {
 /* REMOVED: .btn-outline (replaced by .btn-solid in the hero) */
 
 .hero-scroll-hint {
-  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: .75rem;   /* CHANGED: was 2.5rem - sits in the smaller bottom padding */ left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: .5rem;
   opacity: 0; animation: fadeIn 1s var(--ease) 1.2s forwards;
 }
@@ -351,7 +369,7 @@ h1.hero-headline em {
 }
 
 .scroll-line {
-  width: 1px; height: 44px;
+  width: 1px; height: 28px;   /* CHANGED: was 44px */
   background: linear-gradient(to bottom, var(--accent), transparent);
   animation: scrollDrop 1.8s var(--ease) infinite;
 }
@@ -641,7 +659,7 @@ h2.section-title.wide { max-width: 720px; }
 }
 
 /* ─── TEAM ─── */
-#team { background: var(--bg); }
+#team { background: var(--bg); padding-top: 3rem; }   /* CHANGED: was 7rem (from the generic section padding) */
 
 .team-grid {
   display: grid;
@@ -1103,16 +1121,16 @@ footer .footer-links a:hover {
 <body>
 
 <!-- NAV
-     CHANGED: labels rewritten, links match the new section order,
+     CHANGED: links now mirror the page order (Team, When to Call Us, What We Do, How It Works, Contact),
      "The Consortium" moved to the footer, CTA wording unified.
      On desktop (901px and up) the links show inline with a gold CTA button.
      On smaller screens the hamburger menu still appears. -->
 <nav>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#services">What We Do</a></li>
-    <li><a href="#challenges">When to Call Us</a></li>
-    <li><a href="#process">How It Works</a></li>
     <li><a href="#team">Our Team</a></li>
+    <li><a href="#challenges">When to Call Us</a></li>
+    <li><a href="#services">What We Do</a></li>
+    <li><a href="#process">How It Works</a></li>
     <li><a href="#contact" class="nav-cta">Book a Strategy Call</a></li>
   </ul>
   <button class="menu-toggle" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
@@ -1327,7 +1345,7 @@ At SA Analytical, Stephen designs and facilitates strategic processes that help 
 
 <!-- CONTACT
      CHANGED: headline and body copy, "What happens next" list added, form reduced to
-     Name / Email / Organisation / Message (phone removed to cut friction), button text updated.
+     Name / Organisation / Phone (optional) / Email / Message, button text updated.
      Form action, access key, and JS handling are unchanged. -->
 <section id="contact">
   <div class="contact-inner">
@@ -1371,7 +1389,11 @@ At SA Analytical, Stephen designs and facilitates strategic processes that help 
           <input type="text" id="company" name="company" placeholder="Foundation or organisation name" autocomplete="off"/>
         </div>
 
-        <!-- REMOVED: phone number field -->
+        <!-- NEW: optional phone number field (between Organisation and Email) -->
+        <div class="ghost-field">
+          <label for="phone">PHONE NUMBER (OPTIONAL)</label>
+          <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" autocomplete="off" />
+        </div>
 
         <div class="ghost-field">
           <label for="email">EMAIL ADDRESS</label>
@@ -1421,16 +1443,56 @@ At SA Analytical, Stephen designs and facilitates strategic processes that help 
 const menuBtn = document.getElementById('menuBtn');
 const navLinks = document.getElementById('navLinks');
 
+const navAnchors = navLinks.querySelectorAll('a');
+const NAV_PAUSE_MS = 450;   // NEW: how long the menu stays open so the selection can be seen (350-500ms works well)
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let navTimer = null;        // pending "close menu + scroll"
+let navClearTimer = null;   // pending "remove highlight"
+
+// NEW: removes the gold highlight from every menu link (the reset state)
+function clearNavActive() {
+  navAnchors.forEach(link => link.classList.remove('is-active'));
+}
+
+function closeMenu() {
+  navLinks.classList.remove('open');
+  menuBtn.classList.remove('active');
+  menuBtn.setAttribute('aria-expanded', 'false');
+}
+
 menuBtn.addEventListener('click', () => {
+  clearNavActive();   // CHANGED: reopening the menu always starts from a clean state
   const isOpen = navLinks.classList.toggle('open');
   menuBtn.classList.toggle('active', isOpen);
   menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 });
 
-navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  navLinks.classList.remove('open');
-  menuBtn.classList.remove('active');
-  menuBtn.setAttribute('aria-expanded', 'false');
+// CHANGED: menu links no longer jump and close instantly.
+// 1) the clicked link is highlighted immediately, 2) the menu stays open for NAV_PAUSE_MS,
+// 3) then the page smooth-scrolls to the section and the menu closes.
+navAnchors.forEach(link => link.addEventListener('click', (e) => {
+  // let the browser handle new-tab / modified clicks normally
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+  const href = link.getAttribute('href');
+  if (!href || href.length < 2 || href.charAt(0) !== '#') return;   // only same-page anchors
+  const target = document.querySelector(href);
+  if (!target) return;
+
+  e.preventDefault();
+
+  // a second click during the pause replaces the first one
+  clearTimeout(navTimer);
+  clearTimeout(navClearTimer);
+  clearNavActive();
+  link.classList.add('is-active');
+
+  navTimer = setTimeout(() => {
+    closeMenu();
+    target.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
+    try { history.pushState(null, '', href); } catch (err) { /* ignore */ }
+    navClearTimer = setTimeout(clearNavActive, 600);   // reset highlight once the menu is gone / scroll underway
+  }, NAV_PAUSE_MS);
 }));
 
 document.addEventListener('click', (e) => {
