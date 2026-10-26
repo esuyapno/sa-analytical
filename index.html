@@ -6,9 +6,9 @@
 <!-- NEW: declares the site as light-only so mobile / in-app browsers (WhatsApp etc.) do not auto-darken or invert it -->
 <meta name="color-scheme" content="light only"/>
 <!-- CHANGED: page title now names the audience (SEO + browser tab) -->
-<title>SA Analytical | Strategy Workshops for Organisations</title>
+<title>SA Analytical | Strategy Workshops for Foundations</title>
 <!-- NEW: meta description -->
-<meta name="description" content="Facilitated strategy workshops backed by data analysis for organisations. Align your board and team, set clear priorities, and make confident decisions."/>
+<meta name="description" content="Strategy workshops for foundations and philanthropic organisations, backed by data analysis. Align your board and team, set clear priorities, and make decisions you can defend."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
@@ -181,9 +181,8 @@ nav {
 .hamburger { display:none; }
 
 /* NEW: desktop nav shows links inline with a solid gold CTA button.
-   The hamburger stays for screens narrower than 1180px (CHANGED from 901px: the longer
-   "Who you will be working with" label needs more room to stay on one line). */
-@media (min-width: 1180px) {
+   The hamburger stays for screens narrower than 901px. */
+@media (min-width: 901px) {
   .menu-toggle { display: none; }
   .nav-links {
     position: static;
@@ -1159,11 +1158,11 @@ footer .footer-links a:hover {
 <!-- NAV
      CHANGED: links mirror the page order (Who you will be working with, When to Call Us, What We Do, How It Works, Contact),
      "The Consortium" moved to the footer, CTA wording unified.
-     On desktop (1180px and up) the links show inline with a gold CTA button.
+     On desktop (901px and up) the links show inline with a gold CTA button.
      On smaller screens the hamburger menu still appears. -->
 <nav>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#team">Who you will be working with</a></li>
+    <li><a href="#team">About Me</a></li>   <!-- CHANGED: shortened from "Who you will be working with" (the section heading is unchanged) -->
     <li><a href="#challenges">When to Call Us</a></li>
     <li><a href="#services">What We Do</a></li>
     <li><a href="#process">How It Works</a></li>
@@ -1183,9 +1182,11 @@ footer .footer-links a:hover {
        Outcome: Align your board and team around a strategy <em>you can act on, and defend.</em> -->
 <section id="hero">
   <img src="images/Logo V.png" alt="SA Analytical" class="hero-logo-img"/>
-  <div class="hero-eyebrow">Strategy facilitation for organisations</div>
+  <!-- CHANGED: eyebrow now names the audience (was "Strategy facilitation for organisations") -->
+  <div class="hero-eyebrow">Strategy workshops for foundations &amp; philanthropic organisations</div>
   <h1 class="hero-headline">Too many priorities.<br><em>One shared strategy.</em></h1>
-  <p class="hero-sub">Most strategy retreats produce good conversation and no decisions. We combine expert facilitation with rigorous data analysis, so your leadership team leaves aligned, focused, and clear on what to do next.</p>
+  <!-- CHANGED: "board and leadership team" replaces "leadership team"; analysis is tied to your portfolio and performance -->
+  <p class="hero-sub">Most strategy retreats produce good conversation and no decisions. We pair expert facilitation with rigorous analysis of your portfolio and performance, so your board and leadership team leave aligned, focused, and clear on what to do next.</p>
   <div class="hero-actions">
     <a href="#contact" class="btn-solid">Book a Strategy Call</a>
     <a href="#process" class="link-arrow">See how a workshop works &rarr;</a>
@@ -1202,19 +1203,22 @@ footer .footer-links a:hover {
 <section id="team">
   <div class="reveal">
     <div class="section-label">Who you will be working with</div>
-    <h2 class="section-title">Senior people. In the room and in the data.</h2>
-    <p class="section-desc">You work directly with senior practitioners. No juniors proxying for partners. Our team combines facilitation expertise with business intelligence, analytics, and strategic advisory experience.</p>
+    <!-- CHANGED: singular wording, because one profile is shown -->
+    <h2 class="section-title">One senior practitioner. In the room and in the data.</h2>
+    <p class="section-desc">You work directly with the founder, from the first conversation to the final decision. No juniors proxying for partners. Ekci combines facilitation expertise with analytics and strategic advisory experience built over fifteen years in international development.</p>
   </div>
   <div class="team-grid">
     <div class="team-card reveal">
       <div class="team-portrait-wrap">
-        <img src="images/Image 1.png" alt="Portrait of Ekci Suyapno, Founder and Chief Strategist" class="team-portrait"/>
+        <img src="images/Image 1.png" alt="Portrait of Ekci Suyapno, Founder and Principal" class="team-portrait"/>
       </div>
       <div class="team-info">
         <div class="team-name">Ekci Suyapno</div>
         <div class="team-title">Founder &amp; Principal</div>
         <div class="team-tags"><span>Facilitation</span><span>Analytics</span><span>Strategy</span></div>
-        <p class="team-bio" id="bio-ekci">Ekci Suyapno founded SA Analytical to close a gap she saw repeatedly over fifteen years in international development: the distance between what the evidence says and what organizations are able to agree on. In complex humanitarian and development contexts across Myanmar and the Middle East, she coordinated joint multi-sector assessments, trained the teams who carried them out, led the analysis, and then brought the findings back to the table to facilitate multi-stakeholder strategy. She worked with government bodies, UN agencies, international organizations, and local communities, often in frontline environments where decisions couldn't wait. Few people have been on both sides of that process: building the evidence and getting a room full of competing mandates to act on it. Through SA Analytical, she brings that full cycle to foundation boards and executive teams, designing data-backed decision processes that produce multi-stakeholder alignment and a defensible strategy leaders can stand behind. Ekci holds an M.A. in International Development from the University of Manchester.</p>
+        <!-- CHANGED: the first two sentences (the collapsed preview) now carry the "both sides of the process" idea and the foundation audience.
+             The rest of the bio follows in the same paragraph, so the Read More script is unchanged. -->
+        <p class="team-bio" id="bio-ekci">Ekci Suyapno has spent fifteen years on both sides of strategy: building the evidence, and getting a room full of competing mandates to act on it. She founded SA Analytical to bring that full cycle to foundation boards and executive teams, designing data-backed decision processes that produce alignment and a defensible strategy leaders can stand behind. Her work began in international development, in complex humanitarian and development contexts across Myanmar and the Middle East, where she coordinated joint multi-sector assessments, trained the teams who carried them out, led the analysis, and then brought the findings back to the table to facilitate multi-stakeholder strategy. She worked with government bodies, UN agencies, international organisations, and local communities, often in frontline environments where decisions couldn't wait. Ekci holds an M.A. in International Development from the University of Manchester.</p>
         <button class="team-more-btn" type="button">Read More</button>
       </div>
     </div>
