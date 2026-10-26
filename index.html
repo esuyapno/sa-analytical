@@ -181,8 +181,9 @@ nav {
 .hamburger { display:none; }
 
 /* NEW: desktop nav shows links inline with a solid gold CTA button.
-   The hamburger stays for screens narrower than 901px. */
-@media (min-width: 901px) {
+   The hamburger stays for screens narrower than 1180px (CHANGED from 901px: the longer
+   "Who you will be working with" label needs more room to stay on one line). */
+@media (min-width: 1180px) {
   .menu-toggle { display: none; }
   .nav-links {
     position: static;
@@ -212,11 +213,11 @@ nav {
 /* ─── HERO ─── */
 #hero {
   min-height: 100vh;                /* fallback for older browsers */
-  min-height: min(100vh, 820px);    /* CHANGED: capped, so tall screens don't add extra empty space below the hero */
+  min-height: min(100vh, 740px);    /* CHANGED: cap lowered from 820px - tall screens no longer add empty space below the hero */
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center;
-  padding: 8rem 5vw 3.5rem;   /* CHANGED: bottom was 6rem - tighter hero-to-team transition */
+  padding: 8rem 5vw 3rem;     /* CHANGED: bottom now 3rem (was 3.5rem, originally 6rem) - tighter hero-to-team transition */
   position: relative; overflow: hidden;
 }
 
@@ -359,7 +360,7 @@ h1.hero-headline em {
 /* REMOVED: .btn-outline (replaced by .btn-solid in the hero) */
 
 .hero-scroll-hint {
-  position: absolute; bottom: .75rem;   /* CHANGED: was 2.5rem - sits in the smaller bottom padding */ left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: .5rem;   /* CHANGED: was 2.5rem - sits in the smaller bottom padding */ left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: .5rem;
   opacity: 0; animation: fadeIn 1s var(--ease) 1.2s forwards;
 }
@@ -369,7 +370,7 @@ h1.hero-headline em {
 }
 
 .scroll-line {
-  width: 1px; height: 28px;   /* CHANGED: was 44px */
+  width: 1px; height: 24px;   /* CHANGED: was 44px */
   background: linear-gradient(to bottom, var(--accent), transparent);
   animation: scrollDrop 1.8s var(--ease) infinite;
 }
@@ -423,11 +424,7 @@ h2.section-title.wide { max-width: 720px; }
 .section-cta { margin-top: 3rem; }
 
 /* ─── PAIN POINTS (replaces the old "Insight Hub" bento grid) ─── */
-#challenges {
-  background: var(--bg-raised);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
+#challenges { background: var(--bg); }   /* CHANGED: was --bg-raised (now sits between two raised bands) */
 
 .pain-grid {
   display: grid;
@@ -473,7 +470,11 @@ h2.section-title.wide { max-width: 720px; }
 }
 
 /* ─── SERVICES ─── */
-#services { background: var(--bg); }
+#services {
+  background: var(--bg-raised);   /* CHANGED: was --bg */
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
 
 .services-grid {
   display: grid;
@@ -564,11 +565,7 @@ h2.section-title.wide { max-width: 720px; }
 }
 
 /* ─── HOW IT WORKS (NEW SECTION) ─── */
-#process {
-  background: var(--bg-raised);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
+#process { background: var(--bg); }   /* CHANGED: was --bg-raised (the contact section is raised, so process steps back to --bg) */
 
 .process-grid {
   display: grid;
@@ -659,11 +656,19 @@ h2.section-title.wide { max-width: 720px; }
 }
 
 /* ─── TEAM ─── */
-#team { background: var(--bg); padding-top: 3rem; }   /* CHANGED: was 7rem (from the generic section padding) */
+/* CHANGED: backgrounds now alternate for the new order:
+   hero (--bg) > team (--bg-raised) > challenges (--bg) > services (--bg-raised) > process (--bg) > contact (--bg-raised) > footer (dark).
+   Only the raised bands carry the thin top/bottom border lines. */
+#team {
+  background: var(--bg-raised);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding-top: 2.5rem;   /* CHANGED: was 3rem (and 7rem before that) - compact hero-to-team transition */
+}
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);   /* CHANGED: one profile = one full-width card (was 2 columns) */
   gap: 2rem;
   align-items: stretch;
 }
@@ -796,11 +801,13 @@ h2.section-title.wide { max-width: 720px; }
 
 .team-grid.is-stacked { grid-template-columns: minmax(0, 1fr); }
 
+/* CHANGED: with a single profile the wide card layout is now the default (it used to apply only while a bio was open),
+   so opening "Read More" no longer changes the card's width. */
 @media (min-width: 769px) {
-  .team-grid.is-stacked .team-card { grid-template-columns: clamp(240px, 28%, 360px) minmax(0, 1fr); }
-  .team-grid.is-stacked .team-portrait { object-position: 50% 20%; }   /* keeps faces in frame when the photo gets taller */
-  .team-grid.is-stacked .team-info { padding: 2rem 2.4rem; }
-  .team-grid.is-stacked .team-bio { max-width: 72ch; }                 /* comfortable line length on wide screens */
+  .team-card { grid-template-columns: clamp(240px, 28%, 360px) minmax(0, 1fr); }
+  .team-portrait { object-position: 50% 20%; }   /* keeps faces in frame when the photo gets taller */
+  .team-info { padding: 2rem 2.4rem; }
+  .team-bio { max-width: 72ch; }                 /* comfortable line length on wide screens */
 }
 
 /* NEW: no fade-out when a bio is already short enough to show in full */
@@ -1144,18 +1151,19 @@ footer .footer-links a:hover {
   .hero-eyebrow { font-size: .66rem; }
   .hero-eyebrow::before, .hero-eyebrow::after { display: none; }
 }
+.nav-links a { white-space: nowrap; }   /* CHANGED: nav labels never wrap */
 </style>
 </head>
 <body>
 
 <!-- NAV
-     CHANGED: links now mirror the page order (Team, When to Call Us, What We Do, How It Works, Contact),
+     CHANGED: links mirror the page order (Who you will be working with, When to Call Us, What We Do, How It Works, Contact),
      "The Consortium" moved to the footer, CTA wording unified.
-     On desktop (901px and up) the links show inline with a gold CTA button.
+     On desktop (1180px and up) the links show inline with a gold CTA button.
      On smaller screens the hamburger menu still appears. -->
 <nav>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#team">Our Team</a></li>
+    <li><a href="#team">Who you will be working with</a></li>
     <li><a href="#challenges">When to Call Us</a></li>
     <li><a href="#services">What We Do</a></li>
     <li><a href="#process">How It Works</a></li>
@@ -1188,12 +1196,12 @@ footer .footer-links a:hover {
   </div>
 </section>
 
-<!-- TEAM
-     CHANGED: title and intro, bios rewritten to be outcome-oriented (using only facts from your original bios),
-     expertise chips added, descriptive alt text, and the stray closing divs after the second card are fixed. -->
+<!-- TEAM  ("Who you will be working with")
+     CHANGED: the section label is renamed and Stephen Williams's card is removed, so one profile remains.
+     The section id stays #team, so every link to it keeps working. -->
 <section id="team">
   <div class="reveal">
-    <div class="section-label">Our Team</div>
+    <div class="section-label">Who you will be working with</div>
     <h2 class="section-title">Senior people. In the room and in the data.</h2>
     <p class="section-desc">You work directly with senior practitioners. No juniors proxying for partners. Our team combines facilitation expertise with business intelligence, analytics, and strategic advisory experience.</p>
   </div>
@@ -1207,18 +1215,6 @@ footer .footer-links a:hover {
         <div class="team-title">Founder &amp; Principal</div>
         <div class="team-tags"><span>Facilitation</span><span>Analytics</span><span>Strategy</span></div>
         <p class="team-bio" id="bio-ekci">Ekci Suyapno founded SA Analytical to close a gap she saw repeatedly over fifteen years in international development: the distance between what the evidence says and what organizations are able to agree on. In complex humanitarian and development contexts across Myanmar and the Middle East, she coordinated joint multi-sector assessments, trained the teams who carried them out, led the analysis, and then brought the findings back to the table to facilitate multi-stakeholder strategy. She worked with government bodies, UN agencies, international organizations, and local communities, often in frontline environments where decisions couldn't wait. Few people have been on both sides of that process: building the evidence and getting a room full of competing mandates to act on it. Through SA Analytical, she brings that full cycle to foundation boards and executive teams, designing data-backed decision processes that produce multi-stakeholder alignment and a defensible strategy leaders can stand behind. Ekci holds an M.A. in International Development from the University of Manchester.</p>
-        <button class="team-more-btn" type="button">Read More</button>
-      </div>
-    </div>
-    <div class="team-card reveal reveal-delay-1">
-      <div class="team-portrait-wrap">
-        <img src="images/Image 2.png" alt="Portrait of Stephen Williams, Director of Business Strategy and Insight" class="team-portrait"/>
-      </div>
-      <div class="team-info">
-        <div class="team-name">Stephen Williams</div>
-        <div class="team-title">Senior Advisor, Strategy, Facilitation &amp; Insight</div>
-        <div class="team-tags"><span>Executive leadership</span><span>Strategic change</span><span>Decision-making</span></div>
-        <p class="team-bio" id="bio-stephen">Stephen brings over 25 years of experience spanning front-line humanitarian operations, executive leadership and international policy. A former NGO Country Director, ICRC delegate and European Commission humanitarian expert, he has led organisations with budgets of up to USD 25 million and more than 650 staff. Today, he draws on this experience to help foundations, non-profits and leadership teams navigate complexity, align competing priorities and translate strategy into effective organisational action.</p>
         <button class="team-more-btn" type="button">Read More</button>
       </div>
     </div>
@@ -1450,10 +1446,10 @@ footer .footer-links a:hover {
       <div class="footer-tagline">Strategy workshop, grounded in data.</div>
     </div>
     <ul class="footer-links">
-      <li><a href="#services">What We Do</a></li>
+      <li><a href="#team">Who you will be working with</a></li>
       <li><a href="#challenges">When to Call Us</a></li>
+      <li><a href="#services">What We Do</a></li>
       <li><a href="#process">How It Works</a></li>
-      <li><a href="#team">Our Team</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="https://www.consortiumadvisory.org" target="_blank" rel="noopener noreferrer">The Consortium &#8599;</a></li>
     </ul>
@@ -1601,7 +1597,7 @@ contactForm.addEventListener('submit', async (e) => {
 /* NEW: TEAM BIOS
    One piece of state (activeCard = index of the open card, or null) drives everything.
    render() applies it to the layout, the bios and the buttons, so they can never disagree:
-   - a card opens  -> grid becomes one full-width column (Ekci on top, Stephen directly below)
+   - a card opens  -> the grid stays one full-width column (only one profile remains, so the layout does not change)
    - the other card's Read More -> the open card collapses, the clicked one opens
    - Read Less     -> everything collapses and the 2-column grid returns
    - scrolling away from #team (IntersectionObserver), or jumping to another section -> same reset */
