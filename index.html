@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<!-- NEW: declares the site as light-only so mobile / in-app browsers (WhatsApp etc.) do not auto-darken or invert it -->
+<!-- Light-only site: stops mobile and in-app browsers (WhatsApp etc.) from auto-darkening or inverting the page -->
 <meta name="color-scheme" content="light only"/>
-<!-- CHANGED: page title now names the audience (SEO + browser tab) -->
+<!-- Page title: shown in the browser tab and in Google results (SEO) -->
 <title>SA Analytical | Strategy Workshops for Foundations, NGOs, International Organisations and Global Non-Profits</title>
-<!-- NEW: meta description -->
+<!-- Meta description: the summary Google shows under the title in search results -->
 <meta name="description" content="Strategy workshops for foundations, NGOs, United Nations, international organisations and non-profits, backed by data analysis on needs assessments and programme impact. Align your board, director, senior managers and team around your vision, mission and goal, set clear priorities, and make decisions you can defend."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -19,7 +19,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  color-scheme: light only;   /* NEW: enforces the light theme in the rendering engine */
+  color-scheme: light only;   /* light theme only (see the meta tag above) */
   --bg:           #f4f0e8;
   --bg-card:      #faf7f1;
   --bg-raised:    #e9e2d7;
@@ -59,7 +59,7 @@ body::before {
 
 section, nav, footer { position: relative; z-index: 1; }
 
-/* NEW: anchor links no longer hide under the fixed nav */
+/* Anchor links stop below the fixed nav instead of hiding under it */
 section[id] { scroll-margin-top: 60px; }
 
 /* ─── NAV ─── */
@@ -99,11 +99,11 @@ nav {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 1rem 1.25rem;
-  background-color: transparent;   /* NEW: explicit default, so every link resets to this */
+  background-color: transparent;   /* default state: every link resets to this */
   transition: color .25s var(--ease), background .25s var(--ease);
 }
 
-/* CHANGED: highlight state for menu links = opaque gold background + black text.
+/* Highlight state for menu links = opaque gold background + black text.
    Used on press/touch (:active), keyboard focus, and the .is-active class the JS adds on click.
    !important stops mobile dark-mode engines from recolouring it. */
 .nav-links a:active,
@@ -134,7 +134,7 @@ nav {
   gap:.7rem;
   background:none;
   border:1px solid var(--border);
-  color:#f5efe6; /* CHANGED: removed stray double semicolon */
+  color:#f5efe6;
   padding:.65rem 1rem;
   border-radius:8px;
   cursor:pointer;
@@ -180,8 +180,8 @@ nav {
 .close-btn,
 .hamburger { display:none; }
 
-/* NEW: desktop nav shows links inline with a solid gold CTA button.
-   The hamburger stays for screens narrower than 901px. */
+/* DESKTOP NAV (901px and wider): links sit inline, with a solid gold CTA button.
+   Narrower screens use the hamburger menu instead. */
 @media (min-width: 901px) {
   .menu-toggle { display: none; }
   .nav-links {
@@ -200,23 +200,23 @@ nav {
   }
   .nav-links a { padding: .6rem 1rem; }
   .nav-links a.nav-cta {
-    background-color: #b5943f !important;   /* CHANGED: locked gold (desktop nav button) */
+    background-color: #b5943f !important;   /* fixed gold, so dark-mode browsers can't recolour it */
     color: #1a1a1b !important;
     font-weight: 600;
     border-radius: 4px;
     margin-left: .75rem;
   }
-  .nav-links a.nav-cta:hover { background-color: #c9aa58 !important; }   /* CHANGED: locked hover gold */
+  .nav-links a.nav-cta:hover { background-color: #c9aa58 !important; }   /* hover gold */
 }
 
 /* ─── HERO ─── */
 #hero {
   min-height: 100vh;                /* fallback for older browsers */
-  min-height: min(100vh, 740px);    /* CHANGED: cap lowered from 820px - tall screens no longer add empty space below the hero */
+  min-height: min(100vh, 740px);    /* capped, so tall screens don't add empty space below the hero */
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center;
-  padding: 8rem 5vw 7rem;     /* CHANGED: bottom now 7rem, the same as every other section (see: section { padding: 7rem 5vw; }) */
+  padding: 8rem 5vw 7rem;     /* bottom padding matches every other section (section { padding: 7rem 5vw; }) */
   position: relative; overflow: hidden;
 }
 
@@ -261,7 +261,7 @@ nav img[alt="SA Analytical"] {
   opacity: .78;
 }
 
-/* CHANGED: logo smaller so the headline and CTA sit higher on laptop screens */
+/* Hero logo: kept small so the headline and CTA sit high on laptop screens */
 .hero-logo-img {
   height: clamp(110px, 18vw, 150px);
   width: auto;
@@ -274,7 +274,7 @@ nav img[alt="SA Analytical"] {
   opacity: .94;
 }
 
-/* CHANGED: eyebrow text is longer now, so it can wrap and centre */
+/* Hero eyebrow (small gold line above the headline): can wrap and stays centred */
 .hero-eyebrow {
   display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
   flex-wrap: wrap;
@@ -310,7 +310,7 @@ h1.hero-headline em {
   color: var(--accent);
 }
 
-/* CHANGED: wider max-width for the longer sub-headline */
+/* Hero sub-headline */
 .hero-sub {
   max-width: 640px;
   color: var(--text-secondary);
@@ -322,7 +322,7 @@ h1.hero-headline em {
   animation: fadeUp .9s var(--ease) .42s forwards;
 }
 
-/* NEW: primary solid CTA + secondary text link, side by side */
+/* Hero buttons: solid CTA + secondary text link, side by side */
 .hero-actions {
   display: flex; flex-wrap: wrap;
   align-items: center; justify-content: center;
@@ -331,7 +331,7 @@ h1.hero-headline em {
   animation: fadeUp .9s var(--ease) .58s forwards;
 }
 
-/* NEW: text link with arrow (used in hero and pain section) */
+/* Text link with arrow (used in the hero and in When to Call Us) */
 .link-arrow {
   color: var(--text-primary);
   font-size: .82rem;
@@ -345,7 +345,7 @@ h1.hero-headline em {
 }
 .link-arrow:hover { color: var(--accent); border-color: var(--accent); }
 
-/* NEW: small trust line under the hero CTA */
+/* Small trust line under the hero CTA */
 .hero-trust {
   margin-top: 2.2rem;
   font-size: .7rem;
@@ -356,10 +356,8 @@ h1.hero-headline em {
   animation: fadeUp .9s var(--ease) .72s forwards;
 }
 
-/* REMOVED: .btn-outline (replaced by .btn-solid in the hero) */
-
 .hero-scroll-hint {
-  position: absolute; bottom: .5rem;   /* CHANGED: was 2.5rem - sits in the smaller bottom padding */ left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: .5rem; left: 50%;   /* scroll hint sits inside the hero's bottom padding */ transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: .5rem;
   opacity: 0; animation: fadeIn 1s var(--ease) 1.2s forwards;
 }
@@ -369,7 +367,7 @@ h1.hero-headline em {
 }
 
 .scroll-line {
-  width: 1px; height: 24px;   /* CHANGED: was 44px */
+  width: 1px; height: 24px;
   background: linear-gradient(to bottom, var(--accent), transparent);
   animation: scrollDrop 1.8s var(--ease) infinite;
 }
@@ -415,15 +413,15 @@ h2.section-title {
   margin-bottom: 3.5rem;
 }
 
-/* NEW: wider variants for the longer titles and descriptions */
+/* Wider variants for long titles and descriptions (add class="wide") */
 h2.section-title.wide { max-width: 720px; }
 .section-desc.wide    { max-width: 620px; }
 
-/* NEW: centred CTA row used under sections */
+/* CTA row used under sections */
 .section-cta { margin-top: 3rem; }
 
-/* ─── PAIN POINTS (replaces the old "Insight Hub" bento grid) ─── */
-#challenges { background: var(--bg); }   /* CHANGED: was --bg-raised (now sits between two raised bands) */
+/* ─── WHEN TO CALL US (pain points, #challenges) ─── */
+#challenges { background: var(--bg); }
 
 .pain-grid {
   display: grid;
@@ -470,7 +468,7 @@ h2.section-title.wide { max-width: 720px; }
 
 /* ─── SERVICES ─── */
 #services {
-  background: var(--bg-raised);   /* CHANGED: was --bg */
+  background: var(--bg-raised);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
@@ -484,7 +482,7 @@ h2.section-title.wide { max-width: 720px; }
   overflow: hidden;
 }
 
-/* CHANGED: extra bottom padding so the new outcome line never touches the card number */
+/* Service cards: extra bottom padding so the outcome line never touches the card number */
 .service-card {
   padding: 2.8rem 2.4rem 3.8rem;
   background: var(--bg-card);
@@ -545,7 +543,7 @@ h2.section-title.wide { max-width: 720px; }
   font-weight: 300;
 }
 
-/* NEW: gold outcome line at the bottom of each service card */
+/* Gold outcome line at the bottom of each service card */
 .service-outcome {
   display: block;
   margin-top: 1.3rem;
@@ -563,8 +561,8 @@ h2.section-title.wide { max-width: 720px; }
   color: var(--text-muted);
 }
 
-/* ─── HOW IT WORKS (NEW SECTION) ─── */
-#process { background: var(--bg); }   /* CHANGED: was --bg-raised (the contact section is raised, so process steps back to --bg) */
+/* ─── HOW IT WORKS (#process) ─── */
+#process { background: var(--bg); }
 
 .process-grid {
   display: grid;
@@ -609,7 +607,7 @@ h2.section-title.wide { max-width: 720px; }
   font-weight: 300;
 }
 
-/* ─── PROOF (NEW, styles for the optional proof section further down) ─── */
+/* ─── PROOF (styles for the optional, currently hidden, proof section) ─── */
 #proof {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border);
@@ -655,8 +653,9 @@ h2.section-title.wide { max-width: 720px; }
 }
 
 /* ─── TEAM ─── */
-/* CHANGED: backgrounds now alternate for the new order:
-   hero (--bg) > team (--bg-raised) > challenges (--bg) > services (--bg-raised) > process (--bg) > contact (--bg-raised) > footer (dark).
+/* SECTION BACKGROUNDS alternate down the page:
+   hero (--bg) > team (--bg-raised) > challenges (--bg) > services (--bg-raised) > insights (dark)
+   > process (--bg) > contact (--bg-raised) > footer (dark).
    Only the raised bands carry the thin top/bottom border lines. */
 #team {
   background: var(--bg-raised);
@@ -667,7 +666,7 @@ h2.section-title.wide { max-width: 720px; }
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));   /* CHANGED: two profiles side by side again */
+  grid-template-columns: repeat(2, minmax(0, 1fr));   /* two profiles side by side */
   gap: 2rem;
   align-items: stretch;
 }
@@ -728,7 +727,7 @@ h2.section-title.wide { max-width: 720px; }
   margin-bottom: .7rem;
 }
 
-/* NEW: expertise chips under each name */
+/* Expertise chips under each name */
 .team-tags {
   display: flex; flex-wrap: wrap; gap: .4rem;
   margin-bottom: .9rem;
@@ -789,7 +788,7 @@ h2.section-title.wide { max-width: 720px; }
   transform: translateY(-1px);
 }
 
-/* NEW: TEAM BIO EXPANSION
+/* TEAM BIO EXPANSION ("Read More")
    While a bio is open, the script adds .is-stacked to .team-grid. The two cards then sit one
    above the other at full section width, and every card keeps a fixed-width portrait column,
    so neither the photo nor the text is squeezed. Closing the bio removes the class and the
@@ -800,7 +799,7 @@ h2.section-title.wide { max-width: 720px; }
 
 .team-grid.is-stacked { grid-template-columns: minmax(0, 1fr); }
 
-/* CHANGED: restored - the wide card layout applies only while a bio is open (.is-stacked), as in the two-profile version */
+/* Wide card layout, used only while a bio is open (.is-stacked) */
 @media (min-width: 769px) {
   .team-grid.is-stacked .team-card { grid-template-columns: clamp(240px, 28%, 360px) minmax(0, 1fr); }
   .team-grid.is-stacked .team-portrait { object-position: 50% 20%; }   /* keeps faces in frame when the photo gets taller */
@@ -808,10 +807,10 @@ h2.section-title.wide { max-width: 720px; }
   .team-grid.is-stacked .team-bio { max-width: 72ch; }                 /* comfortable line length on wide screens */
 }
 
-/* NEW: no fade-out when a bio is already short enough to show in full */
+/* No fade-out when a bio is short enough to show in full */
 .team-bio.is-short::after { display: none; }
 
-/* NEW: used by the script for instant (non-animated) resets, e.g. when you scroll away from the section */
+/* Used by the script for instant (non-animated) resets, e.g. when you scroll away from the section */
 #team.is-instant .team-bio { transition: none; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -819,9 +818,10 @@ h2.section-title.wide { max-width: 720px; }
 }
 
 
-/* ─── NEW: DASHBOARD PREVIEW ("Insights")
-   Dark band so the dark dashboard reads as a natural extension of the site.
-   Sits between What We Do (raised) and How It Works (--bg). ─── */
+/* ─── INSIGHTS: DASHBOARD PREVIEW (#insights) ───
+   Dark band, so the dark dashboard reads as a natural extension of the site.
+   Left: text + button. Right: .dash-thumb, a clickable miniature of the dashboard
+   (browser bar, title, 3 KPI tiles, mini chart). */
 #insights {
   background: #2b2b2e;
   color: #f5efe6;
@@ -922,7 +922,7 @@ h2.section-title.wide { max-width: 720px; }
   margin-bottom: 1.4rem;
 }
 
-/* CHANGED: slightly wider so the new body copy wraps nicely */
+/* Contact intro text */
 .contact-left p {
   color: var(--text-secondary);
   font-weight: 300;
@@ -944,7 +944,7 @@ h2.section-title.wide { max-width: 720px; }
 .contact-email:hover { border-color: var(--accent); color: var(--accent); }
 .contact-email svg { width:16px; height:16px; stroke:currentColor; stroke-width:1.5; fill:none; }
 
-/* NEW: "What happens next" list */
+/* "What happens next" list */
 .next-steps {
   list-style: none;
   counter-reset: step;
@@ -1036,14 +1036,14 @@ h2.section-title.wide { max-width: 720px; }
 .btn-solid {
   display: inline-block;
   padding: .9rem 2.4rem;
-  background-color: #b5943f !important;   /* CHANGED: locked gold (was background: var(--accent)) */
-  color: #1a1a1b !important;              /* CHANGED: locked text colour */
+  background-color: #b5943f !important;   /* fixed gold: !important stops dark-mode browsers recolouring it */
+  color: #1a1a1b !important;              /* fixed text colour */
   font-family: var(--font-body);
   font-size: .8rem;
   font-weight: 600;
   letter-spacing: .14em;
   text-transform: uppercase;
-  text-decoration: none; /* NEW: so .btn-solid also works on <a> links */
+  text-decoration: none; /* so .btn-solid also works on <a> links */
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -1052,19 +1052,19 @@ h2.section-title.wide { max-width: 720px; }
 }
 
 .btn-solid:hover {
-  background-color: #c9aa58 !important;   /* CHANGED: locked hover gold */
-  color: #1a1a1b !important;              /* NEW */
+  background-color: #c9aa58 !important;   /* hover gold */
+  color: #1a1a1b !important;
   box-shadow: 0 8px 32px rgba(201,168,76,0.3);
   transform: translateY(-2px);
 }
-/* NEW: tap/press state locked too (mobile browsers apply :active on touch) */
+/* Tap/press state (mobile browsers apply :active on touch) */
 .btn-solid:active {
   background-color: #c9aa58 !important;
   color: #1a1a1b !important;
 }
 .btn-solid:disabled {
-  background-color: #b5943f !important;   /* NEW: disabled stays gold (opacity still dims it) */
-  color: #1a1a1b !important;              /* NEW */
+  background-color: #b5943f !important;   /* disabled stays gold (opacity dims it) */
+  color: #1a1a1b !important;
   opacity: .7;
   cursor: not-allowed;
   transform: none;
@@ -1133,7 +1133,7 @@ footer {
   max-width: 420px;
 }
 
-/* CHANGED: wraps cleanly now that the footer has 5 links */
+/* Footer links wrap cleanly on narrow screens */
 .footer-links {
   display: flex; flex-wrap: wrap; gap: .75rem 2rem;
   list-style: none;
@@ -1197,7 +1197,7 @@ footer .footer-links a:hover {
 .reveal-delay-3 { transition-delay: .36s; }
 
 /* ─── RESPONSIVE ─── */
-/* NEW: pain grid and process steps collapse to 2 columns on tablets */
+/* Tablets: pain points and process steps in 2 columns */
 @media (max-width: 1100px) {
   .pain-grid { grid-template-columns: repeat(2, 1fr); }
   .process-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1213,26 +1213,26 @@ footer .footer-links a:hover {
   .team-grid { grid-template-columns: 1fr; }
   .team-card { grid-template-columns: 220px 1fr; }
   .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-  .proof-case { grid-template-columns: 1fr; gap: 1.5rem; } /* NEW */
-  /* REMOVED: bento-grid rules (old Insight Hub) */
+  .proof-case { grid-template-columns: 1fr; gap: 1.5rem; }
 }
 
 @media (max-width: 600px) {
-  .pain-grid { grid-template-columns: 1fr; }       /* NEW */
-  .process-grid { grid-template-columns: 1fr; }    /* NEW */
+  .pain-grid { grid-template-columns: 1fr; }
+  .process-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
   .team-grid { grid-template-columns: 1fr; }
   .team-card { grid-template-columns: 1fr; min-height: auto; }
   .team-portrait { height: auto; aspect-ratio: 3/4; }
-  /* NEW: hide eyebrow side lines on small phones so the longer text wraps cleanly */
+  /* small phones: hide the eyebrow side lines so the text wraps cleanly */
   .hero-eyebrow { font-size: .66rem; }
   .hero-eyebrow::before, .hero-eyebrow::after { display: none; }
 }
-.nav-links a { white-space: nowrap; }   /* CHANGED: nav labels never wrap */
+.nav-links a { white-space: nowrap; }   /* menu labels never break onto two lines */
 
-/* Dashboard preview video */
+/* Dashboard preview video (optional, see the commented-out <video> in #insights).
+   Only used once the video files are uploaded to images/. */
 .dash-video {
   display: block;
   width: 100%;
@@ -1243,17 +1243,15 @@ footer .footer-links a:hover {
 </head>
 <body>
 
-<!-- NAV
-     CHANGED: links mirror the page order (Who you will be working with, When to Call Us, What We Do, How It Works, Contact),
-     "The Consortium" moved to the footer, CTA wording unified.
-     On desktop (901px and up) the links show inline with a gold CTA button.
-     On smaller screens the hamburger menu still appears. -->
+<!-- ═══ NAV ═══
+     Links follow the page order. "The Consortium" link lives in the footer.
+     Desktop (901px and up): links inline with a gold CTA button. Smaller screens: hamburger menu. -->
 <nav>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#team">About Us</a></li>   <!-- CHANGED: "About Us" (was "About Me"); the section heading is unchanged -->
+    <li><a href="#team">About Us</a></li>
     <li><a href="#challenges">When to Call Us</a></li>
     <li><a href="#services">What We Do</a></li>
-    <li><a href="#insights">Insights</a></li>   <!-- NEW -->
+    <li><a href="#insights">Insights</a></li>
     <li><a href="#process">How It Works</a></li>
     <li><a href="#contact" class="nav-cta">Book a Strategy Call</a></li>
   </ul>
@@ -1263,18 +1261,15 @@ footer .footer-links a:hover {
   </button>
 </nav>
 
-<!-- HERO
-     CHANGED: eyebrow names the audience, headline states the friction and the outcome,
-     sub-headline names the dual benefit (facilitation + data), solid primary CTA + secondary link,
-     trust line added. Alternative headlines you can swap into the h1:
+<!-- ═══ HERO ═══
+     Eyebrow = audience, headline = problem + outcome, sub-headline = facilitation + data,
+     then the CTA buttons and trust line. Alternative headlines you can swap into the h1:
        Direct:  Strategy workshops for foundations, <em>grounded in data.</em>
        Outcome: Align your board and team around a strategy <em>you can act on, and defend.</em> -->
 <section id="hero">
   <img src="images/Logo V.png" alt="SA Analytical" class="hero-logo-img"/>
-  <!-- CHANGED: eyebrow now names the audience (was "Strategy facilitation for organisations") -->
   <div class="hero-eyebrow">Strategy workshops for foundations, NGOs &amp; global non-profits</div>
   <h1 class="hero-headline">Too many priorities.<br><em>One shared strategy.</em></h1>
-  <!-- CHANGED: institutional wording - "board and executive team", "programme and impact data", "aligned on the mission" -->
   <p class="hero-sub">Most strategy retreats produce good conversation and no decisions. We pair expert facilitation with rigorous analysis of your programme and impact, so your board and executive team leave aligned on the mission, focused, and clear on what to do next.</p>
   <div class="hero-actions">
     <a href="#contact" class="btn-solid">Book a Strategy Call</a>
@@ -1286,13 +1281,11 @@ footer .footer-links a:hover {
   </div>
 </section>
 
-<!-- TEAM  ("Who you will be working with")
-     CHANGED: the section label is renamed; Stephen Williams's card is restored, so two profiles show side by side.
-     The section id stays #team, so every link to it keeps working. -->
+<!-- ═══ TEAM ("Who you will be working with", #team) ═══
+     Two profiles side by side. "Read More" opens a bio (see TEAM BIOS script at the bottom). -->
 <section id="team">
   <div class="reveal">
     <div class="section-label">Who you will be working with</div>
-    <!-- CHANGED: original multi-person heading and narrative restored -->
     <h2 class="section-title">Senior people. In the room and in the data.</h2>
     <p class="section-desc">You work directly with senior practitioners. No junior staff standing in for senior advisers. Our team combines facilitation expertise with impact analysis and institutional strategy from humanitarian and international development experience.</p>
   </div>
@@ -1305,8 +1298,7 @@ footer .footer-links a:hover {
         <div class="team-name">Ekci Suyapno</div>
         <div class="team-title">Founder &amp; Principal</div>
         <div class="team-tags"><span>Facilitation</span><span>Impact data</span><span>Programme strategy</span></div>
-        <!-- CHANGED: the first two sentences (the collapsed preview) now carry the "both sides of the process" idea and the foundation audience.
-             The rest of the bio follows in the same paragraph, so the Read More script is unchanged. -->
+        <!-- The first sentences show as the collapsed preview; the rest appears on "Read More". Keep the bio in one paragraph. -->
         <p class="team-bio" id="bio-ekci">Ekci Suyapno founded SA Analytical to close a gap she saw repeatedly over fifteen years in international development: the distance between what the evidence says and what organizations are able to agree on. In complex humanitarian and development contexts across Myanmar and the Middle East, she coordinated multi-sector assessments, trained teams who carried them out, led the analysis, and then brought the findings back to the table to facilitate multi-stakeholder strategy. She worked with government bodies, UN agencies, international organizations, and local communities, often in frontline environments where decisions couldn't wait. Few people have been on both sides of that process: building the evidence and getting a room full of competing mandates to act on it. Through SA Analytical, she brings that full cycle to board members and executive teams, designing data-backed decision processes that produce multi-stakeholder alignment and a defensible strategy leaders can stand behind.</p>
         <button class="team-more-btn" type="button">Read More</button>
       </div>
@@ -1326,9 +1318,7 @@ footer .footer-links a:hover {
   </div>
 </section>
 
-<!-- PAIN POINTS
-     REPLACES the old "Insight Hub" (id="insights") with the two dashboard graphics.
-     The mock Revenue / Conversion / Pipeline images are removed because they signalled corporate sales, not philanthropy. -->
+<!-- ═══ WHEN TO CALL US (pain points, #challenges) ═══ -->
 <section id="challenges">
   <div class="reveal">
     <div class="section-label">When to Call Us</div>
@@ -1370,9 +1360,8 @@ footer .footer-links a:hover {
   </div>
 </section>
 
-<!-- SERVICES
-     CHANGED: title and intro state the dual benefit, "Business Intelligence" and "Business Analytics"
-     merged into one outcome-led card, cards now speak in foundation language and end with an outcome line. -->
+<!-- ═══ WHAT WE DO (services, #services) ═══
+     Each card: icon, title, text, gold outcome line. -->
 <section id="services">
   <div class="reveal">
     <div class="section-label">What We Do</div>
@@ -1391,7 +1380,7 @@ footer .footer-links a:hover {
     </div>
     <div class="service-card">
       <div class="service-icon">
-        <!-- CHANGED: new "people" icon for the alignment card -->
+        <!-- icon: people (alignment) -->
         <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15 14.5c.5-.3 1.1-.5 2-.5 2.2 0 4 1.8 4 4"/></svg>
       </div>
       <h3>Board &amp; Leadership Alignment Sessions</h3>
@@ -1401,7 +1390,7 @@ footer .footer-links a:hover {
     </div>
     <div class="service-card">
       <div class="service-icon">
-        <!-- CHANGED: bar-chart icon for the merged analysis card -->
+        <!-- icon: bar chart (analysis) -->
         <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
       </div>
       <h3>Evidence &amp; Analysis</h3>
@@ -1411,10 +1400,11 @@ footer .footer-links a:hover {
     </div>
   </div>
 </section>
-<!-- DASHBOARD PREVIEW
-     A lightweight miniature of the dashboard (Attention & funding view, September 2026 figures).
-     The whole card links to the full dashboard on its own subdomain.
-     When you refresh the dashboard, update the KPI values and the month below. -->
+
+<!-- ═══ INSIGHTS: DASHBOARD PREVIEW (#insights) ═══
+     Left: text and "Explore the dashboard" button. Right: a clickable miniature of the dashboard.
+     Figures are from the September 2026 data. After each monthly dashboard update,
+     change the 3 KPI values (Countries in crisis, Lowest visibility vs. severity, Reference month). -->
 <section id="insights">
   <div class="insight-inner">
     <div class="reveal">
@@ -1440,22 +1430,102 @@ footer .footer-links a:hover {
           <div class="dash-kpi hl"><small>Lowest visibility vs. severity</small><b>DR Congo</b></div>
           <div class="dash-kpi"><small>Reference month</small><b>Sep 2026</b></div>
         </div>
+        <!-- Mini chart: severity (up) vs. news coverage (across), one dot per crisis country, Sep 2026. -->
         <div class="dash-chart">
-          <video class="dash-video" autoplay muted loop playsinline preload="none"
-                 poster="images/dashboard-poster.jpg" width="640" height="400"
-                 aria-label="Animated preview of the dashboard maps">
+          <div class="dash-chart-title">Crisis severity vs. media attention</div>
+          <svg viewBox="0 0 520 300">
+      <line x1="34.0" y1="14" x2="34.0" y2="270" class="g"/>
+      <line x1="152.0" y1="14" x2="152.0" y2="270" class="g"/>
+      <line x1="270.0" y1="14" x2="270.0" y2="270" class="g"/>
+      <line x1="388.0" y1="14" x2="388.0" y2="270" class="g"/>
+      <line x1="506.0" y1="14" x2="506.0" y2="270" class="g"/>
+      <line x1="34" y1="233.4" x2="506" y2="233.4" class="g"/><text x="26" y="236.4" class="t" text-anchor="end">4</text>
+      <line x1="34" y1="160.3" x2="506" y2="160.3" class="g"/><text x="26" y="163.3" class="t" text-anchor="end">6</text>
+      <line x1="34" y1="87.1" x2="506" y2="87.1" class="g"/><text x="26" y="90.1" class="t" text-anchor="end">8</text>
+      <line x1="34" y1="14.0" x2="506" y2="14.0" class="g"/><text x="26" y="17.0" class="t" text-anchor="end">10</text>
+      <circle cx="264.2" cy="32.3" r="5" fill="#F0D48A" opacity=".9"/>
+      <circle cx="226.9" cy="32.3" r="5" fill="#F0D48A" opacity=".9"/>
+      <circle cx="356.8" cy="39.6" r="5" fill="#F0D48A" opacity=".9"/>
+      <circle cx="332.6" cy="43.3" r="5" fill="#F0D48A" opacity=".9"/>
+      <circle cx="200.7" cy="43.3" r="5" fill="#F0D48A" opacity=".9"/>
+      <circle cx="460.4" cy="46.9" r="5" fill="#F0D48A" opacity=".9"/>
+      <circle cx="269.5" cy="54.2" r="5" fill="#F0D48A" opacity=".9"/>
+      <circle cx="334.3" cy="54.2" r="5" fill="#F0D48A" opacity=".9"/>
+      <circle cx="257.4" cy="61.5" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="299.4" cy="65.2" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="382.9" cy="68.9" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="353.7" cy="68.9" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="372.2" cy="68.9" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="229.0" cy="72.5" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="370.0" cy="76.2" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="250.0" cy="79.8" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="348.6" cy="83.5" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="155.9" cy="87.1" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="244.3" cy="94.5" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="330.0" cy="109.1" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="287.3" cy="109.1" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="282.7" cy="116.4" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="422.3" cy="123.7" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="322.2" cy="127.4" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="267.2" cy="127.4" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="308.4" cy="131.0" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="225.7" cy="138.3" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="212.2" cy="142.0" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="273.4" cy="153.0" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="221.5" cy="156.6" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="220.9" cy="156.6" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="378.3" cy="167.6" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="428.8" cy="167.6" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="347.5" cy="167.6" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="244.7" cy="167.6" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="376.8" cy="171.3" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="297.2" cy="174.9" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="385.8" cy="178.6" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="274.3" cy="178.6" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="411.1" cy="189.5" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="130.9" cy="189.5" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="212.3" cy="193.2" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="381.0" cy="196.9" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="240.9" cy="207.8" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="173.9" cy="207.8" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="247.0" cy="211.5" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="209.4" cy="215.1" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="379.9" cy="218.8" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="402.3" cy="222.5" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="217.2" cy="226.1" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="287.7" cy="233.4" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="438.1" cy="240.7" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="342.8" cy="240.7" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="314.1" cy="240.7" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="357.3" cy="248.1" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="432.0" cy="251.7" r="4" fill="#AF8B2F" opacity=".9"/>
+      <circle cx="184.3" cy="255.4" r="4" fill="#AF8B2F" opacity=".9"/>
+      <text x="209.7" y="47.3" class="l" text-anchor="start">DR Congo</text>
+      <text x="451.4" y="50.9" class="l" text-anchor="end">Ukraine</text>
+      <text x="34" y="292" class="t">&#8592; Less news coverage</text><text x="506" y="292" class="t" text-anchor="end">More news coverage &#8594;</text>
+          </svg>
+        </div>
+        <!-- OPTIONAL VIDEO PREVIEW (switched off)
+             To show a looping video instead of the mini chart above:
+             1. Upload dashboard-loop.webm, dashboard-loop.mp4 and dashboard-poster.jpg to the images/ folder.
+             2. Delete the mini chart (the whole <div class="dash-chart">...</div> above).
+             3. Delete the opening line of this comment and its closing line, so the video below is live.
+        <div class="dash-chart">
+          <video class="dash-video" autoplay muted loop playsinline preload="metadata"
+                 poster="images/dashboard-poster.jpg" width="640" height="400">
             <source src="images/dashboard-loop.webm" type="video/webm">
             <source src="images/dashboard-loop.mp4"  type="video/mp4">
           </video>
-        </div>       
+        </div>
+        end of optional video -->
       </div>
       <div class="dash-open"><span>Explore the full dashboard</span><span aria-hidden="true">&#8599;</span></div>
     </a>
   </div>
 </section>
 
-<!-- HOW IT WORKS (NEW SECTION)
-     Lowers the perceived risk of a first call. Please check these four steps match how you actually work. -->
+<!-- ═══ HOW IT WORKS (#process) ═══
+     Four steps that show what working together looks like. -->
 <section id="process">
   <div class="reveal">
     <div class="section-label">How It Works</div>
@@ -1489,11 +1559,9 @@ footer .footer-links a:hover {
   </div>
 </section>
 
-<!-- PROOF (OPTIONAL, currently commented out)
-     I can't invent testimonials, so this section is switched off.
-     When you have a real quote or case snapshot: remove the opening comment marker line
-     and the closing one, replace the bracketed text, and the styles are already in place.
-     Suggested position: here, between "How It Works" and "Team".
+<!-- ═══ PROOF (optional, switched off) ═══
+     To use it once you have a real quote or case snapshot: delete this comment's opening line
+     and the closing line (the arrow on its own line, below), then replace the bracketed text. Styles are already in place.
 
 <section id="proof">
   <div class="reveal">
@@ -1510,10 +1578,9 @@ footer .footer-links a:hover {
 
 -->
 
-<!-- CONTACT
-     CHANGED: headline and body copy, "What happens next" list added, form reduced to
-     Name / Organisation / Phone (optional) / Email / Message, button text updated.
-     Form action, access key, and JS handling are unchanged. -->
+<!-- ═══ CONTACT (#contact) ═══
+     Left: intro, email, "What happens next" list.
+     Right: form (Name / Organisation / Phone (optional) / Email / Message), sent via the form action and the script below. -->
 <section id="contact">
   <div class="contact-inner">
 
@@ -1526,7 +1593,7 @@ footer .footer-links a:hover {
         <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
         info@sa-analytical.com
       </a>
-      <!-- NEW: reduces uncertainty about what a first contact leads to -->
+      <!-- tells visitors what a first contact leads to -->
       <div class="next-steps-label">What happens next</div>
       <ol class="next-steps" style="margin-top:0;">
         <li>We reply within one business day.</li>
@@ -1550,13 +1617,13 @@ footer .footer-links a:hover {
           <input type="text" id="name" name="name" placeholder="Your full name" autocomplete="off"/>
         </div>
 
-        <!-- CHANGED: label reads "Organisation" (was "Company"), field id/name unchanged for compatibility -->
+        <!-- Organisation: the field id/name stays "company" so the form handler keeps working -->
         <div class="ghost-field">
           <label for="company">ORGANISATION</label>
           <input type="text" id="company" name="company" placeholder="Organisation name" autocomplete="off"/>
         </div>
 
-        <!-- NEW: optional phone number field (between Organisation and Email) -->
+        <!-- Phone number (optional) -->
         <div class="ghost-field">
           <label for="phone">PHONE NUMBER (OPTIONAL)</label>
           <input type="tel" id="phone" name="phone" placeholder="+41 xx xxx xx xx" autocomplete="off" />
@@ -1572,7 +1639,6 @@ footer .footer-links a:hover {
           <textarea id="message" name="message" placeholder="Tell us about your challenge, decision, or workshop need…" rows="4"></textarea>
         </div>
 
-        <!-- CHANGED: button text -->
         <button type="submit" id="submit-btn" class="btn-solid">Start the Conversation</button>
 
         <!-- Status container (styled to match the gold accent) -->
@@ -1583,9 +1649,8 @@ footer .footer-links a:hover {
   </div> <!-- closes inner wrapper -->
 </section>
 
-<!-- FOOTER
-     CHANGED: tagline names the audience, links match the new sections,
-     and "The Consortium" now lives here (moved from the main nav). -->
+<!-- ═══ FOOTER ═══
+     Tagline, section links and "The Consortium" link. -->
 <footer>
   <div class="footer-inner">
     <div class="footer-logo-wrap">
@@ -1612,12 +1677,12 @@ const menuBtn = document.getElementById('menuBtn');
 const navLinks = document.getElementById('navLinks');
 
 const navAnchors = navLinks.querySelectorAll('a');
-const NAV_PAUSE_MS = 450;   // NEW: how long the menu stays open so the selection can be seen (350-500ms works well)
+const NAV_PAUSE_MS = 450;   // how long the menu stays open so the selection can be seen (350-500ms works well)
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let navTimer = null;        // pending "close menu + scroll"
 let navClearTimer = null;   // pending "remove highlight"
 
-// NEW: removes the gold highlight from every menu link (the reset state)
+// Removes the gold highlight from every menu link (the reset state)
 function clearNavActive() {
   navAnchors.forEach(link => link.classList.remove('is-active'));
 }
@@ -1629,13 +1694,13 @@ function closeMenu() {
 }
 
 menuBtn.addEventListener('click', () => {
-  clearNavActive();   // CHANGED: reopening the menu always starts from a clean state
+  clearNavActive();   // reopening the menu always starts from a clean state
   const isOpen = navLinks.classList.toggle('open');
   menuBtn.classList.toggle('active', isOpen);
   menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 });
 
-// CHANGED: menu links no longer jump and close instantly.
+// MENU LINK CLICK
 // 1) the clicked link is highlighted immediately, 2) the menu stays open for NAV_PAUSE_MS,
 // 3) then the page smooth-scrolls to the section and the menu closes.
 navAnchors.forEach(link => link.addEventListener('click', (e) => {
@@ -1742,7 +1807,7 @@ contactForm.addEventListener('submit', async (e) => {
   }
 });
 
-/* NEW: TEAM BIOS
+/* TEAM BIOS
    One piece of state (activeCard = index of the open card, or null) drives everything.
    render() applies it to the layout, the bios and the buttons, so they can never disagree:
    - a card opens  -> grid becomes one full-width column (Ekci on top, Stephen directly below)
@@ -1900,7 +1965,8 @@ contactForm.addEventListener('submit', async (e) => {
 })();
 </script>
 <script>
-  // Visitors who ask their device to reduce motion see the still image instead
+  // DASHBOARD VIDEO: visitors whose device asks to reduce motion see the still poster image instead.
+  // Does nothing while the optional video is switched off.
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelectorAll('.dash-video').forEach(function (v) {
       v.removeAttribute('autoplay');
