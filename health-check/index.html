@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foundation Health Check | SA Analytical</title>
+<meta name="description" content="A free ten-minute self-assessment for foundations. Rate 36 statements across nine dimensions of organisational health and see your profile instantly.">
+<meta property="og:title" content="Foundation Health Check | SA Analytical">
+<meta property="og:description" content="How healthy is your foundation? A free ten-minute self-assessment across nine dimensions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #b5943f;
+    --gold-hover: #c9aa58;
+    --cream: #f4f0e8;
+    --sand: #e9e2d7;
+    --card: #faf7f1;
+    --charcoal: #2b2b2e;
+    --text: #2e2c29;
+    --text-2: #5f5a52;
+    --muted: #8a8278;
+    --on-gold: #1a1a1b;
+    --nav-text: #e7dfd2;
+    --footer-text: #f5efe6;
+    --border: rgba(117,103,79,0.16);
+    --border-hover: rgba(181,148,63,0.45);
+    --glow: rgba(181,148,63,0.12);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--text);
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  h1, h2, h3 { font-family: "Syne", sans-serif; font-weight: 700; line-height: 1.15; margin: 0; color: var(--text); }
+  a { color: var(--gold); }
+  button { font-family: inherit; }
+
+  /* Nav and footer bands */
+  .nav { background: var(--charcoal); color: var(--nav-text); }
+  .nav-inner, .footer-inner { max-width: 1080px; margin: 0 auto; padding: 1.1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .wordmark { font-family: "Syne", sans-serif; font-weight: 700; letter-spacing: 0.18em; color: var(--gold); text-decoration: none; font-size: 0.95rem; }
+  .nav-logo { height: 46px; width: auto; display: block; opacity: .95; }
+  .nav a.back { color: var(--nav-text); text-decoration: none; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.04em; }
+  .nav a.back:hover { color: var(--gold-hover); }
+  .footer { background: var(--charcoal); color: var(--footer-text); font-size: 0.85rem; }
+  .footer a { color: var(--footer-text); }
+
+  /* Layout */
+  .section { padding: 5rem 1.5rem; }
+  .section.sand { background: var(--sand); }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  .eyebrow { display: flex; align-items: center; gap: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.78rem; font-weight: 600; margin-bottom: 1.25rem; }
+  .eyebrow::before { content: ""; width: 2rem; height: 1px; background: var(--gold); }
+  .hero h1 { font-size: clamp(2.1rem, 5.2vw, 3.4rem); font-weight: 800; }
+  .hero h1 .gold { color: var(--gold); display: block; }
+  .lead { color: var(--text-2); font-size: 1.12rem; max-width: 640px; margin: 1.5rem 0 0; }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2.5rem 0; }
+  .fact { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.25rem; }
+  .fact strong { display: block; font-family: "Syne", sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--gold); }
+  .fact span { color: var(--text-2); font-size: 0.92rem; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; }
+  label.field-label, .field-label { display: block; font-weight: 500; font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--text); }
+  select, input[type=email], input[type=text] {
+    width: 100%; font: inherit; font-weight: 400; font-size: 1rem; color: var(--text);
+    background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 0.75rem 0.9rem;
+  }
+  select:focus, input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--glow); }
+  .hint { color: var(--muted); font-size: 0.85rem; margin-top: 0.4rem; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    background: var(--gold); color: var(--on-gold); border: 1px solid var(--gold);
+    text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; font-size: 0.82rem;
+    padding: 0.95rem 1.6rem; border-radius: 4px; cursor: pointer; text-decoration: none;
+    transition: background .15s, border-color .15s;
+  }
+  .btn:hover { background: var(--gold-hover); border-color: var(--gold-hover); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn.ghost { background: transparent; color: var(--text); border-color: var(--border); }
+  .btn.ghost:hover { border-color: var(--border-hover); background: transparent; }
+  .actions { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+
+  /* Questionnaire */
+  .progress-row { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.85rem; margin-bottom: 0.6rem; }
+  .progress { height: 4px; background: var(--sand); border-radius: 2px; overflow: hidden; margin-bottom: 2.5rem; }
+  .progress > div { height: 100%; background: var(--gold); width: 0; transition: width .25s; }
+  .dim-title { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 0.5rem; }
+  .dim-intro { color: var(--text-2); margin: 0 0 2rem; }
+  fieldset.q { border: 1px solid var(--border); border-radius: 14px; background: var(--card); padding: 1.4rem 1.5rem 1.5rem; margin: 0 0 1rem; transition: border-color .15s; }
+  fieldset.q.answered { border-color: var(--border-hover); }
+  fieldset.q legend { padding: 0; float: left; width: 100%; font-weight: 400; color: var(--text); font-size: 1.05rem; margin-bottom: 1rem; }
+  .opts { clear: both; display: grid; grid-template-columns: repeat(4, 1fr) 0.9fr; gap: 0.5rem; }
+  .opt { position: relative; }
+  .opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .opt span {
+    display: block; text-align: center; padding: 0.6rem 0.4rem; border: 1px solid var(--border); border-radius: 4px;
+    font-size: 0.88rem; font-weight: 500; color: var(--text-2); background: #fff; cursor: pointer; transition: all .12s;
+  }
+  .opt span:hover { border-color: var(--border-hover); color: var(--text); }
+  .opt input:focus-visible + span { box-shadow: 0 0 0 3px var(--glow); border-color: var(--gold); }
+  .opt input:checked + span { background: var(--gold); border-color: var(--gold); color: var(--on-gold); }
+  .opt.dk span { font-weight: 400; color: var(--muted); background: transparent; border-style: dashed; }
+  .opt.dk input:checked + span { background: var(--sand); color: var(--text); border-style: solid; border-color: var(--border-hover); }
+  .scale-key { color: var(--muted); font-size: 0.85rem; margin: -1rem 0 1.75rem; }
+
+  /* Results */
+  .profile { display: grid; gap: 0.95rem; margin-top: 1.5rem; }
+  .row { display: grid; grid-template-columns: 11.5rem 1fr 6.5rem; align-items: center; gap: 1rem; }
+  .row .name { font-weight: 500; font-size: 0.95rem; }
+  .track { position: relative; height: 12px; background: var(--sand); border-radius: 6px; overflow: hidden; }
+  .track .fill { position: absolute; inset: 0 auto 0 0; background: var(--gold); border-radius: 6px; }
+  .track .tick { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(117,103,79,0.22); }
+  .row .band { font-size: 0.85rem; color: var(--text-2); text-align: right; }
+  .row .band b { font-weight: 600; color: var(--text); }
+  .row.blind .name, .row.blind .band { color: var(--muted); }
+  .axis { display: grid; grid-template-columns: 11.5rem 1fr 6.5rem; gap: 1rem; color: var(--muted); font-size: 0.75rem; margin-top: 0.25rem; }
+  .axis .labels { display: flex; justify-content: space-between; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+  .two h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); font-family: "DM Sans", sans-serif; font-weight: 600; margin-bottom: 0.75rem; }
+  .two ul { margin: 0; padding-left: 1.1rem; }
+  .two li { margin-bottom: 0.3rem; }
+  .note { border-left: 2px solid var(--gold); padding: 0.25rem 0 0.25rem 1.1rem; color: var(--text-2); margin-top: 2rem; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .check { display: flex; gap: 0.65rem; align-items: flex-start; margin-top: 1.25rem; font-size: 0.92rem; color: var(--text-2); }
+  .check input { margin-top: 0.3rem; accent-color: var(--gold); width: 1rem; height: 1rem; flex-shrink: 0; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .status { margin-top: 1rem; font-size: 0.95rem; }
+  .status.ok { color: var(--text); }
+  .status.err { color: #8a3b2a; }
+  .err-msg { color: #8a3b2a; font-size: 0.9rem; margin-top: 0.5rem; min-height: 1.2em; }
+
+  [hidden] { display: none !important; }
+
+  @media (max-width: 720px) {
+    body { font-size: 16px; }
+    .section { padding: 3rem 1rem; }
+    .facts { grid-template-columns: 1fr; gap: 0.6rem; }
+    .card { padding: 1.4rem; }
+    fieldset.q { padding: 1.1rem; }
+    .opts { grid-template-columns: repeat(2, 1fr); }
+    .opt.dk { grid-column: span 2; }
+    .row, .axis { grid-template-columns: 1fr 5.5rem; gap: 0.35rem 0.75rem; }
+    .row .name { grid-column: 1 / -1; }
+    .axis > div:first-child { display: none; }
+    .two, .form-grid { grid-template-columns: 1fr; }
+    .actions .btn { flex: 1; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="wordmark" href="/"><img src="/images/Logo%20H.png" alt="SA Analytical" class="nav-logo"></a>
+    <a class="back" href="/">&larr; sa-analytical.com</a>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- Intro -->
+  <section class="section hero" id="screen-intro">
+    <div class="wrap">
+      <div class="eyebrow">Foundation Health Check</div>
+      <h1>How healthy is your foundation?<span class="gold">Find out in ten minutes.</span></h1>
+      <p class="lead">Rate 36 statements about how your foundation works, from strategy and governance to grantee relationships and learning. You'll see your profile across nine dimensions as soon as you finish.</p>
+      <div class="facts">
+        <div class="fact"><strong>36</strong><span>statements, four per dimension</span></div>
+        <div class="fact"><strong>9</strong><span>dimensions of organisational health</span></div>
+        <div class="fact"><strong>10</strong><span>minutes, with instant results</span></div>
+      </div>
+      <div class="card">
+        <label class="field-label" for="role">Which best describes your role?</label>
+        <select id="role">
+          <option value="">Select your role</option>
+          <option>CEO or director</option>
+          <option>Programme staff</option>
+          <option>Operations or finance</option>
+          <option>Board member</option>
+          <option>Other</option>
+        </select>
+        <p class="hint">This isn't scored. It helps us understand how different roles see their foundation.</p>
+        <div class="err-msg" id="role-err" role="alert"></div>
+        <div class="actions" style="margin-top:1rem">
+          <span class="hint" style="margin:0">Answers are anonymous unless you choose to receive your results by email.</span>
+          <button class="btn" id="start">Start the health check</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Questions -->
+  <section class="section" id="screen-questions" hidden>
+    <div class="wrap">
+      <div class="progress-row"><span id="step-label"></span><span id="answered-label"></span></div>
+      <div class="progress" aria-hidden="true"><div id="progress-bar"></div></div>
+      <div class="eyebrow" id="dim-eyebrow"></div>
+      <h2 class="dim-title" id="dim-title" tabindex="-1"></h2>
+      <p class="dim-intro" id="dim-intro"></p>
+      <p class="scale-key">Rate each statement for your foundation as it is today, not as you'd like it to be.</p>
+      <div id="questions"></div>
+      <div class="err-msg" id="q-err" role="alert"></div>
+      <div class="actions">
+        <button class="btn ghost" id="back">Back</button>
+        <button class="btn" id="next">Next</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section id="screen-results" hidden>
+    <div class="section">
+      <div class="wrap">
+        <div class="eyebrow">Your results</div>
+        <h2 class="dim-title" id="results-title" tabindex="-1">Your Foundation Health Check profile</h2>
+        <p class="lead" style="margin-top:0.75rem">Here is how your foundation rates itself across nine dimensions, scored from 1 to 4.</p>
+        <div class="profile" id="profile"></div>
+        <div class="axis"><div></div><div class="labels"><span>1</span><span>2</span><span>3</span><span>4</span></div><div></div></div>
+        <div class="two" id="two">
+          <div class="card"><h3>Strongest areas</h3><ul id="strengths"></ul></div>
+          <div class="card"><h3>Most room to grow</h3><ul id="gaps"></ul></div>
+        </div>
+        <p class="note" id="blind-note" hidden></p>
+      </div>
+    </div>
+
+    <div class="section sand">
+      <div class="wrap">
+        <div class="eyebrow">Full results</div>
+        <h2 class="dim-title">Get your full results by email</h2>
+        <p class="lead" style="margin-top:0.75rem">What each score means for your foundation, and three practical steps for each of your lowest-scoring areas.</p>
+        <form class="card" id="email-form" style="margin-top:2rem" novalidate>
+          <div class="form-grid">
+            <div>
+              <label class="field-label" for="first-name">First name</label>
+              <input type="text" id="first-name" autocomplete="given-name" maxlength="60">
+            </div>
+            <div>
+              <label class="field-label" for="email">Email address</label>
+              <input type="email" id="email" autocomplete="email" required maxlength="120">
+            </div>
+          </div>
+          <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" id="website" tabindex="-1" autocomplete="off"></label></div>
+          <label class="check"><input type="checkbox" id="newsletter"><span>Also send me SA Analytical's occasional newsletter on strategy and evidence for funders. You can unsubscribe at any time.</span></label>
+          <div class="actions" style="margin-top:1.5rem">
+            <span class="hint" style="margin:0">We use your email to send your results. See our <a href="/privacy">privacy notice</a>.</span>
+            <button class="btn" type="submit" id="send">Send my results</button>
+          </div>
+          <div class="status" id="send-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="wrap">
+        <div class="eyebrow">Going further</div>
+        <h2 class="dim-title">The view from outside</h2>
+        <p class="lead">A self-assessment shows how your foundation sees itself. The most useful insights often come from comparing that view with how grantees, staff and board experience it. SA Analytical's comprehensive health check brings those perspectives together with an analysis of your grants data, and turns the findings into priorities in a facilitated workshop with your leadership.</p>
+        <div class="actions" style="justify-content:flex-start">
+          <a class="btn" href="mailto:info@sa-analytical.com?subject=Foundation%20Health%20Check%20conversation">Book a 30-minute conversation</a>
+          <button class="btn ghost" id="restart">Start again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy; <span id="year"></span> SA Analytical</span>
+    <a href="mailto:info@sa-analytical.com">info@sa-analytical.com</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Where the results are sent. Leave as is when deployed on Cloudflare Pages with the function included.
+  var ENDPOINT = "/api/health-check";
+
+  var DIMENSIONS = [
+    { key: "mission", name: "Mission & strategy", intro: "Whether a clear strategy shapes what you fund, and what you say no to.", qs: [
+      "Our strategy sets out a clear theory of change linking our grants to the outcomes we seek.",
+      "Staff and board describe our priorities in the same terms.",
+      "We decline good proposals that fall outside our strategy.",
+      "Our main programmes have a defined time horizon or end state." ] },
+    { key: "governance", name: "Governance", intro: "How decisions are made, and whether the board has what it needs to steer well.", qs: [
+      "Board and staff share a written understanding of who decides what.",
+      "Our board has the skills, experience and lived perspectives our strategy requires.",
+      "Conflicts of interest are declared and managed under a written policy.",
+      "The board reviews its own effectiveness at least every two years." ] },
+    { key: "grantmaking", name: "Grantmaking practice", intro: "How you find, select and fund grantees, and the burden your processes create.", qs: [
+      "Our application and reporting requirements are proportionate to grant size.",
+      "We give applicants a decision within a timeframe we publish.",
+      "A meaningful share of our funding is unrestricted or multi-year.",
+      "Our selection criteria are written down and applied consistently." ] },
+    { key: "relationships", name: "Relationships & power", intro: "How grantees and communities experience your foundation, and whether their voices shape it.", qs: [
+      "We regularly ask grantees for anonymous feedback on working with us.",
+      "We have changed a practice in response to grantee feedback in the past two years.",
+      "Communities we aim to serve help shape our priorities.",
+      "Grantees can raise problems with us without fearing it will affect their funding." ] },
+    { key: "learning", name: "Learning & impact", intro: "Whether evidence and learning actually inform your decisions.", qs: [
+      "We know what we are trying to learn, not only what we report.",
+      "Data from grantee reports is analysed and used in our decisions.",
+      "We review the results of our strategy at least once a year.",
+      "We share what we learn, including what didn't work, with grantees and peers." ] },
+    { key: "people", name: "People & culture", intro: "Whether your team has the capacity, skills and openness the strategy needs.", qs: [
+      "Programme staff have portfolios they can manage well.",
+      "Staff have the skills our strategy needs, or a plan to build them.",
+      "People can disagree with leadership without negative consequences.",
+      "Staff turnover is not a recurring problem for us." ] },
+    { key: "operations", name: "Operations & systems", intro: "Whether your systems and processes are reliable and not dependent on individuals.", qs: [
+      "Our grants management system gives reliable data without manual workarounds.",
+      "Key processes are documented and don't depend on one person.",
+      "We can produce an accurate overview of our portfolio within a day.",
+      "Data protection and safeguarding policies are in place and followed." ] },
+    { key: "finance", name: "Finance & assets", intro: "How deliberately you manage spending, costs and your endowment.", qs: [
+      "We know our operating costs relative to grant spend and review them.",
+      "Our payout or spending policy is deliberate and reviewed against our mission.",
+      "Our investments are reviewed for alignment with our mission.",
+      "Spending and grant commitments are tracked against plan during the year." ] },
+    { key: "external", name: "External positioning", intro: "Your role in the wider field, beyond the grants you make.", qs: [
+      "We know where we add value compared with other funders in our field.",
+      "We co-fund or collaborate with other funders where it serves our goals.",
+      "We use our voice and networks, not only money, to advance our mission.",
+      "Our public information explains clearly what we fund and how to approach us." ] }
+  ];
+  var OPTIONS = [
+    { v: 1, label: "Not yet" }, { v: 2, label: "Partly" }, { v: 3, label: "Largely" },
+    { v: 4, label: "Fully" }, { v: 0, label: "Don't know", dk: true }
+  ];
+  var TOTAL = DIMENSIONS.reduce(function (n, d) { return n + d.qs.length; }, 0);
+
+  var state = { role: "", step: 0, answers: new Array(TOTAL).fill(null), results: null };
+
+  function $(id) { return document.getElementById(id); }
+  function show(id) {
+    ["screen-intro", "screen-questions", "screen-results"].forEach(function (s) { $(s).hidden = s !== id; });
+    window.scrollTo(0, 0);
+  }
+  function offset(step) { var o = 0; for (var i = 0; i < step; i++) o += DIMENSIONS[i].qs.length; return o; }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+
+  // Scoring: average of answered items (Don't know excluded); 2+ Don't know = blind spot
+  function band(score) {
+    if (score < 1.75) return "Nascent";
+    if (score < 2.5) return "Developing";
+    if (score < 3.25) return "Established";
+    return "Leading";
+  }
+  function score() {
+    return DIMENSIONS.map(function (d, i) {
+      var vals = state.answers.slice(offset(i), offset(i) + d.qs.length);
+      var known = vals.filter(function (v) { return v > 0; });
+      var dk = vals.length - known.length;
+      var s = known.length ? known.reduce(function (a, b) { return a + b; }, 0) / known.length : null;
+      var blind = dk >= 2 || s === null;
+      return { key: d.key, name: d.name, score: s, blind: blind, band: blind ? null : band(s) };
+    });
+  }
+
+  function renderStep() {
+    var d = DIMENSIONS[state.step], base = offset(state.step);
+    $("step-label").textContent = "Dimension " + (state.step + 1) + " of " + DIMENSIONS.length;
+    $("dim-eyebrow").textContent = d.name;
+    $("dim-title").textContent = d.name;
+    $("dim-intro").textContent = d.intro;
+    var html = "";
+    d.qs.forEach(function (q, j) {
+      var idx = base + j, cur = state.answers[idx];
+      html += '<fieldset class="q' + (cur !== null ? " answered" : "") + '" data-idx="' + idx + '"><legend>' + esc(q) + '</legend><div class="opts">';
+      OPTIONS.forEach(function (o) {
+        html += '<label class="opt' + (o.dk ? " dk" : "") + '"><input type="radio" name="q' + idx + '" value="' + o.v + '"' + (cur === o.v ? " checked" : "") + '><span>' + o.label + '</span></label>';
+      });
+      html += "</div></fieldset>";
+    });
+    $("questions").innerHTML = html;
+    $("back").textContent = state.step === 0 ? "Back to start" : "Back";
+    $("next").textContent = state.step === DIMENSIONS.length - 1 ? "See my results" : "Next";
+    $("q-err").textContent = "";
+    updateProgress();
+    $("dim-title").focus({ preventScroll: true });
+  }
+  function updateProgress() {
+    var n = state.answers.filter(function (a) { return a !== null; }).length;
+    $("answered-label").textContent = n + " of " + TOTAL + " answered";
+    $("progress-bar").style.width = (n / TOTAL * 100) + "%";
+  }
+  function stepComplete() {
+    var base = offset(state.step), len = DIMENSIONS[state.step].qs.length;
+    for (var i = base; i < base + len; i++) if (state.answers[i] === null) return false;
+    return true;
+  }
+
+  function renderResults() {
+    var r = state.results, html = "";
+    r.forEach(function (d) {
+      var pct = d.score === null ? 0 : (d.score - 1) / 3 * 100;
+      html += '<div class="row' + (d.blind ? " blind" : "") + '"><div class="name">' + esc(d.name) + '</div>' +
+        '<div class="track" role="img" aria-label="' + esc(d.name) + ': ' + (d.blind ? "blind spot" : d.score.toFixed(1) + " out of 4, " + d.band) + '">' +
+        '<span class="tick" style="left:33.33%"></span><span class="tick" style="left:66.66%"></span>' +
+        (d.blind ? "" : '<div class="fill" style="width:' + Math.max(pct, 2) + '%"></div>') + '</div>' +
+        '<div class="band">' + (d.blind ? "Blind spot" : "<b>" + d.score.toFixed(1) + "</b> " + d.band) + '</div></div>';
+    });
+    $("profile").innerHTML = html;
+
+    var scored = r.filter(function (d) { return !d.blind; });
+    var sorted = scored.slice().sort(function (a, b) { return b.score - a.score; });
+    var top = sorted.slice(0, 2), bottom = sorted.slice(-2).reverse();
+    if (scored.length < 4) { top = sorted.slice(0, 1); bottom = sorted.slice(-1); }
+    $("strengths").innerHTML = top.map(function (d) { return "<li>" + esc(d.name) + "</li>"; }).join("");
+    $("gaps").innerHTML = bottom.map(function (d) { return "<li>" + esc(d.name) + "</li>"; }).join("");
+    $("two").hidden = scored.length < 2;
+
+    var blind = r.filter(function (d) { return d.blind; }).map(function (d) { return d.name; });
+    if (blind.length) {
+      $("blind-note").hidden = false;
+      $("blind-note").textContent = "You answered “Don't know” to several questions on " + listJoin(blind) +
+        ". That is worth noting in itself: it often means information isn't reaching the people who need it.";
+    } else { $("blind-note").hidden = true; }
+  }
+  function listJoin(a) { return a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1]; }
+
+  // Events
+  $("start").addEventListener("click", function () {
+    state.role = $("role").value;
+    if (!state.role) { $("role-err").textContent = "Please select your role to begin."; $("role").focus(); return; }
+    $("role-err").textContent = "";
+    state.step = 0; show("screen-questions"); renderStep();
+  });
+  $("role").addEventListener("change", function () { if (this.value) $("role-err").textContent = ""; });
+  $("questions").addEventListener("change", function (e) {
+    if (e.target.type !== "radio") return;
+    var fs = e.target.closest("fieldset");
+    state.answers[+fs.dataset.idx] = +e.target.value;
+    fs.classList.add("answered");
+    updateProgress();
+    if (stepComplete()) $("q-err").textContent = "";
+  });
+  $("next").addEventListener("click", function () {
+    if (!stepComplete()) {
+      $("q-err").textContent = "Please answer every statement on this page. Choose “Don't know” if you're unsure.";
+      var first = document.querySelector("fieldset.q:not(.answered)");
+      if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    if (state.step < DIMENSIONS.length - 1) { state.step++; window.scrollTo(0, 0); renderStep(); }
+    else { state.results = score(); show("screen-results"); renderResults(); $("results-title").focus({ preventScroll: true }); }
+  });
+  $("back").addEventListener("click", function () {
+    if (state.step === 0) { show("screen-intro"); return; }
+    state.step--; window.scrollTo(0, 0); renderStep();
+  });
+  $("restart").addEventListener("click", function () {
+    state.answers = new Array(TOTAL).fill(null); state.results = null; state.step = 0;
+    $("email-form").reset(); $("send-status").textContent = ""; $("send").disabled = false;
+    show("screen-intro");
+  });
+
+  $("email-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var status = $("send-status"), email = $("email").value.trim();
+    status.className = "status";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      status.className = "status err"; status.textContent = "Please enter a valid email address."; $("email").focus(); return;
+    }
+    $("send").disabled = true; status.textContent = "Sending your results…";
+    fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        firstName: $("first-name").value.trim(),
+        role: state.role,
+        newsletter: $("newsletter").checked,
+        answers: state.answers,
+        website: $("website").value
+      })
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (body) {
+        if (!res.ok || !body.ok) throw new Error(body.error || "send failed");
+      });
+    }).then(function () {
+      status.className = "status ok";
+      status.textContent = "Your full results are on their way to " + email + ". If they don't arrive within a few minutes, check your spam folder.";
+    }).catch(function () {
+      $("send").disabled = false;
+      status.className = "status err";
+      status.innerHTML = "We couldn't send your results just now. Please try again, or email <a href=\"mailto:info@sa-analytical.com\">info@sa-analytical.com</a>.";
+    });
+  });
+
+  $("year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
