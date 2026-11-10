@@ -944,6 +944,10 @@ h2.section-title.wide { max-width: 720px; }
 .contact-email:hover { border-color: var(--accent); color: var(--accent); }
 .contact-email svg { width:16px; height:16px; stroke:currentColor; stroke-width:1.5; fill:none; }
 
+/* Calendly booking button in the contact section */
+.contact-book { margin-top: 2rem; display: flex; flex-direction: column; align-items: flex-start; gap: .7rem; }
+.contact-book-note { font-size: .8rem; color: var(--text-muted); font-weight: 300; }
+
 /* "What happens next" list */
 .next-steps {
   list-style: none;
@@ -1354,7 +1358,7 @@ footer .footer-links a:hover {
     <li><a href="#insights">Insights</a></li>
     <li><a href="#resources">Resources</a></li>
     <li><a href="#process">How It Works</a></li>
-    <li><a href="#contact" class="nav-cta">Book a Strategy Call</a></li>
+    <li><a href="https://calendly.com/sa-analytical/intro-call" class="nav-cta" target="_blank" rel="noopener">Book a Strategy Call</a></li>
   </ul>
   <button class="menu-toggle" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
     Menu
@@ -1373,7 +1377,7 @@ footer .footer-links a:hover {
   <h1 class="hero-headline">Too many priorities.<br><em>One shared strategy.</em></h1>
   <p class="hero-sub">Most strategy retreats produce good conversation and no decisions. We pair expert facilitation with rigorous analysis of your programme and impact, so your board and executive team leave aligned on the mission, focused, and clear on what to do next.</p>
   <div class="hero-actions">
-    <a href="#contact" class="btn-solid">Book a Strategy Call</a>
+    <a href="https://calendly.com/sa-analytical/intro-call" class="btn-solid" target="_blank" rel="noopener">Book a Strategy Call</a>
     <a href="#process" class="link-arrow">See how a workshop works &rarr;</a>
   </div>
   <p class="hero-trust">Confidential &middot; Senior-led &middot; Evidence-based</p>
@@ -1821,7 +1825,7 @@ footer .footer-links a:hover {
     </div>
   </div>
   <div class="section-cta reveal">
-    <a href="#contact" class="btn-solid">Book a Strategy Call</a>
+    <a href="https://calendly.com/sa-analytical/intro-call" class="btn-solid" target="_blank" rel="noopener">Book a Strategy Call</a>
   </div>
 </section>
 
@@ -1859,6 +1863,11 @@ footer .footer-links a:hover {
         <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
         info@sa-analytical.com
       </a>
+      <!-- Direct booking via Calendly (30-minute intro call) -->
+      <div class="contact-book">
+        <a href="https://calendly.com/sa-analytical/intro-call" class="btn-solid" target="_blank" rel="noopener">Book a Strategy Call</a>
+        <span class="contact-book-note">30 minutes &middot; Google Meet &middot; pick a time that suits you</span>
+      </div>
       <!-- tells visitors what a first contact leads to -->
       <div class="next-steps-label">What happens next</div>
       <ol class="next-steps" style="margin-top:0;">
