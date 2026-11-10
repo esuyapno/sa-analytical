@@ -1322,10 +1322,14 @@ footer .footer-links a:hover {
   #tk-dialog .sib-form-block{padding:.4rem 0 !important;}
   #tk-dialog .sib-form-block__button{font-family:'DM Sans',sans-serif !important;font-weight:600 !important;font-size:.8rem !important;letter-spacing:.16em !important;text-transform:uppercase;color:#1a1a1b !important;background:#b5943f !important;border:none !important;border-radius:4px !important;padding:1rem 1.6rem !important;width:100%;justify-content:center;cursor:pointer;transition:background .2s;margin-top:.5rem;}
   #tk-dialog .sib-form-block__button:hover{background:#c9aa58 !important;}
+  #tk-dialog .sib-form-block__button:disabled{opacity:.5;cursor:not-allowed;background:#b5943f !important;}
   #tk-dialog .tk-consent{font-family:'DM Sans',sans-serif;font-weight:300;font-size:.78rem;line-height:1.5;color:#8a8278;margin:.9rem 0 0;}
   #tk-dialog .sib-form-message-panel{font-family:'DM Sans',sans-serif !important;font-size:.95rem !important;border-radius:6px !important;max-width:none !important;margin-bottom:1rem;}
   #tk-dialog #success-message{color:#2e2c29 !important;background:#faf7f1 !important;border:1px solid #b5943f !important;}
   #tk-dialog #success-message .sib-notification__icon{fill:#b5943f;}
+  #tk-dialog #error-message{color:#2e2c29 !important;background:#faf7f1 !important;border:1px solid #d8cfbf !important;padding:1rem 3.5rem 1rem 1.25rem;}
+  #tk-dialog #error-message .sib-notification__icon{fill:#b5943f;vertical-align:middle;margin-right:.4rem;}
+  #tk-dialog #success-message{padding:1rem 3.5rem 1rem 1.25rem;}
 
   /* Safety nets in case Brevo's stylesheet loads late */
   #tk-dialog .sib-hide-loader-icon{display:none !important;}
@@ -2260,6 +2264,13 @@ contactForm.addEventListener('submit', async (e) => {
       ['success-message', 'error-message'].forEach(function (id) {
         var el = document.getElementById(id); if (el) el.style.display = 'none';
       });
+      // Not set up in Brevo yet: say so up front and switch the button off, so it never looks broken
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) btn.disabled = !ready(t);
+      if (!ready(t)) {
+        document.getElementById('tk-error-text').textContent = 'Sign-ups for this resource open shortly. Please check back soon.';
+        document.getElementById('error-message').style.display = 'block';
+      }
       if (typeof dialog.showModal === 'function') {
         dialog.showModal();
       } else {                                   // very old browsers: show it inline instead
