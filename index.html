@@ -1188,6 +1188,59 @@ footer .footer-links a:hover {
   color: #f5efe6;
 }
 
+/* ---- Footer "Stay connected" band: Subscribe + Follow on LinkedIn ---- */
+.footer-connect {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem 2rem;
+  flex-wrap: wrap;
+  padding: 1.75rem 0 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.18);
+  position: relative;
+  z-index: 1;
+}
+.footer-connect-eyebrow {
+  display: flex; align-items: center; gap: .6rem;
+  font-family: var(--font-body);
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: #b5943f;
+  margin: 0 0 .4rem;
+}
+.footer-connect-eyebrow::before { content:''; width: 18px; height: 1px; background: #b5943f; }
+.footer-connect-line {
+  font-family: var(--font-head);
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  font-weight: 600;
+  color: #f5efe6;
+  max-width: 34rem;
+  margin: 0;
+}
+.footer-connect-actions {
+  display: flex; flex-wrap: wrap; gap: .75rem;
+}
+.footer-connect-actions .btn-solid { align-self: auto; }
+.btn-outline-light {
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding: .9rem 1.6rem;
+  font-family: var(--font-body);
+  font-size: .8rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: #f5efe6;
+  text-decoration: none;
+  border: 1px solid rgba(181,148,63,0.6);
+  border-radius: 4px;
+  transition: border-color .3s var(--ease), color .3s var(--ease), transform .25s var(--ease);
+}
+.btn-outline-light svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+.btn-outline-light:hover { border-color: #c9aa58; color: #c9aa58; transform: translateY(-2px); }
+@media (max-width: 560px) {
+  .footer-connect-actions { width: 100%; }
+  .footer-connect-actions > * { flex: 1 1 100%; justify-content: center; text-align: center; }
+}
+
 /* ─── SCROLL REVEAL ─── */
 .reveal {
   opacity: 0;
@@ -1740,14 +1793,14 @@ footer .footer-links a:hover {
       <div id="success-message" class="sib-form-message-panel">
         <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
           <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
-          <span class="sib-form-message-panel__inner-text">Almost there! Check your inbox and click the link to confirm. Your download will arrive right after.</span>
+          <span class="sib-form-message-panel__inner-text" id="tk-success-text">Almost there! Check your inbox and click the link to confirm. Your download will arrive right after.</span>
         </div>
       </div>
 
       <div id="sib-container" class="sib-container--large sib-container--vertical">
         <form id="sib-form" method="POST" action="" data-type="subscription">
 
-          <p class="tk-form-eyebrow">Get the free resource</p>
+          <p class="tk-form-eyebrow" id="tk-form-eyebrow">Get the free resource</p>
           <p class="tk-form-title" id="tk-form-title">Free toolkit</p>
           <p class="tk-form-sub" id="tk-form-sub">Sent straight to your inbox.</p>
 
@@ -1782,7 +1835,7 @@ footer .footer-links a:hover {
             </button>
           </div>
 
-          <p class="tk-consent">By signing up, you agree to receive this resource and occasional insights from SA Analytical. You can unsubscribe at any time.</p>
+          <p class="tk-consent" id="tk-consent">By signing up, you agree to receive this resource and occasional insights from SA Analytical. You can unsubscribe at any time.</p>
 
           <input type="text" name="email_address_check" value="" class="input--hidden">
           <input type="hidden" name="locale" value="en">
@@ -1927,6 +1980,22 @@ footer .footer-links a:hover {
 <!-- ═══ FOOTER ═══
      Tagline, section links and "The Consortium" link. -->
 <footer>
+  <!-- Stay connected: newsletter sign-up (opens the shared sign-up window, key "news")
+       and a link to Ekci's LinkedIn profile. -->
+  <div class="footer-connect">
+    <div class="footer-connect-text">
+      <p class="footer-connect-eyebrow">Stay connected</p>
+      <p class="footer-connect-line">Practical insights on strategy, evidence and facilitation, a few times a year.</p>
+    </div>
+    <div class="footer-connect-actions">
+      <button class="btn-solid" type="button" data-toolkit="news">Subscribe</button>
+      <a class="btn-outline-light" href="https://www.linkedin.com/in/ekcisuyapno/" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        Follow Ekci on LinkedIn
+      </a>
+    </div>
+  </div>
+
   <div class="footer-inner">
     <div class="footer-logo-wrap">
       <img src="images/Logo H.png" alt="SA Analytical Logo H" class="footer-logo-img"/>
@@ -1945,7 +2014,7 @@ footer .footer-links a:hover {
     </ul>
     <div class="footer-copy">© 2026 SA Analytical. All rights reserved.<br>SA Analytical, a brand of Suyapno &amp; Associates</div>
   </div>
-  <p class="footer-address">SA Analytical • c/o Ekci Suyapno • PickPost [PK391344] • Grand'Rue 29 • 1297 Founex • Switzerland</p>
+  <p class="footer-address">SA Analytical • 1297 Founex • Switzerland</p>
   <div class="footer-watermark">SA Analytical</div>
 </footer>
 
@@ -2268,7 +2337,25 @@ contactForm.addEventListener('submit', async (e) => {
       sub:    'Slides, facilitator guide and templates, sent to your inbox.',
       button: 'Send me the kit',
       action: 'https://3af2ef55.sibforms.com/serve/MUIFAOW8wNMvI6_PautTwVtn1D5SIUMfazLMU5vullwHOelk_21gawC2oUd3dIhCLp6IJJoghLal3BW10TftI3_GNLwNk7WNYDp1GFccQSGECxCYRT56uHzlVabu9aZ3F_TjDDGxyqSVvFdSQWLx4CbYnjY7zQe_WmQHJoa_Rvmecn9fcKH9xT1lbq0-fPa5MaNHAj9XWp7egSqmSg=='
+    },
+    // Footer "Subscribe" button. Not a toolkit: a plain newsletter list.
+    // Paste the action URL of a Brevo newsletter form here to switch it on.
+    news: {
+      eyebrow: 'Stay connected',
+      title:   'SA Analytical insights',
+      sub:     'Practical insights on strategy, evidence and facilitation, a few times a year.',
+      button:  'Subscribe',
+      success: 'Almost there! Check your inbox and click the link to confirm your subscription.',
+      consent: 'By subscribing, you agree to receive occasional insights from SA Analytical. You can unsubscribe at any time.',
+      action:  ''
     }
+  };
+
+  // Default wording for toolkits; any entry above can override these.
+  var TK_DEFAULTS = {
+    eyebrow: 'Get the free resource',
+    success: 'Almost there! Check your inbox and click the link to confirm. Your download will arrive right after.',
+    consent: 'By signing up, you agree to receive this resource and occasional insights from SA Analytical. You can unsubscribe at any time.'
   };
 
   (function () {
@@ -2287,6 +2374,9 @@ contactForm.addEventListener('submit', async (e) => {
       document.getElementById('tk-form-title').textContent = t.title;
       document.getElementById('tk-form-sub').textContent   = t.sub;
       document.getElementById('tk-btn-text').textContent   = t.button;
+      document.getElementById('tk-form-eyebrow').textContent  = t.eyebrow || TK_DEFAULTS.eyebrow;
+      document.getElementById('tk-success-text').textContent  = t.success || TK_DEFAULTS.success;
+      document.getElementById('tk-consent').textContent       = t.consent || TK_DEFAULTS.consent;
       // start each opening clean: hide earlier success/error messages
       ['success-message', 'error-message'].forEach(function (id) {
         var el = document.getElementById(id); if (el) el.style.display = 'none';
