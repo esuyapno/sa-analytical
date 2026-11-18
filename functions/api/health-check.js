@@ -123,7 +123,7 @@ export function buildEmail(results, firstName) {
       <h2 style="font-family:Arial,sans-serif;font-size:19px;color:${C.text};margin:32px 0 8px;">The view from outside</h2>
       <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:${C.text};margin:0 0 20px;">A self-assessment shows how your organisation sees itself. The most useful insights often come from comparing that view with how partners, staff and board experience it. SA Analytical's comprehensive health check brings those perspectives together with an analysis of your programme and funding data, and turns the findings into priorities in a facilitated workshop with your leadership.</p>
       <table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="background:${C.gold};border-radius:4px;">
-        <a href="mailto:info@sa-analytical.com?subject=Organisational%20Health%20Check%20conversation" style="display:inline-block;padding:13px 22px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:#1a1a1b;text-decoration:none;">Book a 30-minute conversation</a>
+        <a href="https://calendly.com/sa-analytical/intro-call" style="display:inline-block;padding:13px 22px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:#1a1a1b;text-decoration:none;">Book a 30-minute conversation</a>
       </td></tr></table>
       <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:${C.text};margin:28px 0 0;">With best wishes,<br>Ekci Suyapno<br><span style="color:${C.text2};">Founder, SA Analytical</span></p>
     </td></tr>

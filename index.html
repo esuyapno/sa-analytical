@@ -1346,6 +1346,7 @@ footer .footer-links a:hover {
   .res-list li{position:relative;padding:.45rem 0 .45rem 1.4rem;border-bottom:1px solid var(--border);font-size:.88rem;font-weight:400;color:var(--text-primary);}
   .res-list li::before{content:"";position:absolute;left:0;top:1rem;width:.65rem;height:1px;background:var(--accent);}
   .res-card .btn-solid{margin-top:auto;align-self:stretch;text-align:center;padding:.95rem 1.2rem;}
+  .res-card a.btn-solid{line-height:normal;} /* match the height of the <button> cards */
   .res-soon{margin-top:auto;padding:.95rem;border:1px dashed var(--border-hover);border-radius:4px;text-align:center;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);}
 
   @media (max-width:768px){
@@ -1740,17 +1741,16 @@ footer .footer-links a:hover {
       </div>
     </article>
 
-    <!-- Organisational Health Check: swap "res-soon" for a button once it is live -->
+    <!-- Organisational Health Check: links straight to the questionnaire (not gated; results by email are optional) -->
     <article class="res-card" role="listitem">
       <div class="res-cover">
-        <span class="res-badge is-quiet">Soon</span>
         <div class="res-mini is-light" aria-hidden="true"><i>10 minutes</i><b>Organisational <span>Health Check</span></b></div>
       </div>
       <div class="res-body">
         <div class="res-type">Self-assessment &middot; 10 minutes</div>
         <h3>Organisational Health Check</h3>
         <p>A short self-assessment for foundations and international organisations, with your results summarised on screen and in full by email.</p>
-        <div class="res-soon">Launching soon</div>
+        <a class="btn-solid" href="/health-check/">Start the health check</a>
       </div>
     </article>
 
