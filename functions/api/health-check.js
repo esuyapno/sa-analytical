@@ -11,32 +11,32 @@
 
 const DIMENSIONS = [
   { key: "mission", name: "Mission & strategy", n: 4,
-    bands: ["Priorities are implicit or shift with each grant round.", "A written strategy exists but rarely shapes decisions.", "Strategy guides most grant decisions and is broadly shared.", "A clear theory of change drives choices, including what to stop funding."],
-    steps: ["Write a one-page theory of change and test it with staff and board.", "Review last year's grants against it: which fit, which didn't, and why.", "Set a time horizon or exit criteria for each main programme."] },
+    bands: ["Priorities are implicit or shift with each new opportunity.", "A written strategy exists but rarely shapes decisions.", "Strategy guides most decisions and is broadly shared.", "A clear theory of change drives choices, including what to stop doing."],
+    steps: ["Write a one-page theory of change and test it with staff and board.", "Review last year's programmes and funding decisions against it: which fit, which didn't, and why.", "Set a time horizon or exit criteria for each main programme."] },
   { key: "governance", name: "Governance", n: 4,
     bands: ["Roles and decision rights are informal.", "Roles are written down but blur in practice.", "Clear roles, a skilled board and managed conflicts of interest.", "The board reviews itself and renews deliberately."],
     steps: ["Draft a simple decision-rights matrix: what the board decides, what staff decide.", "Map board skills and perspectives against the strategy, and plan recruitment to fill gaps.", "Schedule a facilitated board self-review within the next twelve months."] },
-  { key: "grantmaking", name: "Grantmaking practice", n: 4,
-    bands: ["Processes vary by staff member or case.", "Criteria exist but burden and timelines are not managed.", "Consistent, proportionate and timely processes.", "Flexible, multi-year funding and light processes by design."],
-    steps: ["Time each stage of your grant cycle and publish a decision timeline.", "Scale application and reporting requirements to grant size.", "Set a target share of unrestricted or multi-year funding and track it."] },
+  { key: "grantmaking", name: "Partnership practice", n: 4,
+    bands: ["Processes vary by staff member or case.", "Criteria exist but burden and timelines are not managed.", "Consistent, proportionate and timely processes.", "Flexible, multi-year support and light processes by design."],
+    steps: ["Time each stage of selecting and funding partners, and commit to decision and payment timelines.", "Scale application, due diligence and reporting requirements to the size of the funding or partnership.", "Set a target share of flexible or multi-year funding to partners and track it."] },
   { key: "relationships", name: "Relationships & power", n: 4,
-    bands: ["Little structured contact with grantees beyond reporting.", "Informal feedback from a few trusted grantees.", "Regular anonymous feedback that is acted on.", "Grantees and communities help shape strategy."],
-    steps: ["Run an anonymous grantee feedback survey, ideally through a third party.", "Share back what you heard and one change you will make as a result.", "Create a regular route for community input into your priorities."] },
+    bands: ["Little structured contact with partners beyond reporting.", "Informal feedback from a few trusted partners.", "Regular anonymous feedback that is acted on.", "Partners and communities help shape strategy."],
+    steps: ["Run an anonymous partner feedback survey, ideally through a third party.", "Share back what you heard and one change you will make as a result.", "Create a regular route for community input into your priorities."] },
   { key: "learning", name: "Learning & impact", n: 4,
     bands: ["Reports are collected but rarely read.", "Some analysis, mostly for accountability.", "Data and learning feed into annual decisions.", "Learning questions drive strategy and are shared openly."],
-    steps: ["Agree three to five learning questions for your strategy.", "Bring one theme from grantee reports into your next strategy review.", "Publish one honest learning note, including what didn't work."] },
+    steps: ["Agree three to five learning questions for your strategy.", "Bring one theme from monitoring data or partner reports into your next strategy review.", "Publish one honest learning note, including what didn't work."] },
   { key: "people", name: "People & culture", n: 4,
     bands: ["An overstretched team, with knowledge held by individuals.", "Gaps are known but not yet addressed.", "Manageable workloads and open debate.", "A deliberate culture of candour and development."],
-    steps: ["Compare portfolio sizes per programme officer with peers and rebalance where needed.", "Run a short anonymous staff survey on workload and openness.", "Build a skills plan that follows from the strategy."] },
+    steps: ["Compare workloads across teams and with peers, and rebalance where needed.", "Run a short anonymous staff survey on workload and openness.", "Build a skills plan that follows from the strategy."] },
   { key: "operations", name: "Operations & systems", n: 4,
-    bands: ["Spreadsheets and workarounds, with key-person risk.", "A core system is in place but data quality is uneven.", "Reliable systems and documented processes.", "Systems give real-time insight into the portfolio."],
-    steps: ["List the processes that depend on one person and document those first.", "Check grants data quality on a sample of records.", "Review data protection and safeguarding policies against what happens in practice."] },
-  { key: "finance", name: "Finance & assets", n: 4,
-    bands: ["Costs and payout are not actively reviewed.", "Reviewed for compliance only.", "Spending and costs are managed against plan.", "Investments and spending are actively aligned with mission."],
-    steps: ["Calculate operating costs as a share of grant spend and compare with similar organisations.", "Review your payout or spending policy against your strategy's time horizon.", "Screen the investment portfolio for holdings that conflict with your mission."] },
+    bands: ["Spreadsheets and workarounds, with key-person risk.", "A core system is in place but data quality is uneven.", "Reliable systems and documented processes.", "Systems give real-time insight into programmes and finances."],
+    steps: ["List the processes that depend on one person and document those first.", "Check data quality on a sample of programme and finance records.", "Review data protection and safeguarding policies against what happens in practice."] },
+  { key: "finance", name: "Finance & resources", n: 4,
+    bands: ["Costs and reserves are not actively reviewed.", "Reviewed for compliance only.", "Spending and costs are managed against plan.", "Funding sources, spending and reserves are actively aligned with mission."],
+    steps: ["Calculate operating costs as a share of programme spend and compare with similar organisations.", "Review your spending and reserves policies against your strategy's time horizon.", "Screen your funding sources and any investments for conflicts with your mission."] },
   { key: "external", name: "External positioning", n: 4,
-    bands: ["Works mostly alone; role in the field is unclear.", "Some collaboration, mostly ad hoc.", "A clear niche and regular co-funding.", "Uses its voice and networks to shape the field."],
-    steps: ["Map the other funders in your field and where you add distinct value.", "Identify one co-funding or pooled-fund opportunity to explore this year.", "Decide where your voice, convening or networks can add to your grants."] }
+    bands: ["Works mostly alone; role in the field is unclear.", "Some collaboration, mostly ad hoc.", "A clear niche and regular joint work with others.", "Uses its voice and networks to shape the field."],
+    steps: ["Map the other organisations in your field and where you add distinct value.", "Identify one partnership or pooled-funding opportunity to explore this year.", "Decide where your voice, convening or networks can add to your programmes."] }
 ];
 const TOTAL = DIMENSIONS.reduce((n, d) => n + d.n, 0);
 const BANDS = ["Nascent", "Developing", "Established", "Leading"];
@@ -121,7 +121,7 @@ export function buildEmail(results, firstName) {
       ${blindHtml}
       ${gaps.length ? `<h2 style="font-family:Arial,sans-serif;font-size:19px;color:${C.text};margin:32px 0 4px;">Three steps for your lowest-scoring areas</h2>${stepsHtml}` : ""}
       <h2 style="font-family:Arial,sans-serif;font-size:19px;color:${C.text};margin:32px 0 8px;">The view from outside</h2>
-      <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:${C.text};margin:0 0 20px;">A self-assessment shows how your organisation sees itself. The most useful insights often come from comparing that view with how grantees, staff and board experience it. SA Analytical's comprehensive health check brings those perspectives together with an analysis of your grants data, and turns the findings into priorities in a facilitated workshop with your leadership.</p>
+      <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:${C.text};margin:0 0 20px;">A self-assessment shows how your organisation sees itself. The most useful insights often come from comparing that view with how partners, staff and board experience it. SA Analytical's comprehensive health check brings those perspectives together with an analysis of your programme and funding data, and turns the findings into priorities in a facilitated workshop with your leadership.</p>
       <table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="background:${C.gold};border-radius:4px;">
         <a href="mailto:info@sa-analytical.com?subject=Organisational%20Health%20Check%20conversation" style="display:inline-block;padding:13px 22px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:#1a1a1b;text-decoration:none;">Book a 30-minute conversation</a>
       </td></tr></table>

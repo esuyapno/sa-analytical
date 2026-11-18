@@ -173,7 +173,7 @@
     <div class="wrap">
       <div class="eyebrow">Organisational Health Check</div>
       <h1>How healthy is your organisation?<span class="gold">Find out in ten minutes.</span></h1>
-      <p class="lead">Rate 36 statements about how your organisation works, from strategy and governance to grantee relationships and learning. You'll see your profile across nine dimensions as soon as you finish.</p>
+      <p class="lead">Rate 36 statements about how your organisation works, from strategy and governance to partnerships and learning. You'll see your profile across nine dimensions as soon as you finish.</p>
       <div class="facts">
         <div class="fact"><strong>36</strong><span>statements, four per dimension</span></div>
         <div class="fact"><strong>9</strong><span>dimensions of organisational health</span></div>
@@ -265,7 +265,7 @@
       <div class="wrap">
         <div class="eyebrow">Going further</div>
         <h2 class="dim-title">The view from outside</h2>
-        <p class="lead">A self-assessment shows how your organisation sees itself. The most useful insights often come from comparing that view with how grantees, staff and board experience it. SA Analytical's comprehensive health check brings those perspectives together with an analysis of your grants data, and turns the findings into priorities in a facilitated workshop with your leadership.</p>
+        <p class="lead">A self-assessment shows how your organisation sees itself. The most useful insights often come from comparing that view with how partners, staff and board experience it. SA Analytical's comprehensive health check brings those perspectives together with an analysis of your programme and funding data, and turns the findings into priorities in a facilitated workshop with your leadership.</p>
         <div class="actions" style="justify-content:flex-start">
           <a class="btn" href="mailto:info@sa-analytical.com?subject=Organisational%20Health%20Check%20conversation">Book a 30-minute conversation</a>
           <button class="btn ghost" id="restart">Start again</button>
@@ -289,51 +289,51 @@
   var ENDPOINT = "/api/health-check";
 
   var DIMENSIONS = [
-    { key: "mission", name: "Mission & strategy", intro: "Whether a clear strategy shapes what you fund, and what you say no to.", qs: [
-      "Our strategy sets out a clear theory of change linking our grants to the outcomes we seek.",
+    { key: "mission", name: "Mission & strategy", intro: "Whether a clear strategy shapes what you do, and what you say no to.", qs: [
+      "Our strategy sets out a clear theory of change linking our work to the outcomes we seek.",
       "Staff and board describe our priorities in the same terms.",
-      "We decline good proposals that fall outside our strategy.",
+      "We turn down opportunities, including funding, that fall outside our strategy.",
       "Our main programmes have a defined time horizon or end state." ] },
-    { key: "governance", name: "Governance", intro: "How decisions are made, and whether the board has what it needs to steer well.", qs: [
+    { key: "governance", name: "Governance", intro: "How decisions are made, and whether your board or governing body has what it needs to steer well.", qs: [
       "Board and staff share a written understanding of who decides what.",
       "Our board has the skills, experience and lived perspectives our strategy requires.",
       "Conflicts of interest are declared and managed under a written policy.",
       "The board reviews its own effectiveness at least every two years." ] },
-    { key: "grantmaking", name: "Grantmaking practice", intro: "How you find, select and fund grantees, and the burden your processes create.", qs: [
-      "Our application and reporting requirements are proportionate to grant size.",
-      "We give applicants a decision within a timeframe we publish.",
-      "A meaningful share of our funding is unrestricted or multi-year.",
-      "Our selection criteria are written down and applied consistently." ] },
-    { key: "relationships", name: "Relationships & power", intro: "How grantees and communities experience your organisation, and whether their voices shape it.", qs: [
-      "We regularly ask grantees for anonymous feedback on working with us.",
-      "We have changed a practice in response to grantee feedback in the past two years.",
+    { key: "grantmaking", name: "Partnership practice", intro: "How you select, fund and work with partners, and the burden your processes place on them.", qs: [
+      "Our application, due diligence and reporting requirements are proportionate to the size of the funding or partnership.",
+      "Partners receive decisions and payments within timeframes we commit to.",
+      "A meaningful share of the funding we pass to partners is flexible or multi-year.",
+      "Our criteria for selecting partners are written down and applied consistently." ] },
+    { key: "relationships", name: "Relationships & power", intro: "How partners and the communities you serve experience your organisation, and whether their voices shape it.", qs: [
+      "We regularly ask partners for anonymous feedback on working with us.",
+      "We have changed a practice in response to partner or community feedback in the past two years.",
       "Communities we aim to serve help shape our priorities.",
-      "Grantees can raise problems with us without fearing it will affect their funding." ] },
+      "Partners can raise problems with us without fearing it will affect their funding or relationship with us." ] },
     { key: "learning", name: "Learning & impact", intro: "Whether evidence and learning actually inform your decisions.", qs: [
       "We know what we are trying to learn, not only what we report.",
-      "Data from grantee reports is analysed and used in our decisions.",
+      "Monitoring data and partner reports are analysed and used in our decisions.",
       "We review the results of our strategy at least once a year.",
-      "We share what we learn, including what didn't work, with grantees and peers." ] },
+      "We share what we learn, including what didn't work, with partners and peers." ] },
     { key: "people", name: "People & culture", intro: "Whether your team has the capacity, skills and openness the strategy needs.", qs: [
-      "Programme staff have portfolios they can manage well.",
+      "Staff have workloads they can manage well.",
       "Staff have the skills our strategy needs, or a plan to build them.",
       "People can disagree with leadership without negative consequences.",
       "Staff turnover is not a recurring problem for us." ] },
     { key: "operations", name: "Operations & systems", intro: "Whether your systems and processes are reliable and not dependent on individuals.", qs: [
-      "Our grants management system gives reliable data without manual workarounds.",
+      "Our programme and finance systems give reliable data without manual workarounds.",
       "Key processes are documented and don't depend on one person.",
-      "We can produce an accurate overview of our portfolio within a day.",
+      "We can produce an accurate overview of our programmes and commitments within a day.",
       "Data protection and safeguarding policies are in place and followed." ] },
-    { key: "finance", name: "Finance & assets", intro: "How deliberately you manage spending, costs and your endowment.", qs: [
-      "We know our operating costs relative to grant spend and review them.",
-      "Our payout or spending policy is deliberate and reviewed against our mission.",
-      "Our investments are reviewed for alignment with our mission.",
-      "Spending and grant commitments are tracked against plan during the year." ] },
-    { key: "external", name: "External positioning", intro: "Your role in the wider field, beyond the grants you make.", qs: [
-      "We know where we add value compared with other funders in our field.",
-      "We co-fund or collaborate with other funders where it serves our goals.",
-      "We use our voice and networks, not only money, to advance our mission.",
-      "Our public information explains clearly what we fund and how to approach us." ] }
+    { key: "finance", name: "Finance & resources", intro: "How deliberately you manage costs, funding and reserves.", qs: [
+      "We know our operating costs relative to programme spend and review them.",
+      "Our spending and reserves policies are deliberate and reviewed against our mission.",
+      "Our funding sources, and any investments, are reviewed for alignment with our mission.",
+      "Spending and commitments are tracked against plan during the year." ] },
+    { key: "external", name: "External positioning", intro: "Your role in the wider field, beyond your own programmes.", qs: [
+      "We know where we add value compared with other organisations in our field.",
+      "We collaborate or pool resources with others where it serves our goals.",
+      "We use our voice and networks, not only our programmes or funding, to advance our mission.",
+      "Our public information explains clearly what we do and how to work with us." ] }
   ];
   var OPTIONS = [
     { v: 1, label: "Not yet" }, { v: 2, label: "Partly" }, { v: 3, label: "Largely" },
