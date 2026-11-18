@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Foundation Health Check | SA Analytical</title>
-<meta name="description" content="A free ten-minute self-assessment for foundations. Rate 36 statements across nine dimensions of organisational health and see your profile instantly.">
-<meta property="og:title" content="Foundation Health Check | SA Analytical">
-<meta property="og:description" content="How healthy is your foundation? A free ten-minute self-assessment across nine dimensions.">
+<title>Organisational Health Check | SA Analytical</title>
+<meta name="description" content="A free ten-minute self-assessment for foundations and international organisations. Rate 36 statements across nine dimensions of organisational health and see your profile instantly.">
+<meta property="og:title" content="Organisational Health Check | SA Analytical">
+<meta property="og:description" content="How healthy is your organisation? A free ten-minute self-assessment across nine dimensions.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -171,9 +171,9 @@
   <!-- Intro -->
   <section class="section hero" id="screen-intro">
     <div class="wrap">
-      <div class="eyebrow">Foundation Health Check</div>
-      <h1>How healthy is your foundation?<span class="gold">Find out in ten minutes.</span></h1>
-      <p class="lead">Rate 36 statements about how your foundation works, from strategy and governance to grantee relationships and learning. You'll see your profile across nine dimensions as soon as you finish.</p>
+      <div class="eyebrow">Organisational Health Check</div>
+      <h1>How healthy is your organisation?<span class="gold">Find out in ten minutes.</span></h1>
+      <p class="lead">Rate 36 statements about how your organisation works, from strategy and governance to grantee relationships and learning. You'll see your profile across nine dimensions as soon as you finish.</p>
       <div class="facts">
         <div class="fact"><strong>36</strong><span>statements, four per dimension</span></div>
         <div class="fact"><strong>9</strong><span>dimensions of organisational health</span></div>
@@ -189,7 +189,7 @@
           <option>Board member</option>
           <option>Other</option>
         </select>
-        <p class="hint">This isn't scored. It helps us understand how different roles see their foundation.</p>
+        <p class="hint">This isn't scored. It helps us understand how different roles see their organisation.</p>
         <div class="err-msg" id="role-err" role="alert"></div>
         <div class="actions" style="margin-top:1rem">
           <span class="hint" style="margin:0">Answers are anonymous unless you choose to receive your results by email.</span>
@@ -207,7 +207,7 @@
       <div class="eyebrow" id="dim-eyebrow"></div>
       <h2 class="dim-title" id="dim-title" tabindex="-1"></h2>
       <p class="dim-intro" id="dim-intro"></p>
-      <p class="scale-key">Rate each statement for your foundation as it is today, not as you'd like it to be.</p>
+      <p class="scale-key">Rate each statement for your organisation as it is today, not as you'd like it to be.</p>
       <div id="questions"></div>
       <div class="err-msg" id="q-err" role="alert"></div>
       <div class="actions">
@@ -222,8 +222,8 @@
     <div class="section">
       <div class="wrap">
         <div class="eyebrow">Your results</div>
-        <h2 class="dim-title" id="results-title" tabindex="-1">Your Foundation Health Check profile</h2>
-        <p class="lead" style="margin-top:0.75rem">Here is how your foundation rates itself across nine dimensions, scored from 1 to 4.</p>
+        <h2 class="dim-title" id="results-title" tabindex="-1">Your Organisational Health Check profile</h2>
+        <p class="lead" style="margin-top:0.75rem">Here is how your organisation rates itself across nine dimensions, scored from 1 to 4.</p>
         <div class="profile" id="profile"></div>
         <div class="axis"><div></div><div class="labels"><span>1</span><span>2</span><span>3</span><span>4</span></div><div></div></div>
         <div class="two" id="two">
@@ -238,7 +238,7 @@
       <div class="wrap">
         <div class="eyebrow">Full results</div>
         <h2 class="dim-title">Get your full results by email</h2>
-        <p class="lead" style="margin-top:0.75rem">What each score means for your foundation, and three practical steps for each of your lowest-scoring areas.</p>
+        <p class="lead" style="margin-top:0.75rem">What each score means for your organisation, and three practical steps for each of your lowest-scoring areas.</p>
         <form class="card" id="email-form" style="margin-top:2rem" novalidate>
           <div class="form-grid">
             <div>
@@ -265,9 +265,9 @@
       <div class="wrap">
         <div class="eyebrow">Going further</div>
         <h2 class="dim-title">The view from outside</h2>
-        <p class="lead">A self-assessment shows how your foundation sees itself. The most useful insights often come from comparing that view with how grantees, staff and board experience it. SA Analytical's comprehensive health check brings those perspectives together with an analysis of your grants data, and turns the findings into priorities in a facilitated workshop with your leadership.</p>
+        <p class="lead">A self-assessment shows how your organisation sees itself. The most useful insights often come from comparing that view with how grantees, staff and board experience it. SA Analytical's comprehensive health check brings those perspectives together with an analysis of your grants data, and turns the findings into priorities in a facilitated workshop with your leadership.</p>
         <div class="actions" style="justify-content:flex-start">
-          <a class="btn" href="mailto:info@sa-analytical.com?subject=Foundation%20Health%20Check%20conversation">Book a 30-minute conversation</a>
+          <a class="btn" href="mailto:info@sa-analytical.com?subject=Organisational%20Health%20Check%20conversation">Book a 30-minute conversation</a>
           <button class="btn ghost" id="restart">Start again</button>
         </div>
       </div>
@@ -304,7 +304,7 @@
       "We give applicants a decision within a timeframe we publish.",
       "A meaningful share of our funding is unrestricted or multi-year.",
       "Our selection criteria are written down and applied consistently." ] },
-    { key: "relationships", name: "Relationships & power", intro: "How grantees and communities experience your foundation, and whether their voices shape it.", qs: [
+    { key: "relationships", name: "Relationships & power", intro: "How grantees and communities experience your organisation, and whether their voices shape it.", qs: [
       "We regularly ask grantees for anonymous feedback on working with us.",
       "We have changed a practice in response to grantee feedback in the past two years.",
       "Communities we aim to serve help shape our priorities.",

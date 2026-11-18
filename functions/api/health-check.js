@@ -1,5 +1,5 @@
 // Cloudflare Pages Function: POST /api/health-check
-// Recomputes the Foundation Health Check scores, emails the full results through Brevo,
+// Recomputes the Organisational Health Check scores, emails the full results through Brevo,
 // and adds the person to the newsletter list only if they ticked the consent box.
 //
 // Environment variables (Cloudflare Pages > Settings > Variables and secrets):
@@ -33,7 +33,7 @@ const DIMENSIONS = [
     steps: ["List the processes that depend on one person and document those first.", "Check grants data quality on a sample of records.", "Review data protection and safeguarding policies against what happens in practice."] },
   { key: "finance", name: "Finance & assets", n: 4,
     bands: ["Costs and payout are not actively reviewed.", "Reviewed for compliance only.", "Spending and costs are managed against plan.", "Investments and spending are actively aligned with mission."],
-    steps: ["Calculate operating costs as a share of grant spend and compare with similar foundations.", "Review your payout or spending policy against your strategy's time horizon.", "Screen the investment portfolio for holdings that conflict with your mission."] },
+    steps: ["Calculate operating costs as a share of grant spend and compare with similar organisations.", "Review your payout or spending policy against your strategy's time horizon.", "Screen the investment portfolio for holdings that conflict with your mission."] },
   { key: "external", name: "External positioning", n: 4,
     bands: ["Works mostly alone; role in the field is unclear.", "Some collaboration, mostly ad hoc.", "A clear niche and regular co-funding.", "Uses its voice and networks to shape the field."],
     steps: ["Map the other funders in your field and where you add distinct value.", "Identify one co-funding or pooled-fund opportunity to explore this year.", "Decide where your voice, convening or networks can add to your grants."] }
@@ -105,34 +105,34 @@ export function buildEmail(results, firstName) {
 
   const summary = strengths.length && gaps.length
     ? `Your strongest areas are <strong>${esc(listJoin(strengths.map((d) => d.name)))}</strong>; the areas with most room to grow are <strong>${esc(listJoin(gaps.map((d) => d.name)))}</strong>.`
-    : "Here is how your foundation rated itself across the nine dimensions.";
+    : "Here is how your organisation rated itself across the nine dimensions.";
 
   const html = `<!doctype html><html><body style="margin:0;padding:0;background:${C.cream};">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.cream};"><tr><td align="center" style="padding:24px 12px;">
   <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
     <tr><td style="background:${C.charcoal};padding:18px 28px;font-family:Arial,sans-serif;font-weight:bold;letter-spacing:3px;color:${C.gold};font-size:14px;">SA ANALYTICAL</td></tr>
     <tr><td style="background:${C.card};padding:32px 28px;border:1px solid ${C.border};border-top:none;">
-      <p style="font-family:Arial,sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:${C.gold};font-weight:bold;margin:0 0 12px;">Foundation Health Check</p>
+      <p style="font-family:Arial,sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:${C.gold};font-weight:bold;margin:0 0 12px;">Organisational Health Check</p>
       <h1 style="font-family:Arial,sans-serif;font-size:24px;line-height:1.25;color:${C.text};margin:0 0 20px;">Your full results</h1>
       <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:${C.text};margin:0 0 12px;">${greeting}</p>
-      <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:${C.text};margin:0 0 8px;">Thank you for completing the Foundation Health Check. ${summary}</p>
+      <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:${C.text};margin:0 0 8px;">Thank you for completing the Organisational Health Check. ${summary}</p>
       <p style="font-family:Arial,sans-serif;font-size:13px;line-height:1.6;color:${C.muted};margin:0 0 16px;">Scores run from 1 to 4. Bands: Nascent (below 1.75), Developing (1.75 to 2.49), Established (2.5 to 3.24), Leading (3.25 and above).</p>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${rows}</table>
       ${blindHtml}
       ${gaps.length ? `<h2 style="font-family:Arial,sans-serif;font-size:19px;color:${C.text};margin:32px 0 4px;">Three steps for your lowest-scoring areas</h2>${stepsHtml}` : ""}
       <h2 style="font-family:Arial,sans-serif;font-size:19px;color:${C.text};margin:32px 0 8px;">The view from outside</h2>
-      <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:${C.text};margin:0 0 20px;">A self-assessment shows how your foundation sees itself. The most useful insights often come from comparing that view with how grantees, staff and board experience it. SA Analytical's comprehensive health check brings those perspectives together with an analysis of your grants data, and turns the findings into priorities in a facilitated workshop with your leadership.</p>
+      <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:${C.text};margin:0 0 20px;">A self-assessment shows how your organisation sees itself. The most useful insights often come from comparing that view with how grantees, staff and board experience it. SA Analytical's comprehensive health check brings those perspectives together with an analysis of your grants data, and turns the findings into priorities in a facilitated workshop with your leadership.</p>
       <table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="background:${C.gold};border-radius:4px;">
-        <a href="mailto:info@sa-analytical.com?subject=Foundation%20Health%20Check%20conversation" style="display:inline-block;padding:13px 22px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:#1a1a1b;text-decoration:none;">Book a 30-minute conversation</a>
+        <a href="mailto:info@sa-analytical.com?subject=Organisational%20Health%20Check%20conversation" style="display:inline-block;padding:13px 22px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:#1a1a1b;text-decoration:none;">Book a 30-minute conversation</a>
       </td></tr></table>
       <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:${C.text};margin:28px 0 0;">With best wishes,<br>Ekci Suyapno<br><span style="color:${C.text2};">Founder, SA Analytical</span></p>
     </td></tr>
-    <tr><td style="background:${C.charcoal};padding:16px 28px;font-family:Arial,sans-serif;font-size:12px;color:#f5efe6;">SA Analytical &middot; <a href="https://sa-analytical.com" style="color:#f5efe6;">sa-analytical.com</a> &middot; You received this email because you requested your Foundation Health Check results.</td></tr>
+    <tr><td style="background:${C.charcoal};padding:16px 28px;font-family:Arial,sans-serif;font-size:12px;color:#f5efe6;">SA Analytical &middot; <a href="https://sa-analytical.com" style="color:#f5efe6;">sa-analytical.com</a> &middot; You received this email because you requested your Organisational Health Check results.</td></tr>
   </table></td></tr></table></body></html>`;
 
   const text = [
     firstName ? `Dear ${firstName},` : "Hello,", "",
-    "Thank you for completing the Foundation Health Check. Your scores (1 to 4):", "",
+    "Thank you for completing the Organisational Health Check. Your scores (1 to 4):", "",
     ...results.map((d) => d.blind ? `${d.name}: blind spot` : `${d.name}: ${d.score.toFixed(1)} ${d.band} - ${d.bands[d.bandIndex]}`),
     "",
     ...(gaps.length ? ["Three steps for your lowest-scoring areas:", ...gaps.flatMap((d) => [`${d.name}:`, ...d.steps.map((s, i) => `  ${i + 1}. ${s}`)]), ""] : []),
@@ -140,7 +140,7 @@ export function buildEmail(results, firstName) {
     "Ekci Suyapno", "Founder, SA Analytical"
   ].join("\n");
 
-  return { html, text, subject: "Your Foundation Health Check results" };
+  return { html, text, subject: "Your Organisational Health Check results" };
 }
 
 function json(body, status = 200) {
