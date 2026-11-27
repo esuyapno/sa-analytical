@@ -901,12 +901,14 @@ h2.section-title.wide { max-width: 720px; }
   padding-top: 3rem;
   border-top: 1px solid rgba(201,168,76,0.18);
 }
+.insight-articles-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; }
 .insight-articles-title {
   font-family: var(--font-body);
   font-size: .78rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
   color: #c9aa58;
-  margin-bottom: 1.5rem;
+  margin: 0;
 }
+.article-swipe { display: none; font-size: .72rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: #8a8278; }
 .article-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
 .article-card {
   display: flex; flex-direction: column; gap: .75rem;
@@ -922,6 +924,24 @@ h2.section-title.wide { max-width: 720px; }
 .article-title { font-family: var(--font-head); font-weight: 700; font-size: 1.2rem; line-height: 1.3; color: #f5efe6; }
 .article-desc { font-size: .9rem; font-weight: 300; color: #b8b0a4; line-height: 1.6; }
 .article-more { margin-top: auto; padding-top: .5rem; font-size: .76rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: #c9aa58; }
+.article-grid:focus-visible { outline: 2px solid #c9aa58; outline-offset: 4px; }
+
+/* Phones and small tablets: articles become a sideways-swipe row (same pattern as Resources).
+   Each card takes ~82% of the screen so the next one peeks in from the right. */
+@media (max-width: 768px) {
+  .article-swipe { display: inline; }
+  .article-grid {
+    display: flex; gap: 1rem;
+    overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory; scroll-padding-left: 5vw;
+    margin: 0 -5vw; padding: .25rem 5vw 1.25rem;
+    scrollbar-width: none;
+  }
+  .article-grid::-webkit-scrollbar { display: none; }
+  .article-grid::after { content: ""; flex: 0 0 1px; }   /* keeps the right gutter at the end */
+  .article-card { flex: 0 0 82%; scroll-snap-align: start; }
+  .article-card:hover { transform: none; }
+}
 @media (max-width: 480px) {
   .dash-kpis { grid-template-columns: 1fr 1fr; }
   .dash-kpi:last-child { display: none; }
@@ -1730,8 +1750,17 @@ footer .footer-links a:hover {
   <!-- INSIGHTS: ARTICLES. Newest first. ADD AN ARTICLE: copy one <a class="article-card">,
        put the page in /insights/<slug>/index.html, and add it to sitemap.xml. -->
   <div class="insight-articles reveal">
-    <h3 class="insight-articles-title">Articles</h3>
-    <div class="article-grid">
+    <div class="insight-articles-head">
+      <h3 class="insight-articles-title">Articles</h3>
+      <span class="article-swipe" aria-hidden="true">Swipe &rarr;</span>
+    </div>
+    <div class="article-grid" role="region" aria-label="Articles" tabindex="0">
+      <a class="article-card" href="/insights/theory-of-change-for-funders/">
+        <span class="article-meta">27 November 2026 · 7 min read</span>
+        <span class="article-title">Theory of Change for Funders: A Practical Template</span>
+        <span class="article-desc">Most foundations ask grantees for a theory of change. Few write their own. A nine-part template, with a worked example.</span>
+        <span class="article-more">Read the article <span aria-hidden="true">&rarr;</span></span>
+      </a>
       <a class="article-card" href="/insights/how-to-set-priorities/">
         <span class="article-meta">25 November 2026 · 6 min read</span>
         <span class="article-title">How to Set Priorities: A Practical Guide to an Organisational Strategy Review</span>
